@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu6bypayly4ur"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
+albedo_color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[node name="Game" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37915, -0.229004, -0.215576)
+material_override = SubResource("StandardMaterial3D_1h3m5")
+size = Vector3(16.0112, 0.541992, 15)
