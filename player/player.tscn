@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://vyiym37a71px"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhyyo"]
+size = Vector3(1.8642, 1, 2)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_wbiqq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999071, 0.0430963, 0, -0.0430963, 0.999071, 0, 0.20401, 0.407236)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.058136, 0, -0.5)
+shape = SubResource("BoxShape3D_fhyyo")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.323486, -0.567627)
+size = Vector3(2, 0.353, 2.13525)
+
+[node name="ShootMarker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.81133, -1.66886)
+
+[node name="ShootCooldownTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://eweijww3514t"]
+
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_32pg7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_diksx"]
+size = Vector3(1.8642, 1, 2)
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_j5klh"]
+constant = Color(0.10748, 0.10748, 0.10748, 1)
+
+[sub_resource type="VisualShader" id="VisualShader_h8tn1"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+
+void fragment() {
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(0.107480, 0.107480, 0.107480, 1.000000);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(93.9371, 62.7227)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_j5klh")
+nodes/fragment/2/position = Vector2(100, 140)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6c1yf"]
+render_priority = 0
+shader = SubResource("VisualShader_h8tn1")
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_32pg7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_diksx")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.323486, -0.567627)
+material_override = SubResource("ShaderMaterial_6c1yf")
+size = Vector3(2, 0.353, 2.13525)
+
+[node name="ShootMarker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.81133, -1.66886)
+
+[node name="ShootCooldownTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]
