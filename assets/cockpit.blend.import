@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://blhoi7xs1wbau"
-path="res://.godot/imported/Cockpit.blend-e00ed5fe9816b3aa44ca753ca87f6938.scn"
+path="res://.godot/imported/cockpit.blend-a55fb0ca41f934719b9f15296758bf82.scn"
 
 [deps]
 
-source_file="res://assets/Cockpit.blend"
-dest_files=["res://.godot/imported/Cockpit.blend-e00ed5fe9816b3aa44ca753ca87f6938.scn"]
+source_file="res://assets/cockpit.blend"
+dest_files=["res://.godot/imported/cockpit.blend-a55fb0ca41f934719b9f15296758bf82.scn"]
 
 [params]
 
