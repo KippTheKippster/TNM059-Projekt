@@ -1,29 +1,62 @@
-[gd_scene load_steps=3 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=4 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
+[ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhyyo"]
 size = Vector3(1.8642, 1, 2)
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_wbiqq")
+acceleration = 18.0
+deceleration = 12.0
+max_rotation_degrees = Vector3(25, 35, 25)
+rotation_acceleration = 5.0
+rotation_deceleration = 3.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999071, 0.0430963, 0, -0.0430963, 0.999071, 0, 0.20401, 0.407236)
+[node name="RotationContainer" type="Node3D" parent="."]
+
+[node name="ShootMarker3D" type="Marker3D" parent="RotationContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.289)
+
+[node name="Body" type="CSGBox3D" parent="RotationContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.323486, -0.567627)
+size = Vector3(2, 0.353, 2.13525)
+
+[node name="Nose" type="CSGBox3D" parent="RotationContainer"]
+transform = Transform3D(1, -9.95274e-05, -0.000169765, 9.95785e-05, 1, 0.000222044, 0.000169735, -0.000222067, 1, -0.00595093, -0.392754, -2.69464)
+size = Vector3(0.941345, 0.214464, 2.91223)
+
+[node name="Crosshair1" type="Sprite3D" parent="RotationContainer"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -8.80266)
+billboard = 1
+no_depth_test = true
+fixed_size = true
+texture_filter = 0
+texture = ExtResource("2_nxp81")
+hframes = 2
+
+[node name="Crosshair2" type="Sprite3D" parent="RotationContainer"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -13.828)
+billboard = 1
+no_depth_test = true
+fixed_size = true
+texture_filter = 0
+texture = ExtResource("2_nxp81")
+hframes = 2
+frame = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.058136, 0, -0.5)
 shape = SubResource("BoxShape3D_fhyyo")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.323486, -0.567627)
-size = Vector3(2, 0.353, 2.13525)
-
-[node name="ShootMarker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.81133, -1.66886)
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34272, -1.54691)
+light_energy = 0.765
+omni_range = 65.4462
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]
