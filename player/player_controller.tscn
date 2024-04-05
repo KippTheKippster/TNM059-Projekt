@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://2f2yv28t3tjk"]
+
+[ext_resource type="Script" path="res://player/player_controller.gd" id="1_b1qqc"]
+[ext_resource type="PackedScene" uid="uid://bwa4jj4c0gee" path="res://player/player_camera.tscn" id="1_xhplf"]
+[ext_resource type="PackedScene" uid="uid://vyiym37a71px" path="res://player/player.tscn" id="2_mmxs2"]
+
+[node name="PlayerController" type="Node3D"]
+script = ExtResource("1_b1qqc")
+velocity = Vector3(0, 0, -10)
+
+[node name="PlayerCamera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_xhplf")]
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("2_mmxs2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.537, -6.485)

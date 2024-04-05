@@ -1,42 +1,73 @@
 extends CharacterBody3D
+class_name Player
 
-
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
-
-const BULLET = preload("res://player/bullet.tscn")
-
+@onready var rotation_container = $RotationContainer
 @onready var shoot_cooldown_timer = $ShootCooldownTimer
-@onready var shoot_marker_3d = $ShootMarker3D
+@onready var shoot_marker_3d = $RotationContainer/ShootMarker3D
 
-var can_shoot: bool = true
+const BULLET = preload("res://player/player_bullet.tscn")
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var speed: float = 6.0
+@export var acceleration: float = 10.0
+@export var deceleration: float = 8.0
+@export var max_rotation_degrees: Vector3 = Vector3(90, 90, 45): 
+	get:
+		return max_rotation_degrees
+	set(value):
+		max_rotation_degrees = value
+		max_rotation = Vector3(deg_to_rad(value.x), deg_to_rad(value.y), deg_to_rad(value.z))
 
-func _process(delta):
-	if Input.is_action_just_pressed("shoot") and can_shoot:
+var max_rotation: Vector3
+@export var rotation_acceleration: float = 9.0
+@export var rotation_deceleration: float = 5.0
+
+func _ready():
+	max_rotation_degrees = max_rotation_degrees
+
+func _process(_delta):
+	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped():
 		var bullet = BULLET.instantiate()
 		add_sibling(bullet)
 		bullet.global_position = shoot_marker_3d.global_position
-		bullet.global_rotation = global_rotation
-		can_shoot = false
+		bullet.global_rotation = shoot_marker_3d.global_rotation
 		shoot_cooldown_timer.start()
 
 func _physics_process(delta):
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	var input_dir = Input.get_vector("left", "right", "down", "up")
+	var velocity_2d: Vector2 = Vector2(velocity.x, velocity.y)
+	var weight: float = acceleration
+	if input_dir == Vector2.ZERO:
+		weight = deceleration
+		
+	velocity_2d = velocity_2d.move_toward(input_dir * speed, weight * delta)
+	
+	velocity = Vector3(velocity_2d.x , velocity_2d.y, 0)
+	
+	#print(max_rotation)
+	#var rotation_2d = Vector2(rotation_container.rotation.x, rotation_container.rotation.y)
+	var rotaion_target = Vector3(
+		max_rotation.x * input_dir.y,
+		-max_rotation.y * input_dir.x,
+		-max_rotation.z * input_dir.x
+		)
+	var horizontal_rotation_target = Vector2(
+		rotaion_target.y,
+		rotaion_target.z
+	)
+		
+	var rotation_weight: Vector2 = Vector2.ONE * rotation_acceleration
+	if input_dir.x == 0:
+		rotation_weight.x = rotation_deceleration
+	if input_dir.y == 0:
+		rotation_weight.y = rotation_deceleration
+	
+	#Horizontal Rotation
+	var horizontal_rotation: Vector2 = Vector2(rotation_container.rotation.y, rotation_container.rotation.z) 
+	horizontal_rotation = horizontal_rotation.lerp(horizontal_rotation_target, rotation_weight.x * delta)
+	rotation_container.rotation.y = horizontal_rotation.x
+	rotation_container.rotation.z = horizontal_rotation.y
+	
+	#Vertical Rotation
+	rotation_container.rotation.x = lerp(rotation_container.rotation.x, rotaion_target.x, rotation_weight.y * delta)
+	
 	move_and_slide()
-
-
-func _on_shoot_cooldown_timer_timeout():
-	can_shoot = true

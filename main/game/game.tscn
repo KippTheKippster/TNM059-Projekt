@@ -1,14 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://bu6bypayly4ur"]
 
-[ext_resource type="PackedScene" uid="uid://vyiym37a71px" path="res://player/player.tscn" id="1_a5iyr"]
+[ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="2_e4h2g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utwrp"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0.027451, 0.0627451, 0.0823529, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0.0431373, 0.0901961, 0.117647, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+ground_curve = 0.269087
+sun_angle_max = 16.45
+sun_curve = 0.147661
 
 [sub_resource type="Sky" id="Sky_ujc8i"]
 sky_material = SubResource("ProceduralSkyMaterial_utwrp")
+radiance_size = 4
 
 [sub_resource type="Environment" id="Environment_ieild"]
 background_mode = 2
@@ -17,7 +23,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
-albedo_color = Color(0.286275, 0.286275, 0.286275, 1)
+albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
 
 [node name="Game" type="Node3D"]
 
@@ -25,17 +31,36 @@ albedo_color = Color(0.286275, 0.286275, 0.286275, 1)
 environment = SubResource("Environment_ieild")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.803902, -0.240617, 0.543917, -0.0621246, 0.94348, 0.325555, -0.591509, 0.227924, -0.773414, 0, 0, 0)
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37915, -0.229004, -0.215576)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37915, -5.65516, -0.215576)
 material_override = SubResource("StandardMaterial3D_1h3m5")
 use_collision = true
 size = Vector3(16.0112, 0.541992, 15)
 
-[node name="Player" parent="." instance=ExtResource("1_a5iyr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.976923, 0.95635, 3.42079)
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.961358, -0.275302, 0, 0.274558, 0.95876, 0.0734645, -0.0202249, -0.0706256, 0.997298, -6.19263, -0.488456, -29.8258)
+material_override = SubResource("StandardMaterial3D_1h3m5")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.798389, 0.184718, 0.57311, 0.274558, 0.95876, 0.0734645, -0.535904, 0.216005, -0.816179, 8.09747, -0.488456, -62.6433)
+material_override = SubResource("StandardMaterial3D_1h3m5")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.961358, -0.275302, 1.85761e-09, 0.188191, 0.657165, 0.729876, -0.200936, -0.701672, 0.68358, -3.23831, -0.488456, -88.2379)
+material_override = SubResource("StandardMaterial3D_1h3m5")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="PlayerController" parent="." instance=ExtResource("1_kn7at")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.4623)
+velocity = Vector3(0, 0, -3)
 
 [node name="Enemy" parent="." instance=ExtResource("2_e4h2g")]
-transform = Transform3D(-0.996249, 0, -0.0865299, 0, 1, 0, 0.0865299, 0, -0.996249, 0, 1.71225, -3.78559)
+transform = Transform3D(-0.996249, 0, -0.0865299, 0, 1, 0, 0.0865299, 0, -0.996249, -0.558801, -2.28981, -20.5096)

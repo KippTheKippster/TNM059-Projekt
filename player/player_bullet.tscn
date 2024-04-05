@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://csaj0s56a6jcj"]
+
+[ext_resource type="Script" path="res://player/player_bullet.gd" id="1_5hghk"]
+[ext_resource type="PackedScene" uid="uid://c1crjhqtbbwpf" path="res://projectile/projectile.tscn" id="1_7ewap"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qplme"]
+
+[node name="PlayerBullet" instance=ExtResource("1_7ewap")]
+script = ExtResource("1_5hghk")
+speed = 20.0
+
+[node name="HurtArea" parent="." index="0"]
+layer = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea" index="0"]
+shape = SubResource("BoxShape3D_qplme")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." index="1"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0)
+sides = 32
+
+[connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area"]
