@@ -1,24 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=10 format=3 uid="uid://bu6bypayly4ur"]
 
+[ext_resource type="Texture2D" uid="uid://goxof76xptxg" path="res://assets/skybox/PanoramaSpaceSkyTexture.hdr" id="1_738hf"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
+[ext_resource type="PackedScene" uid="uid://dor3883yoybvm" path="res://test.tscn" id="3_sbkxh"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utwrp"]
-sky_top_color = Color(0.027451, 0.0627451, 0.0823529, 1)
-sky_horizon_color = Color(0, 0, 0, 1)
-ground_bottom_color = Color(0.0431373, 0.0901961, 0.117647, 1)
-ground_horizon_color = Color(0, 0, 0, 1)
-ground_curve = 0.269087
-sun_angle_max = 16.45
-sun_curve = 0.147661
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8lj4y"]
+panorama = ExtResource("1_738hf")
 
 [sub_resource type="Sky" id="Sky_ujc8i"]
-sky_material = SubResource("ProceduralSkyMaterial_utwrp")
+sky_material = SubResource("PanoramaSkyMaterial_8lj4y")
 radiance_size = 4
 
 [sub_resource type="Environment" id="Environment_ieild"]
 background_mode = 2
 sky = SubResource("Sky_ujc8i")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
 tonemap_mode = 2
 glow_enabled = true
 fog_enabled = true
@@ -28,6 +27,8 @@ fog_sky_affect = 0.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
 albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_griit"]
+
 [node name="Game" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -35,30 +36,31 @@ environment = SubResource("Environment_ieild")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.803902, -0.240617, 0.543917, -0.0621246, 0.94348, 0.325555, -0.591509, 0.227924, -0.773414, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="TurretEnemy" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.22259, -14.2774)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.71217, -14.2774)
 
 [node name="TurretEnemy2" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06119, -5.22259, -25.3056)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06119, -2.71217, -25.3056)
 
 [node name="TurretEnemy3" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24532, -5.22259, -31.3119)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24532, -2.71217, -31.3119)
 
 [node name="TurretEnemy4" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91479, -5.22259, -37.0197)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91479, -2.71217, -37.0197)
 
 [node name="TurretEnemy5" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80865, -5.22259, -44.946)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80865, -2.71217, -44.946)
 
 [node name="TurretEnemy6" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14794, -5.22259, -53.3319)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14794, -2.71217, -53.3319)
 
 [node name="TurretEnemy7" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92846, -5.22259, -57.5613)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92846, -2.71217, -57.5613)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -89,3 +91,9 @@ size = Vector3(3, 3, 3)
 [node name="PlayerController" parent="." instance=ExtResource("1_kn7at")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.4623)
 velocity = Vector3(0, 0, -5)
+
+[node name="Test" parent="." instance=ExtResource("3_sbkxh")]
+visible = false
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_griit")
