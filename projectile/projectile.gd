@@ -8,16 +8,18 @@ var direction: Vector3 = Vector3.FORWARD:
 	set(value):
 		direction = value.normalized()
 
-func _process(delta):
+@export var free_on_impact: bool = true
+
+func _process(delta: float) -> void:
 	position += basis * direction * speed * delta
 
-func set_direction_towards(node: Node3D):
+func set_direction_towards(node: Node3D) -> void:
 	set_direction_towards_position(node.global_position)
 
-func set_direction_towards_position(pos: Vector3):
+func set_direction_towards_position(pos: Vector3) -> void:
 	direction = pos - global_position
 
-func shoot_at_player(player) -> void:
+func shoot_at_player(player: Player) -> void:
 	set_direction_towards_position(predict_position(player, player.true_velocity))
 
 func predict_position(target: Node3D, velocity: Vector3) -> Vector3:
@@ -36,8 +38,12 @@ func predict_position(target: Node3D, velocity: Vector3) -> Vector3:
 	var final_position = target.global_position + velocity * time
 	return final_position
 
-func _on_remove_timer_timeout():
+func _on_remove_timer_timeout() -> void:
 	queue_free()
 
-func _on_hurt_area_damaged_health_area(health_area):
+func _on_hurt_area_damaged_health_area(_health_area: HealthArea) -> void:
 	queue_free()
+
+func _on_hurt_area_body_entered(_body: Node3D) -> void:
+	if free_on_impact:
+		queue_free()

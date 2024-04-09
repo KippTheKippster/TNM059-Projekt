@@ -173,10 +173,10 @@ shape = SubResource("BoxShape3D_fhyyo")
 [node name="RotationContainer" type="Node3D" parent="."]
 
 [node name="ShipContainer" type="Node3D" parent="RotationContainer"]
-transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, -4.46638e-06, 0, 4.46638e-06, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Ship" parent="RotationContainer/ShipContainer" instance=ExtResource("2_rs7pv")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.31274, 0.0545471, -0.950914)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95329, -2.82269, 0)
 
 [node name="ShipAnimationPlayer" type="AnimationPlayer" parent="RotationContainer/ShipContainer"]
 unique_name_in_owner = true
@@ -223,5 +223,3 @@ omni_range = 65.4462
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]

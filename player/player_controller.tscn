@@ -22,6 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.537, 6.485)
 player = NodePath("../Player")
 
 [node name="Boundaries" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1.265, 0, 0, 0, 1.265, 0, 0, 0, 1.265, 0, 0, 0)
 collision_layer = 4
 collision_mask = 0
 

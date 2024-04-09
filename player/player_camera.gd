@@ -12,7 +12,7 @@ var max_rotation: Vector3
 @export var rotation_weight: float = 1.0
 #@export var rotation_deceleration: float = 5.0
 
-func _process(delta):
+func _process(delta: float):
 	var target: Vector3 = max_rotation * Vector3(
 		player.velocity.y / player.speed,
 		-player.velocity.x / player.speed,

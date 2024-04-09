@@ -29,7 +29,7 @@ var true_velocity: Vector3
 func _ready() -> void:
 	max_rotation_degrees = max_rotation_degrees
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped():
 		var bullet = BULLET.instantiate()
 		add_sibling(bullet)
@@ -42,7 +42,7 @@ func _process(_delta) -> void:
 	elif Input.is_action_just_pressed("lean_right"):
 		ship_animation_player.play("spin_right")
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "down", "up")
 	var velocity_2d: Vector2 = Vector2(velocity.x, velocity.y)
 	var weight: float = acceleration
@@ -82,6 +82,3 @@ func _physics_process(delta) -> void:
 	rotation_container.rotation.x = lerp(rotation_container.rotation.x, rotaion_target.x, rotation_weight.y * delta)
 	
 	move_and_slide()
-
-func _on_health_area_damaged(hurt_area) -> void:
-	print("JA")

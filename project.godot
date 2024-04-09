@@ -23,6 +23,10 @@ Debug="*res://globals/debug/debug.tscn"
 
 project/assembly_name="TNM059-Projekt"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+
 [input]
 
 left={
