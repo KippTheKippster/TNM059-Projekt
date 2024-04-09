@@ -12,7 +12,7 @@ albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
 script = ExtResource("1_idndb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.903668, -0.085301, 0.419651, -0.0621246, 0.94348, 0.325556, -0.423703, -0.320265, 0.847294, 0, 0, 0)
+transform = Transform3D(0.903668, -0.0853011, 0.419652, -0.0621246, 0.94348, 0.325556, -0.423703, -0.320265, 0.847293, 0, 0, 0)
 light_color = Color(1, 0.862745, 0.780392, 1)
 light_energy = 3.0
 shadow_enabled = true
