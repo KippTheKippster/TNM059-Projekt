@@ -38,7 +38,13 @@ render_target_update_mode = 4
 cull_mask = 1048574
 
 [node name="Sprite3D" type="Sprite3D" parent="SubViewportContainer/SubViewport/3DSkybox"]
-transform = Transform3D(1, 0, 0, 0, 0.95656, -0.291537, 0, 0.291537, 0.95656, 0, 0.413635, -2.12945)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.413635, -2.12945)
+visible = false
+layers = 2
+texture = ExtResource("1_u13cu")
+
+[node name="Sprite3D2" type="Sprite3D" parent="SubViewportContainer/SubViewport/3DSkybox"]
+transform = Transform3D(5.915, 0, 0, 0, 5.915, 0, 0, 0, 5.915, 0, 2.444, -12.781)
 layers = 2
 texture = ExtResource("1_u13cu")
 

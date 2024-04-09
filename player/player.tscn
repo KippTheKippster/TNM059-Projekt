@@ -160,6 +160,7 @@ motion_mode = 1
 floor_constant_speed = true
 platform_on_leave = 2
 script = ExtResource("1_wbiqq")
+speed = 8.0
 acceleration = 18.0
 deceleration = 12.0
 max_rotation_degrees = Vector3(25, 35, 25)
@@ -197,7 +198,7 @@ shape = SubResource("CapsuleShape3D_7cs1m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.06048)
 
 [node name="Crosshair1" type="Sprite3D" parent="RotationContainer"]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -8.80266)
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -6.25015)
 billboard = 1
 no_depth_test = true
 fixed_size = true
@@ -206,7 +207,7 @@ texture = ExtResource("2_nxp81")
 hframes = 2
 
 [node name="Crosshair2" type="Sprite3D" parent="RotationContainer"]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -13.828)
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -8.34054)
 billboard = 1
 no_depth_test = true
 fixed_size = true
@@ -215,11 +216,8 @@ texture = ExtResource("2_nxp81")
 hframes = 2
 frame = 1
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34272, -1.54691)
-light_energy = 0.765
-omni_range = 65.4462
-
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]

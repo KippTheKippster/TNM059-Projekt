@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck7un7fd4ehec"]
+
+[ext_resource type="Script" path="res://main/skybox viewer/skybox_3d.gd" id="1_r43bu"]
+[ext_resource type="Texture2D" uid="uid://bf234e1sa0256" path="res://icon.svg" id="2_uet67"]
+[ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_b4771"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kngjl"]
+
+[node name="Skybox3D" type="Node3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_r43bu")
+camera = NodePath("Camera3D")
+speed_scale = 0.01
+
+[node name="Camera3D" type="Camera3D" parent="."]
+cull_mask = 1048574
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.413635, -2.12945)
+visible = false
+layers = 2
+texture = ExtResource("2_uet67")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(5.915, 0, 0, 0, 5.915, 0, 0, 0, 5.915, 0, 2.444, -12.781)
+visible = false
+layers = 2
+texture = ExtResource("2_uet67")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(0.866025, 0.2812, 0.413432, -0.25, 0.959613, -0.129011, -0.433013, 0.00836837, 0.901349, -9, 0, -12)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(0.19, -1.57161e-09, -7.45058e-09, -1.04774e-09, 0.19, -3.84171e-09, 0, 4.88944e-09, 0.19, 0.281053, -1.35326, 1.16097)
+layers = 2
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(0.163953, 0, -0.0960177, 0.025026, 0.183433, 0.0427326, 0.092699, -0.0495215, 0.158286, 0.651119, -0.276993, 0.381293)
+layers = 2
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(0.163953, 0, -0.0960177, 0.025026, 0.183433, 0.0427326, 0.092699, -0.0495215, 0.158286, 0.0787091, -0.991121, 0.074913)
+layers = 2
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(0.0637264, 0, -0.178994, 0.0413235, 0.184867, 0.0147122, 0.174159, -0.0438643, 0.0620049, -0.716374, 0.00383841, -0.394005)
+layers = 2
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.0323392, 0.0466529, -0.181322, 0.0671863, 0.174643, 0.0329516, 0.174758, -0.0585091, -0.0462224, 0.099987, 0.0961405, -0.00499535)
+layers = 2
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.0323392, 0.0466529, -0.181322, 0.0671863, 0.174643, 0.0329516, 0.174758, -0.0585091, -0.0462224, 0.224679, -0.0999761, -0.831533)
+layers = 2
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.172028, -0.0736884, -0.0328104, -0.0110875, 0.0981522, -0.162306, 0.0798972, -0.145039, -0.0931679, 0.899172, -1.69343, -2.05087)
+layers = 2
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.174158, -0.0625898, 0.0430283, -0.0758268, 0.137063, -0.107536, 0.00438468, -0.115742, -0.150614, 0.419892, -1.18896, -1.46598)
+layers = 2
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.174158, -0.0625898, 0.0430283, -0.0758268, 0.137063, -0.107536, 0.00438468, -0.115742, -0.150614, 1.17609, -0.800966, -1.58761)
+layers = 2
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.1038, -0.064123, 0.14565, -0.131145, 0.132971, -0.0349217, -0.0901472, -0.119611, -0.116904, 1.71866, -0.48091, -1.6517)
+layers = 2
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.0269552, -0.0998688, 0.159373, -0.11269, 0.137478, 0.0670887, -0.15058, -0.0850071, -0.0787366, 0.876545, -0.813173, -1.56963)
+layers = 2
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-0.0269552, -0.0998688, 0.159373, -0.11269, 0.137478, 0.0670887, -0.15058, -0.0850071, -0.0787366, 0.982442, -0.215698, -0.962185)
+layers = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_b4771")
+
+[node name="Planet" type="MeshInstance3D" parent="."]
+transform = Transform3D(21.063, 0, 0, 0, 21.063, 0, 0, 0, 21.063, 17.1125, -6.77566, -20.7996)
+layers = 2
+mesh = SubResource("SphereMesh_kngjl")

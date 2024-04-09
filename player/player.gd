@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Player
 
+signal damaged
+
 @onready var rotation_container: Node3D = $RotationContainer
 @onready var ship_animation_player = %ShipAnimationPlayer
 @onready var health_area: HealthArea = $RotationContainer/HealthArea
@@ -82,3 +84,7 @@ func _physics_process(delta: float) -> void:
 	rotation_container.rotation.x = lerp(rotation_container.rotation.x, rotaion_target.x, rotation_weight.y * delta)
 	
 	move_and_slide()
+
+
+func _on_health_area_damaged(hurt_area: HurtArea) -> void:
+	damaged.emit()

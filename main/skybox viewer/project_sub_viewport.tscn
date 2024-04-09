@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://c0xcdhjw0h57r"]
+
+[node name="ProjectSubViewport" type="SubViewport"]

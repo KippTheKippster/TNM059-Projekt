@@ -1,42 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=6 format=3 uid="uid://bu6bypayly4ur"]
 
-[ext_resource type="Texture2D" uid="uid://goxof76xptxg" path="res://assets/skybox/PanoramaSpaceSkyTexture.hdr" id="1_738hf"]
+[ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
-[ext_resource type="PackedScene" uid="uid://dor3883yoybvm" path="res://test.tscn" id="3_sbkxh"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8lj4y"]
-panorama = ExtResource("1_738hf")
-
-[sub_resource type="Sky" id="Sky_ujc8i"]
-sky_material = SubResource("PanoramaSkyMaterial_8lj4y")
-radiance_size = 4
-
-[sub_resource type="Environment" id="Environment_ieild"]
-background_mode = 2
-sky = SubResource("Sky_ujc8i")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-reflected_light_source = 2
-tonemap_mode = 2
-glow_enabled = true
-fog_enabled = true
-fog_light_color = Color(0, 0, 0, 1)
-fog_sky_affect = 0.0
+[ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_ukv0f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
 albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_griit"]
-
 [node name="Game" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ieild")
+script = ExtResource("1_idndb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.803902, -0.240617, 0.543917, -0.0621246, 0.94348, 0.325555, -0.591509, 0.227924, -0.773414, 0, 0, 0)
-visible = false
+transform = Transform3D(0.903668, -0.085301, 0.419651, -0.0621246, 0.94348, 0.325556, -0.423703, -0.320265, 0.847294, 0, 0, 0)
+light_color = Color(1, 0.862745, 0.780392, 1)
+light_energy = 3.0
 shadow_enabled = true
 
 [node name="Enemies" type="Node3D" parent="."]
@@ -70,6 +48,12 @@ material_override = SubResource("StandardMaterial3D_1h3m5")
 use_collision = true
 size = Vector3(16.0112, 0.541992, 15)
 
+[node name="CSGBox3D5" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08477, -4.60334, 0.100801)
+material_override = SubResource("StandardMaterial3D_1h3m5")
+use_collision = true
+size = Vector3(2.34264, 2.72949, 6.14441)
+
 [node name="CSGBox3D2" type="CSGBox3D" parent="World"]
 transform = Transform3D(0.961358, -0.275302, 0, 0.274558, 0.95876, 0.0734645, -0.0202249, -0.0706256, 0.997298, -6.19263, -0.488456, -29.8258)
 material_override = SubResource("StandardMaterial3D_1h3m5")
@@ -92,8 +76,5 @@ size = Vector3(3, 3, 3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.4623)
 velocity = Vector3(0, 0, -5)
 
-[node name="Test" parent="." instance=ExtResource("3_sbkxh")]
-visible = false
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-material_override = SubResource("StandardMaterial3D_griit")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_ukv0f")
