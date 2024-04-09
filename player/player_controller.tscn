@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://2f2yv28t3tjk"]
+[gd_scene load_steps=9 format=3 uid="uid://2f2yv28t3tjk"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_b1qqc"]
 [ext_resource type="PackedScene" uid="uid://bwa4jj4c0gee" path="res://player/player_camera.tscn" id="1_xhplf"]
 [ext_resource type="PackedScene" uid="uid://vyiym37a71px" path="res://player/player.tscn" id="2_mmxs2"]
+[ext_resource type="Script" path="res://player/camera_shaker.gd" id="3_3c780"]
 [ext_resource type="PackedScene" uid="uid://dk0xskpejeyr8" path="res://player/player_ui.tscn" id="4_ctj3y"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y27u4"]
+frequency = 0.0785
+fractal_octaves = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xwfb"]
 size = Vector3(20, 1, 5)
@@ -17,9 +22,17 @@ velocity = Vector3(0, 0, -10)
 
 [node name="Player" parent="." instance=ExtResource("2_mmxs2")]
 
-[node name="PlayerCamera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_xhplf")]
+[node name="CameraShaker" type="Node3D" parent="."]
+script = ExtResource("3_3c780")
+trauma_reduction_rate = 2.3
+max_trauma = 1.0
+noise_speed = 75.0
+noise = SubResource("FastNoiseLite_y27u4")
+
+[node name="PlayerCamera" parent="CameraShaker" node_paths=PackedStringArray("player") instance=ExtResource("1_xhplf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.537, 6.485)
-player = NodePath("../Player")
+cull_mask = 1048573
+player = NodePath("../../Player")
 
 [node name="Boundaries" type="AnimatableBody3D" parent="."]
 transform = Transform3D(1.265, 0, 0, 0, 1.265, 0, 0, 0, 1.265, 0, 0, 0)
@@ -35,12 +48,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
 shape = SubResource("BoxShape3D_2xwfb")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 1.5, 0)
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, -8.8, 1.5, 0)
 shape = SubResource("BoxShape3D_b5vyf")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 1.5, 0)
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 8.8, 1.5, 0)
 shape = SubResource("BoxShape3D_b5vyf")
 
 [node name="PlayerUi" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_ctj3y")]
 player = NodePath("../Player")
+
+[connection signal="damaged" from="Player" to="." method="_on_player_damaged"]
