@@ -1,9 +1,11 @@
 extends CharacterBody3D
 class_name Player
 
-@onready var rotation_container = $RotationContainer
-@onready var shoot_cooldown_timer = $ShootCooldownTimer
-@onready var shoot_marker_3d = $RotationContainer/ShootMarker3D
+@onready var rotation_container: Node3D = $RotationContainer
+@onready var ship_animation_player = %ShipAnimationPlayer
+@onready var health_area: HealthArea = $RotationContainer/HealthArea
+@onready var shoot_cooldown_timer: Timer = $ShootCooldownTimer
+@onready var shoot_marker_3d: Marker3D = $RotationContainer/ShootMarker3D
 
 const BULLET = preload("res://player/player_bullet.tscn")
 
@@ -21,18 +23,26 @@ var max_rotation: Vector3
 @export var rotation_acceleration: float = 9.0
 @export var rotation_deceleration: float = 5.0
 
-func _ready():
+var path_velocity: Vector3
+var true_velocity: Vector3
+
+func _ready() -> void:
 	max_rotation_degrees = max_rotation_degrees
 
-func _process(_delta):
+func _process(_delta) -> void:
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped():
 		var bullet = BULLET.instantiate()
 		add_sibling(bullet)
 		bullet.global_position = shoot_marker_3d.global_position
 		bullet.global_rotation = shoot_marker_3d.global_rotation
 		shoot_cooldown_timer.start()
+	
+	if Input.is_action_just_pressed("lean_left"):
+		ship_animation_player.play("spin_left")
+	elif Input.is_action_just_pressed("lean_right"):
+		ship_animation_player.play("spin_right")
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	var input_dir = Input.get_vector("left", "right", "down", "up")
 	var velocity_2d: Vector2 = Vector2(velocity.x, velocity.y)
 	var weight: float = acceleration
@@ -42,6 +52,7 @@ func _physics_process(delta):
 	velocity_2d = velocity_2d.move_toward(input_dir * speed, weight * delta)
 	
 	velocity = Vector3(velocity_2d.x , velocity_2d.y, 0)
+	true_velocity = velocity + path_velocity
 	
 	#print(max_rotation)
 	#var rotation_2d = Vector2(rotation_container.rotation.x, rotation_container.rotation.y)
@@ -71,3 +82,6 @@ func _physics_process(delta):
 	rotation_container.rotation.x = lerp(rotation_container.rotation.x, rotaion_target.x, rotation_weight.y * delta)
 	
 	move_and_slide()
+
+func _on_health_area_damaged(hurt_area) -> void:
+	print("JA")

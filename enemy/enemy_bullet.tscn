@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddyu40anul43d"]
+
+[ext_resource type="PackedScene" uid="uid://c1crjhqtbbwpf" path="res://projectile/projectile.tscn" id="1_d0js8"]
+[ext_resource type="Shader" uid="uid://ddv37mv08xtsn" path="res://effects/bullet_flash_shader.tres" id="2_c8yad"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ty1rp"]
+radius = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5q6a2"]
+render_priority = 0
+shader = ExtResource("2_c8yad")
+shader_parameter/Color1 = Color(1, 0.435294, 0, 1)
+shader_parameter/Color2 = Color(1, 0, 0, 1)
+shader_parameter/Speed = 30.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_1bn65"]
+
+[node name="EnemyBullet" instance=ExtResource("1_d0js8")]
+speed = 10.0
+
+[node name="HurtArea" parent="." index="0"]
+layer = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea" index="0"]
+shape = SubResource("SphereShape3D_ty1rp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_5q6a2")
+mesh = SubResource("SphereMesh_1bn65")
+
+[connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area"]

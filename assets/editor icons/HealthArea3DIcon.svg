@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333333 4.2333333"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="HealthArea3DIcon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="17.678304"
+     inkscape:cx="6.8162647"
+     inkscape:cy="10.634504"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid132"
+       empspacing="4" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="1.5875,1.8520833"
+       end_point="1.5875,2.38125"
+       center_point="1.5875,2.1166666"
+       id="path-effect5605"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="vertical"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="1.5875,1.8520833"
+       end_point="1.5875,2.38125"
+       center_point="1.5875,2.1166666"
+       id="path-effect5590"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="free"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="1.5875,1.8520833"
+       end_point="1.5875,2.38125"
+       center_point="1.5875,2.1166666"
+       id="path-effect5576"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="vertical"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="2.1166666,0.79374999"
+       end_point="2.1166666,1.5875"
+       center_point="2.1166666,1.190625"
+       id="path-effect5359"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="horizontal"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="3.96875,0.26458333"
+       end_point="3.96875,1.3229167"
+       center_point="3.96875,0.79375001"
+       id="path-effect5357"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="horizontal"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="1.3229167,0.26458333"
+       end_point="1.3229167,1.3229167"
+       center_point="1.3229167,0.79375001"
+       id="path-effect5355"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="vertical"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect238"
+       style="fill:#fc7f7f;fill-opacity:1;fill-rule:evenodd;stroke-width:0.202885;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;paint-order:markers stroke fill"
+       d="M 0.26458333,0.26458333 V 0.79375 1.3229167 H 0.79375 V 0.79375 H 1.3229167 V 0.26458333 H 0.79375 Z m 3.70416667,0 V 0.79375 1.3229167 H 3.4395833 V 0.79375 H 2.9104166 V 0.26458333 H 3.4395833 Z M 0.26458333,3.96875 V 3.4395833 2.9104166 H 0.79375 V 3.4395833 H 1.3229167 V 3.96875 H 0.79375 Z m 3.70416667,0 V 3.4395833 2.9104166 H 3.4395833 V 3.4395833 H 2.9104166 V 3.96875 h 0.5291667 z"
+       inkscape:path-effect="#path-effect5355;#path-effect5357"
+       inkscape:original-d="M 0.26458333 0.26458333 L 0.26458333 0.79375 L 0.26458333 1.3229167 L 0.79375 1.3229167 L 0.79375 0.79375 L 1.3229167 0.79375 L 1.3229167 0.26458333 L 0.79375 0.26458333 L 0.26458333 0.26458333 z "
+       class="UnoptimicedTransforms" />
+    <path
+       style="fill:#fc7f7f;fill-opacity:1;fill-rule:evenodd;stroke-width:0.430385;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;paint-order:markers stroke fill"
+       id="rect3871"
+       width="0.26458332"
+       height="0.79375005"
+       x="1.8520833"
+       y="0.79374999"
+       inkscape:path-effect="#path-effect5359"
+       class="UnoptimicedTransforms"
+       d="M 1.8520833,0.79374999 H 2.1166666 V 1.5875 H 1.8520833 Z m 0,2.11666661 h 0.2645833 v -0.79375 H 1.8520833 Z"
+       sodipodi:type="rect"
+       transform="matrix(2.0000002,0,0,1,-1.8520836,0.26458335)" />
+    <rect
+       style="fill:#fc7f7f;fill-opacity:1;fill-rule:evenodd;stroke-width:0.717309;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;paint-order:markers stroke fill"
+       id="rect5574"
+       width="1.3229167"
+       height="0.52916664"
+       x="1.0583333"
+       y="1.8520833" />
+    <rect
+       style="fill:#fc7f7f;fill-opacity:1;fill-rule:evenodd;stroke-width:0.555625;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.4;paint-order:markers stroke fill"
+       id="rect5621"
+       width="0.79374987"
+       height="0.52916664"
+       x="2.3812499"
+       y="1.8520833" />
+  </g>
+</svg>

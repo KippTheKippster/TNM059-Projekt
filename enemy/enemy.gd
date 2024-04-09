@@ -1,16 +1,13 @@
 extends CharacterBody3D
+class_name Enemy
 
-#const BULLET = preload("res://player/bullet.tscn")
-@onready var shoot_marker_3d = $ShootMarker3D
+var player: Player
 
+func _on_enemy_ready():
+	player = get_tree().get_first_node_in_group("player") as Player
 
-
-#func _on_shoot_cooldown_timer_timeout():
-#	var bullet = BULLET.instantiate()
-#	add_sibling(bullet)
-#	bullet.global_position = shoot_marker_3d.global_position
-#	bullet.global_rotation = global_rotation
-
+func die():
+	queue_free()
 
 func _on_health_area_died():
-	queue_free()
+	die()

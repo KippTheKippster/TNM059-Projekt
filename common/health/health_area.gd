@@ -1,8 +1,9 @@
+@icon("res://assets/editor icons/HealthArea3DIcon.svg")
 extends Area3D
 class_name HealthArea
 
-signal damaged(hurt_area: HurtArea)
 signal health_changed(new_health: float, old_health: float) 
+signal damaged(hurt_area: HurtArea)
 signal died()
 
 var is_dead: bool = false

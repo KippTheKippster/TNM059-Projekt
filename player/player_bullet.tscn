@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://csaj0s56a6jcj"]
+[gd_scene load_steps=6 format=3 uid="uid://csaj0s56a6jcj"]
 
 [ext_resource type="Script" path="res://player/player_bullet.gd" id="1_5hghk"]
 [ext_resource type="PackedScene" uid="uid://c1crjhqtbbwpf" path="res://projectile/projectile.tscn" id="1_7ewap"]
+[ext_resource type="Shader" uid="uid://ddv37mv08xtsn" path="res://effects/bullet_flash_shader.tres" id="3_xuhms"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qplme"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cjj6"]
+render_priority = 0
+shader = ExtResource("3_xuhms")
+shader_parameter/Color1 = Color(0, 1, 0, 1)
+shader_parameter/Color2 = Color(1, 1, 1, 1)
+shader_parameter/Speed = 30.0
+
 [node name="PlayerBullet" instance=ExtResource("1_7ewap")]
 script = ExtResource("1_5hghk")
-speed = 20.0
+speed = 70.0
 
 [node name="HurtArea" parent="." index="0"]
 layer = 6
@@ -16,7 +24,17 @@ layer = 6
 shape = SubResource("BoxShape3D_qplme")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="." index="1"]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0)
-sides = 32
+transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_2cjj6")
+height = 9.843
+sides = 4
+cone = true
+
+[node name="RemoveTimer" parent="." index="2"]
+wait_time = 1.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="3"]
+light_color = Color(0, 1, 0, 1)
+omni_range = 7.43315
 
 [connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area"]
