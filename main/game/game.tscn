@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=11 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Texture2D" uid="uid://goxof76xptxg" path="res://assets/skybox/PanoramaSpaceSkyTexture.hdr" id="1_738hf"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
 [ext_resource type="PackedScene" uid="uid://dor3883yoybvm" path="res://test.tscn" id="3_sbkxh"]
+[ext_resource type="PackedScene" uid="uid://6gt3lboyigry" path="res://assets/asteroid belt/untitled.glb" id="5_ss2nn"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8lj4y"]
 panorama = ExtResource("1_738hf")
@@ -40,6 +41,7 @@ visible = false
 shadow_enabled = true
 
 [node name="Enemies" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)
 
 [node name="TurretEnemy" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.71217, -14.2774)
@@ -97,3 +99,11 @@ visible = false
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 material_override = SubResource("StandardMaterial3D_griit")
+
+[node name="untitled" parent="." instance=ExtResource("5_ss2nn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1187, 7.38039, 3.04588)
+
+[node name="Cube_011" parent="untitled" index="0"]
+transform = Transform3D(0, 1.6828e-08, 0.282327, -0.218774, -0.178455, 1.6828e-08, 0.178455, -0.218774, 0, -13.8305, 3.13491, -0.813339)
+
+[editable path="untitled"]
