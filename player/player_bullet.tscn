@@ -38,5 +38,3 @@ wait_time = 1.0
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="3"]
 light_color = Color(0, 1, 0, 1)
 omni_range = 7.43315
-
-[connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area"]

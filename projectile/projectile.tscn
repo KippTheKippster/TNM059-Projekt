@@ -15,4 +15,5 @@ one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="HurtArea" to="." method="_on_hurt_area_body_entered"]
+[connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area"]
 [connection signal="timeout" from="RemoveTimer" to="." method="_on_remove_timer_timeout"]

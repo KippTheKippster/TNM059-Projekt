@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnn82cvidaypk"]
+
+[ext_resource type="Script" path="res://player/missile_target.gd" id="1_mycyc"]
+[ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_u3glk"]
+
+[node name="MissileTarget" type="Area3D"]
+script = ExtResource("1_mycyc")
+
+[node name="MarkerSprite" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+modulate = Color(1, 0, 0, 1)
+billboard = 1
+double_sided = false
+texture_filter = 0
+texture = ExtResource("2_u3glk")
+hframes = 2
