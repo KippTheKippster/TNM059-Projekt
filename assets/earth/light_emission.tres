@@ -1,0 +1,35 @@
+[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://bej7f7w5y5sxg"]
+
+[ext_resource type="Texture2D" uid="uid://dqx5xand8b0fr" path="res://assets/earth/2k_earth_specular_map.jpg" id="1_pgtwd"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_omjws"]
+constant = Color(0, 0.721569, 0.721569, 0.364706)
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_6wu2a"]
+texture = ExtResource("1_pgtwd")
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_7;
+
+
+
+void fragment() {
+// Texture2D:7
+	vec4 n_out7p0 = texture(tex_frg_7, UV);
+
+
+// Output:0
+	SPECULAR = n_out7p0.x;
+
+
+}
+"
+graph_offset = Vector2(-192.176, 281.636)
+nodes/fragment/6/node = SubResource("VisualShaderNodeColorConstant_omjws")
+nodes/fragment/6/position = Vector2(-60, 100)
+nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_6wu2a")
+nodes/fragment/7/position = Vector2(-200, 500)
+nodes/fragment/connections = PackedInt32Array(7, 0, 0, 4)
