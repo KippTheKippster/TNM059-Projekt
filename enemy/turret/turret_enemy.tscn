@@ -20,21 +20,26 @@ transform = Transform3D(1, 0, 0, 0, 0.337231, 0, 0, 0, 1, 0, 0.330615, 0)
 material_override = SubResource("StandardMaterial3D_ru8kc")
 mesh = SubResource("CylinderMesh_olcp4")
 
-[node name="HealthArea" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0935546, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.381265, 0)
 shape = SubResource("BoxShape3D_k5ts7")
 
-[node name="ShootMarker" type="Marker3D" parent="." index="2"]
+[node name="MissileTarget" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.258112, 0)
+sprite_scale = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.121075, 0)
+shape = SubResource("BoxShape3D_k5ts7")
+
+[node name="ShootMarker" type="Marker3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02846, 0)
 gizmo_extents = 0.55
 
-[node name="SmallExplosion" parent="." index="3" instance=ExtResource("3_t8v2n")]
+[node name="SmallExplosion" parent="." index="4" instance=ExtResource("3_t8v2n")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
-[node name="ShootTimer" type="Timer" parent="." index="4"]
+[node name="ShootTimer" type="Timer" parent="." index="5"]
 wait_time = 2.0
 autostart = true
 

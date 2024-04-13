@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=8 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
+[ext_resource type="PackedScene" uid="uid://cqn1gwnk28s6e" path="res://skybox/asteroid_skybox.tscn" id="3_dlc5f"]
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_ukv0f"]
+[ext_resource type="PackedScene" uid="uid://ck7un7fd4ehec" path="res://skybox/planet_skybox.tscn" id="5_0jny5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
 albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
@@ -14,8 +16,14 @@ script = ExtResource("1_idndb")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.903668, -0.0853011, 0.419652, -0.0621246, 0.94348, 0.325556, -0.423703, -0.320265, 0.847293, 0, 0, 0)
 light_color = Color(1, 0.862745, 0.780392, 1)
-light_energy = 3.0
+light_energy = 2.0
 shadow_enabled = true
+
+[node name="PlanetSkybox" parent="." instance=ExtResource("5_0jny5")]
+transform = Transform3D(160, 0, 0, 0, 160, 0, 0, 0, 160, 0, 0, 0)
+
+[node name="AsteroidSkybox" parent="." instance=ExtResource("3_dlc5f")]
+transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, 0, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)

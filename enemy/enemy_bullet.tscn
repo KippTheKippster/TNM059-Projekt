@@ -28,5 +28,3 @@ shape = SubResource("SphereShape3D_ty1rp")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_5q6a2")
 mesh = SubResource("SphereMesh_1bn65")
-
-[connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area"]

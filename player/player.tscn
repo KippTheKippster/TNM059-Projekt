@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=12 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
 [ext_resource type="PackedScene" uid="uid://b2x2oamlwh8xs" path="res://assets/ship.blend" id="2_rs7pv"]
 [ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="2_xq6mt"]
+[ext_resource type="Script" path="res://player/missile_target_raycast.gd" id="4_7h3uj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhyyo"]
 size = Vector3(1.8642, 1, 2)
@@ -196,6 +197,11 @@ shape = SubResource("CapsuleShape3D_7cs1m")
 
 [node name="ShootMarker3D" type="Marker3D" parent="RotationContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.06048)
+
+[node name="MissleTargetRayCast" type="RayCast3D" parent="RotationContainer"]
+target_position = Vector3(0, 0, -30)
+collide_with_areas = true
+script = ExtResource("4_7h3uj")
 
 [node name="Crosshair1" type="Sprite3D" parent="RotationContainer"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -6.25015)

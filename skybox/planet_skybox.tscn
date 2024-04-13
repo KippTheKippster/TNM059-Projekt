@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck7un7fd4ehec"]
+
+[ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="2_5ytwq"]
+[ext_resource type="Texture2D" uid="uid://lwqkv17osepg" path="res://assets/asteroid belt/asteroid_field_rock_boulder_dry_diff_2k.jpg" id="3_40kym"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpdb3"]
+albedo_texture = ExtResource("3_40kym")
+
+[sub_resource type="SphereMesh" id="SphereMesh_k1wjl"]
+
+[node name="PlanetSkybox" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_5ytwq")
+
+[node name="Planet" type="MeshInstance3D" parent="."]
+transform = Transform3D(21.063, 0, 0, 0, 21.063, 0, 0, 0, 21.063, 17.2104, -6.77566, -20.8239)
+layers = 2
+material_override = SubResource("StandardMaterial3D_tpdb3")
+mesh = SubResource("SphereMesh_k1wjl")

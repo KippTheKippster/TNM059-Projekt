@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0g4kx6ig8f27"]
+
+[ext_resource type="PackedScene" uid="uid://c1crjhqtbbwpf" path="res://projectile/projectile.tscn" id="1_67y5q"]
+[ext_resource type="Script" path="res://player/player_missile.gd" id="2_vu4mk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n74is"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5g8hh"]
+
+[node name="PlayerMissile" instance=ExtResource("1_67y5q")]
+script = ExtResource("2_vu4mk")
+max_speed = 25.0
+acceleration = 50.0
+turn_speed = 10.0
+speed = 0.0
+
+[node name="HurtArea" parent="." index="0"]
+transform = Transform3D(5.48013, 0, 0, 0, 5.48013, 0, 0, 0, 5.48013, 0, 0, 0)
+layer = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea" index="0"]
+shape = SubResource("BoxShape3D_n74is")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1.20373, 0, 0, 0, 1.20373, 0, 0, 0, 1.20373, 0, 0, 0)
+mesh = SubResource("SphereMesh_5g8hh")

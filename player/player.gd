@@ -6,10 +6,12 @@ signal damaged
 @onready var rotation_container: Node3D = $RotationContainer
 @onready var ship_animation_player = %ShipAnimationPlayer
 @onready var health_area: HealthArea = $RotationContainer/HealthArea
-@onready var shoot_cooldown_timer: Timer = $ShootCooldownTimer
 @onready var shoot_marker_3d: Marker3D = $RotationContainer/ShootMarker3D
+@onready var missle_target_ray_cast: MissileTargetRayCast = $RotationContainer/MissleTargetRayCast
+@onready var shoot_cooldown_timer: Timer = $ShootCooldownTimer
 
-const BULLET = preload("res://player/player_bullet.tscn")
+const PLAYER_BULLET = preload("res://player/player_bullet.tscn")
+const PLAYER_MISSILE = preload("res://player/player_missile.tscn")
 
 @export var speed: float = 6.0
 @export var acceleration: float = 10.0
@@ -28,16 +30,42 @@ var max_rotation: Vector3
 var path_velocity: Vector3
 var true_velocity: Vector3
 
+var is_firing_missiles: bool
+var active_missiles_count: int
+
 func _ready() -> void:
 	max_rotation_degrees = max_rotation_degrees
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped():
-		var bullet = BULLET.instantiate()
+	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped() and not is_firing_missiles:
+		var bullet := PLAYER_BULLET.instantiate() as Projectile
 		add_sibling(bullet)
 		bullet.global_position = shoot_marker_3d.global_position
 		bullet.global_rotation = shoot_marker_3d.global_rotation
 		shoot_cooldown_timer.start()
+		if not is_firing_missiles:
+			missle_target_ray_cast.is_active = true
+	
+	if Input.is_action_just_released("shoot"): #FIXME This is very janky
+		if is_firing_missiles: return
+		if missle_target_ray_cast.missile_targets.size() == 0: return
+		
+		is_firing_missiles = true
+		missle_target_ray_cast.is_active = false
+		
+		for target in missle_target_ray_cast.missile_targets:
+			if not is_instance_valid(target): continue
+			var missile := PLAYER_MISSILE.instantiate() as PlayerMissile
+			missile.missile_target = target
+			missile.direction = Vector3.DOWN
+			active_missiles_count += 1
+			missile.tree_exited.connect(func(): active_missiles_count -= 1)
+			owner.add_sibling(missile)
+			missile.global_position = shoot_marker_3d.global_position
+			await get_tree().create_timer(0.1).timeout
+		
+		is_firing_missiles = false
+		missle_target_ray_cast.missile_targets.clear()
 	
 	if Input.is_action_just_pressed("lean_left"):
 		ship_animation_player.play("spin_left")
@@ -56,7 +84,6 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector3(velocity_2d.x , velocity_2d.y, 0)
 	true_velocity = velocity + path_velocity
 	
-	#print(max_rotation)
 	#var rotation_2d = Vector2(rotation_container.rotation.x, rotation_container.rotation.y)
 	var rotaion_target = Vector3(
 		max_rotation.x * input_dir.y,

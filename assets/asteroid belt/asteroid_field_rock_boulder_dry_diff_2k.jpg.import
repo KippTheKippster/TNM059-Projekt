@@ -3,21 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://lwqkv17osepg"
-path.s3tc="res://.godot/imported/asteroid_field_rock_boulder_dry_diff_2k.jpg-72a9042f3f150b5b0aa36c779ec02cd9.s3tc.ctex"
+path="res://.godot/imported/asteroid_field_rock_boulder_dry_diff_2k.jpg-72a9042f3f150b5b0aa36c779ec02cd9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={}
 
 [deps]
 
 source_file="res://assets/asteroid belt/asteroid_field_rock_boulder_dry_diff_2k.jpg"
-dest_files=["res://.godot/imported/asteroid_field_rock_boulder_dry_diff_2k.jpg-72a9042f3f150b5b0aa36c779ec02cd9.s3tc.ctex"]
+dest_files=["res://.godot/imported/asteroid_field_rock_boulder_dry_diff_2k.jpg-72a9042f3f150b5b0aa36c779ec02cd9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
