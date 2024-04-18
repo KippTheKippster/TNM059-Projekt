@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqn1gwnk28s6e"]
+[gd_scene load_steps=2 format=3 uid="uid://cqn1gwnk28s6e"]
 
-[ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="1_1hblr"]
 [ext_resource type="PackedScene" uid="uid://6gt3lboyigry" path="res://assets/asteroid belt/untitled.glb" id="2_ccp6r"]
 
 [node name="AsteroidSkybox" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_1hblr")
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(-0.105726, -0.0416122, 0.0395863, -0.0368891, -0.0143628, -0.11362, 0.044021, -0.111976, -0.000137289, -6.48563, -0.521476, -10.7079)

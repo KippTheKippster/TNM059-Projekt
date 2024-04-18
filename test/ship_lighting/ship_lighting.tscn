@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3fudc6210qef"]
+
+[ext_resource type="PackedScene" uid="uid://dpjunjjl1go52" path="res://test/ship_lighting/scene.gltf" id="1_6a1aj"]
+[ext_resource type="LightmapGIData" uid="uid://bopwf0uk5qg7o" path="res://test/ship_lighting/ship_lighting.lmbake" id="2_ljl00"]
+[ext_resource type="Texture2D" uid="uid://goxof76xptxg" path="res://assets/skybox/PanoramaSpaceSkyTexture.hdr" id="3_r84fy"]
+[ext_resource type="PackedScene" uid="uid://6gt3lboyigry" path="res://assets/asteroid belt/untitled.glb" id="3_ysuif"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmxt0"]
+panorama = ExtResource("3_r84fy")
+
+[sub_resource type="Sky" id="Sky_t3aeh"]
+sky_material = SubResource("PanoramaSkyMaterial_vmxt0")
+radiance_size = 4
+
+[sub_resource type="Environment" id="Environment_0icwb"]
+background_mode = 2
+background_energy_multiplier = 4.92
+sky = SubResource("Sky_t3aeh")
+tonemap_mode = 2
+tonemap_exposure = 0.06
+tonemap_white = 3.0
+adjustment_enabled = true
+adjustment_contrast = 1.2
+
+[node name="ShipLighting" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_6a1aj")]
+transform = Transform3D(0.0455946, 0, 0, 0, 0.0418598, 0, 0, 0, 0.0212214, -0.0738606, 2.38419e-07, -43.6264)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.903335, 0.0574714, -0.425068, 0, 0.990983, 0.133986, 0.428935, -0.121034, 0.89519, -9.306, 6.075, -6.623)
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+transform = Transform3D(1, -7.45058e-09, 3.72529e-09, 0, 1, -2.98023e-08, 7.45058e-09, 2.98023e-08, 1, 4.76837e-07, 9.53674e-07, 0)
+quality = 0
+light_data = ExtResource("2_ljl00")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.669014, -0.0672291, 0.740203, 0.00173842, 0.99604, 0.0888943, -0.743248, -0.0581847, 0.666481, 5.45221, 14.491, -9.43929)
+light_energy = 80.0
+light_angular_distance = 0.58
+shadow_enabled = true
+
+[node name="UnderLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.97719, 1.45613e-08, 0.212366, 0.0337483, 0.987292, -0.155291, -0.209667, 0.158916, 0.964772, -13.1092, -1.77757, -18.2328)
+light_color = Color(0.741176, 0.823529, 1, 1)
+light_energy = 4.0
+light_angular_distance = 27.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0icwb")
+
+[node name="untitled" parent="." instance=ExtResource("3_ysuif")]
+transform = Transform3D(0.687227, -0.472318, 0.551937, 0.566406, 0.824126, 0, -0.454866, 0.312621, 0.833886, 45.329, -7.665, -28.897)
+
+[node name="untitled2" parent="." instance=ExtResource("3_ysuif")]
+transform = Transform3D(0.039279, 0.971653, -0.233125, -0.0219692, -0.232409, -0.97237, -0.998987, 0.0433153, 0.0122176, 38.199, -7.665, -50.857)

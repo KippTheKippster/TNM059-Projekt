@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://by0pddfu1swes"]
+
+[ext_resource type="Shader" uid="uid://ed6ajuyc2rk5" path="res://athmosphere_shader.tres" id="1_clrb1"]
+[ext_resource type="Texture2D" uid="uid://byxtxxpn7eiee" path="res://assets/earth/2k_earth_daymap.jpg" id="1_q4g7j"]
+[ext_resource type="Texture2D" uid="uid://dqx5xand8b0fr" path="res://assets/earth/2k_earth_specular_map.jpg" id="2_by760"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_csrly"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ihuvc"]
+sky_material = SubResource("ProceduralSkyMaterial_csrly")
+
+[sub_resource type="Environment" id="Environment_00gjc"]
+background_mode = 2
+sky = SubResource("Sky_ihuvc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_auy4s"]
+resource_name = "Material.001"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_q4g7j")
+metallic_specular = 0.56
+roughness = 0.5
+roughness_texture = ExtResource("2_by760")
+emission_texture = ExtResource("1_q4g7j")
+backlight = Color(3, 4, 5, 1)
+refraction_scale = 1.0
+grow_amount = -3.81
+
+[sub_resource type="SphereMesh" id="SphereMesh_p4dh0"]
+radial_segments = 128
+rings = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ef26f"]
+render_priority = 0
+shader = ExtResource("1_clrb1")
+shader_parameter/ColorParameter = Color(0.282353, 0.443137, 0.580392, 1)
+shader_parameter/Power = 1.575
+
+[sub_resource type="SphereMesh" id="SphereMesh_jpadq"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_00gjc")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_auy4s")
+mesh = SubResource("SphereMesh_p4dh0")
+
+[node name="Atmosphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.01957, 0, 0, 0, 1.01957, 0, 0, 0, 1.01957, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_ef26f")
+mesh = SubResource("SphereMesh_jpadq")

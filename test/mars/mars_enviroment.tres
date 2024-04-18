@@ -1,0 +1,33 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://bbxwhj6v0ux26"]
+
+[ext_resource type="Texture2D" uid="uid://goxof76xptxg" path="res://assets/skybox/PanoramaSpaceSkyTexture.hdr" id="1_q3xjl"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmxt0"]
+panorama = ExtResource("1_q3xjl")
+
+[sub_resource type="Sky" id="Sky_ujc8i"]
+sky_material = SubResource("PanoramaSkyMaterial_vmxt0")
+radiance_size = 4
+
+[resource]
+background_mode = 2
+background_energy_multiplier = 0.25
+sky = SubResource("Sky_ujc8i")
+sky_custom_fov = 98.0
+sky_rotation = Vector3(0, -3.14159, 0)
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssao_intensity = 2.5
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_bloom = 0.69
+fog_light_color = Color(0.0235294, 0.0156863, 0.0901961, 1)
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+adjustment_enabled = true

@@ -1,0 +1,329 @@
+[gd_scene load_steps=37 format=3 uid="uid://xown0j27i7yx"]
+
+[ext_resource type="Texture2D" uid="uid://dbr0kwnu6mkqe" path="res://test/mars/8k_mars.jpg" id="1_lyr0c"]
+[ext_resource type="Texture2D" uid="uid://crf2rvvk7lcos" path="res://test/mars/2k_mars.jpg" id="1_s35rr"]
+[ext_resource type="Texture2D" uid="uid://dd4lr67yl4rmw" path="res://test/mars/fair_clouds_8k.jpg" id="3_00xmf"]
+[ext_resource type="Environment" uid="uid://bbxwhj6v0ux26" path="res://test/mars/mars_enviroment.tres" id="4_7jdip"]
+[ext_resource type="LightmapGIData" uid="uid://b4skcbiepslug" path="res://test/mars/mars.lmbake" id="5_0v3qf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_g8pwc"]
+lightmap_size_hint = Vector2i(17, 9)
+add_uv2 = true
+radial_segments = 1024
+rings = 512
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_88513"]
+expanded_output_ports = [0]
+source = 5
+texture = ExtResource("1_s35rr")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_k07q8"]
+parameter_name = "Albedo"
+texture_type = 1
+
+[sub_resource type="Gradient" id="Gradient_m7v5b"]
+colors = PackedColorArray(0.180005, 0.180005, 0.180005, 1, 0.219501, 0.219501, 0.219501, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0x4d8"]
+gradient = SubResource("Gradient_m7v5b")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2677r"]
+texture = SubResource("GradientTexture1D_0x4d8")
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_p0m5g"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_35efe"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_tya5m"]
+parameter_name = "Strength"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_4ud87"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_1l3jk"]
+parameter_name = "Height"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_fyw5a"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_3o7fx"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_cm78e"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_nnvi3"]
+texture = ExtResource("1_lyr0c")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_48edf"]
+input_name = "normal"
+
+[sub_resource type="VisualShader" id="VisualShader_8jvtp"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, world_vertex_coords;
+
+uniform sampler2D tex_vtx_8;
+uniform float Strength;
+uniform sampler2D Albedo : source_color;
+uniform sampler2D tex_frg_6;
+
+
+
+void vertex() {
+// Input:6
+	vec3 n_out6p0 = VERTEX;
+
+
+// Input:9
+	vec3 n_out9p0 = NORMAL;
+
+
+// Texture2D:8
+	vec4 n_out8p0 = texture(tex_vtx_8, UV);
+
+
+// FloatParameter:12
+	float n_out12p0 = Strength;
+
+
+// FloatOp:13
+	float n_out13p0 = n_out8p0.x * n_out12p0;
+
+
+// VectorOp:11
+	vec3 n_out11p0 = n_out9p0 * vec3(n_out13p0);
+
+
+// VectorOp:7
+	vec3 n_out7p0 = n_out6p0 + n_out11p0;
+
+
+// Output:0
+	VERTEX = n_out7p0;
+
+
+}
+
+void fragment() {
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Albedo, UV);
+
+
+// Texture2D:6
+	vec4 n_out6p0 = texture(tex_frg_6, UV);
+
+
+// FloatOp:7
+	float n_out7p0 = n_out2p0.x * n_out6p0.x;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ROUGHNESS = n_out2p0.x;
+	SPECULAR = n_out7p0;
+
+
+}
+"
+flags/world_vertex_coords = true
+nodes/vertex/0/position = Vector2(620, 60)
+nodes/vertex/2/node = SubResource("VisualShaderNodeTexture2DParameter_1l3jk")
+nodes/vertex/2/position = Vector2(-980, -80)
+nodes/vertex/4/node = SubResource("VisualShaderNodeTexture_fyw5a")
+nodes/vertex/4/position = Vector2(-580, 360)
+nodes/vertex/6/node = SubResource("VisualShaderNodeInput_3o7fx")
+nodes/vertex/6/position = Vector2(-320, -200)
+nodes/vertex/7/node = SubResource("VisualShaderNodeVectorOp_cm78e")
+nodes/vertex/7/position = Vector2(380, -80)
+nodes/vertex/8/node = SubResource("VisualShaderNodeTexture_nnvi3")
+nodes/vertex/8/position = Vector2(-460, 0)
+nodes/vertex/9/node = SubResource("VisualShaderNodeInput_48edf")
+nodes/vertex/9/position = Vector2(-380, -100)
+nodes/vertex/11/node = SubResource("VisualShaderNodeVectorOp_35efe")
+nodes/vertex/11/position = Vector2(160, -80)
+nodes/vertex/12/node = SubResource("VisualShaderNodeFloatParameter_tya5m")
+nodes/vertex/12/position = Vector2(-280, 240)
+nodes/vertex/13/node = SubResource("VisualShaderNodeFloatOp_4ud87")
+nodes/vertex/13/position = Vector2(-20, 80)
+nodes/vertex/connections = PackedInt32Array(2, 0, 4, 2, 6, 0, 7, 0, 7, 0, 0, 0, 9, 0, 11, 0, 11, 0, 7, 1, 12, 0, 13, 1, 13, 0, 11, 1, 8, 0, 13, 0)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_88513")
+nodes/fragment/2/position = Vector2(-320, 60)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture2DParameter_k07q8")
+nodes/fragment/5/position = Vector2(-680, -100)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTexture_2677r")
+nodes/fragment/6/position = Vector2(-180, 300)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_p0m5g")
+nodes/fragment/7/position = Vector2(140, 240)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 5, 0, 2, 2, 6, 0, 7, 1, 2, 0, 7, 0, 7, 0, 0, 4, 2, 0, 0, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_84t3w"]
+render_priority = 0
+shader = SubResource("VisualShader_8jvtp")
+shader_parameter/Strength = 0.01
+shader_parameter/Albedo = ExtResource("1_lyr0c")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ylgis"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_rc8tg"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_jv733"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_s3u3q"]
+texture = ExtResource("3_00xmf")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorLen" id="VisualShaderNodeVectorLen_x0e0v"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_3doce"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_4r5p3"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_s6chc"]
+output_port_for_preview = 0
+parameter_name = "ScrollSpeed"
+default_value_enabled = true
+default_value = Vector2(0.01, 0.02)
+
+[sub_resource type="VisualShader" id="VisualShader_yghio"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+
+uniform vec2 ScrollSpeed = vec2(0.010000, 0.020000);
+uniform sampler2D tex_frg_2 : source_color;
+
+
+
+void fragment() {
+// Vector2Parameter:9
+	vec2 n_out9p0 = ScrollSpeed;
+
+
+// Input:8
+	float n_out8p0 = TIME;
+
+
+// VectorOp:11
+	vec2 n_out11p0 = n_out9p0 * vec2(n_out8p0);
+
+
+// Input:5
+	vec2 n_out5p0 = UV;
+
+
+// VectorOp:10
+	vec2 n_out10p0 = n_out11p0 + n_out5p0;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, n_out10p0);
+
+
+// VectorLen:4
+	float n_out4p0 = length(vec3(n_out2p0.xyz));
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA = n_out4p0;
+
+
+}
+"
+graph_offset = Vector2(-844.885, -41.5445)
+flags/depth_prepass_alpha = true
+nodes/fragment/0/position = Vector2(480, 160)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_s3u3q")
+nodes/fragment/2/position = Vector2(-100, 40)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorLen_x0e0v")
+nodes/fragment/4/position = Vector2(160, 240)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_3doce")
+nodes/fragment/5/position = Vector2(-1220, 280)
+nodes/fragment/8/node = SubResource("VisualShaderNodeInput_4r5p3")
+nodes/fragment/8/position = Vector2(-1220, 160)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVec2Parameter_s6chc")
+nodes/fragment/9/position = Vector2(-1260, -240)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorOp_rc8tg")
+nodes/fragment/10/position = Vector2(-680, 240)
+nodes/fragment/11/node = SubResource("VisualShaderNodeVectorOp_jv733")
+nodes/fragment/11/position = Vector2(-900, 80)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 2, 0, 4, 0, 5, 0, 10, 1, 11, 0, 10, 0, 8, 0, 11, 1, 9, 0, 11, 0, 4, 0, 0, 1, 10, 0, 2, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_spks5"]
+render_priority = 0
+shader = SubResource("VisualShader_yghio")
+shader_parameter/ScrollSpeed = Vector2(0.001, 0.002)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dx1ka"]
+auto_exposure_scale = 0.05
+dof_blur_far_enabled = true
+dof_blur_far_distance = 87.2
+dof_blur_amount = 0.01
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u2y3a"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_ebyyp"]
+density = 0.439
+albedo = Color(0.65098, 0.227451, 0.0862745, 1)
+edge_fade = 0.254912
+
+[node name="Mars" type="Node3D"]
+transform = Transform3D(45.1495, 0, 0, 0, 45.1495, 0, 0, 0, 45.1495, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.920704, 0.383451, -0.072591, 0.330057, 0.864335, 0.379456, 0.208246, 0.325408, -0.922358, 0, 0.846418, 0)
+light_energy = 2.24
+shadow_enabled = true
+shadow_opacity = 0.85
+
+[node name="UnderLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.896299, 0.412566, -0.162598, -0.44345, 0.833354, -0.329958, -0.000627279, 0.367845, 0.929887, 0.281545, 0.56332, 0.299201)
+visible = false
+light_color = Color(0.321569, 0.537255, 1, 1)
+light_energy = 0.04
+light_angular_distance = 27.0
+shadow_enabled = true
+
+[node name="Planet" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.257991, 0.0938553, 0.961578, -0.873857, 0.447175, 0.190809, -0.412085, -0.889509, 0.197383, 0, 0, 0)
+mesh = SubResource("SphereMesh_g8pwc")
+surface_material_override/0 = SubResource("ShaderMaterial_84t3w")
+
+[node name="Clouds" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.02587, -0.0679558, 0.0741607, 0, 0.759976, 0.696389, -0.100587, -0.693066, 0.756348, 0, 0, 0)
+mesh = SubResource("SphereMesh_ylgis")
+surface_material_override/0 = SubResource("ShaderMaterial_spks5")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.958323, -0.285688, 0, 0.285688, 0.958323, 0, 0, 0, 1, 0.003, 0.503, 0.264)
+fov = 61.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("4_7jdip")
+camera_attributes = SubResource("CameraAttributesPractical_dx1ka")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3541, 0.508578, 0.118864)
+visible = false
+mesh = SubResource("PlaneMesh_u2y3a")
+surface_material_override/0 = SubResource("ShaderMaterial_spks5")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
+shape = 0
+material = SubResource("FogMaterial_ebyyp")
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 0
+light_data = ExtResource("5_0v3qf")

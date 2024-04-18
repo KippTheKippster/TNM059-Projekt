@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://oaje1aorj7mw"]
+
+[ext_resource type="PackedScene" uid="uid://donmiodr0aahh" path="res://assets/earth/earth.glb" id="1_qe2n8"]
+[ext_resource type="Texture2D" uid="uid://byxtxxpn7eiee" path="res://assets/earth/2k_earth_daymap.jpg" id="2_0nyux"]
+[ext_resource type="Script" path="res://assets/earth/athmosphere_scale_listener.gd" id="2_uhegv"]
+[ext_resource type="Texture2D" uid="uid://dqx5xand8b0fr" path="res://assets/earth/2k_earth_specular_map.jpg" id="3_l2m4n"]
+[ext_resource type="PackedScene" uid="uid://c36velgas3n3k" path="res://addons/zylann.atmosphere/planet_atmosphere.tscn" id="4_lyh5v"]
+[ext_resource type="Script" path="res://addons/zylann.atmosphere/scaling_planet_atmosphere.gd" id="5_adfl7"]
+[ext_resource type="Shader" path="res://addons/zylann.atmosphere/shaders/planet_atmosphere_clouds.gdshader" id="7_1ctlg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgghh"]
+resource_name = "Material.001"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_0nyux")
+metallic_specular = 0.56
+roughness = 0.5
+roughness_texture = ExtResource("3_l2m4n")
+emission_texture = ExtResource("2_0nyux")
+backlight = Color(3, 4, 5, 1)
+refraction_scale = 1.0
+grow_amount = -3.81
+
+[node name="Earth" node_paths=PackedStringArray("target") instance=ExtResource("1_qe2n8")]
+script = ExtResource("2_uhegv")
+target = NodePath("Node/PlanetAthmosphere")
+
+[node name="Sphere" parent="." index="0"]
+transform = Transform3D(3.29254, 0, 0, 0, 3.29254, 0, 0, 0, 3.29254, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_rgghh")
+
+[node name="Node" type="Node" parent="." index="1"]
+
+[node name="PlanetAthmosphere" parent="Node" index="0" node_paths=PackedStringArray("planet") instance=ExtResource("4_lyh5v")]
+transform = Transform3D(0.995565, 0, 0, 0, 0.995565, 0, 0, 0, 0.995565, 0, 0, 0)
+script = ExtResource("5_adfl7")
+initial_radius = 0.01
+initial_athmosphere_height = 3.77
+planet = NodePath("../..")
+planet_radius = 0.01
+atmosphere_height = 3.77
+sun_path = NodePath("../../DirectionalLight3D")
+custom_shader = ExtResource("7_1ctlg")
+shader_params/u_density = 1.865
+shader_params/u_atmosphere_ambient_color = Color(0, 0, 0.002, 1)
+shader_params/u_cloud_shape_invert = 0.0
+shader_params/u_cloud_coverage_bias = 0.0
+shader_params/u_cloud_shape_factor = 0.8
+shader_params/u_cloud_shape_scale = 1.0
+shader_params/u_cloud_density_scale = 50.0
+shader_params/u_cloud_bottom = 0.2
+shader_params/u_cloud_top = 0.5
+shader_params/u_cloud_blend = 0.5
+shader_params/u_cloud_shape_texture = null
+shader_params/u_cloud_coverage_cubemap = null
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.848288, 0.529534, 0, -0.529534, 0.848288, 0, 0, 0)
+visible = false
+layers = 4
