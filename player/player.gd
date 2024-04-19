@@ -9,6 +9,7 @@ signal damaged
 @onready var shoot_marker_3d: Marker3D = $RotationContainer/ShootMarker3D
 @onready var missle_target_ray_cast: MissileTargetRayCast = $RotationContainer/MissleTargetRayCast
 @onready var shoot_cooldown_timer: Timer = $ShootCooldownTimer
+@onready var state_chart: StateChart = $StateChart
 
 const PLAYER_BULLET = preload("res://player/player_bullet.tscn")
 const PLAYER_MISSILE = preload("res://player/player_missile.tscn")
@@ -31,10 +32,15 @@ var path_velocity: Vector3
 var true_velocity: Vector3
 
 var is_firing_missiles: bool
-var active_missiles_count: int
+var active_missiles_count: int:
+	get: return active_missiles_count
+	set(value):
+		active_missiles_count = value
+		state_chart.set_expression_property("active_missiles", value)
 
 func _ready() -> void:
 	max_rotation_degrees = max_rotation_degrees
+	active_missiles_count = active_missiles_count
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped() and not is_firing_missiles:
@@ -43,34 +49,16 @@ func _process(_delta: float) -> void:
 		bullet.global_position = shoot_marker_3d.global_position
 		bullet.global_rotation = shoot_marker_3d.global_rotation
 		shoot_cooldown_timer.start()
-		if not is_firing_missiles:
-			missle_target_ray_cast.is_active = true
 	
-	if Input.is_action_just_released("shoot"): #FIXME This is very janky
-		if is_firing_missiles: return
-		if missle_target_ray_cast.missile_targets.size() == 0: return
-		
-		is_firing_missiles = true
-		missle_target_ray_cast.is_active = false
-		
-		for target in missle_target_ray_cast.missile_targets:
-			if not is_instance_valid(target): continue
-			var missile := PLAYER_MISSILE.instantiate() as PlayerMissile
-			missile.missile_target = target
-			missile.direction = Vector3.DOWN
-			active_missiles_count += 1
-			missile.tree_exited.connect(func(): active_missiles_count -= 1)
-			owner.add_sibling(missile)
-			missile.global_position = shoot_marker_3d.global_position
-			await get_tree().create_timer(0.1).timeout
-		
-		is_firing_missiles = false
-		missle_target_ray_cast.missile_targets.clear()
+	if Input.is_action_pressed("shoot"):
+		state_chart.send_event("fire_press")
+	else:
+		state_chart.send_event("fire_release")
 	
 	if Input.is_action_just_pressed("lean_left"):
-		ship_animation_player.play("spin_left")
+		state_chart.send_event("roll_left")
 	elif Input.is_action_just_pressed("lean_right"):
-		ship_animation_player.play("spin_right")
+		state_chart.send_event("roll_right")
 
 func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "down", "up")
@@ -115,3 +103,33 @@ func _physics_process(delta: float) -> void:
 
 func _on_health_area_damaged(hurt_area: HurtArea) -> void:
 	damaged.emit()
+
+func _on_missile_active_state_physics_processing(delta: float) -> void: #TODO change to state_entered!
+	missle_target_ray_cast.is_active = true
+
+func _on_missile_inactive_state_physics_processing(delta: float) -> void:
+	missle_target_ray_cast.is_active = false
+
+func _on_missile_active_state_exited() -> void:
+	if missle_target_ray_cast.missile_targets.size() == 0: return
+	
+	for target in missle_target_ray_cast.missile_targets:
+		if not is_instance_valid(target): continue
+		var missile := PLAYER_MISSILE.instantiate() as PlayerMissile
+		missile.missile_target = target
+		missile.direction = Vector3.DOWN
+		active_missiles_count += 1
+		missile.tree_exited.connect(func(): active_missiles_count -= 1)
+		owner.add_sibling(missile)
+		missile.global_position = shoot_marker_3d.global_position
+		await get_tree().create_timer(0.1).timeout
+	
+	missle_target_ray_cast.missile_targets.clear()
+
+
+func _on_ship_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"spin_right":
+			state_chart.send_event("roll_end")
+		"spin_left":
+			state_chart.send_event("roll_end")

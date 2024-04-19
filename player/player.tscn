@@ -1,10 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=20 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
 [ext_resource type="PackedScene" uid="uid://b2x2oamlwh8xs" path="res://assets/ship.blend" id="2_rs7pv"]
 [ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="2_xq6mt"]
 [ext_resource type="Script" path="res://player/missile_target_raycast.gd" id="4_7h3uj"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="6_can2k"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="7_l0jdq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_elmug"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_765a5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_csslr"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/expression_guard.gd" id="11_gw10l"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/animation_player_state.gd" id="11_kxvfd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhyyo"]
 size = Vector3(1.8642, 1, 2)
@@ -154,6 +161,10 @@ _data = {
 radius = 0.392519
 height = 2.45711
 
+[sub_resource type="Resource" id="Resource_ufqae"]
+script = ExtResource("11_gw10l")
+expression = "active_missiles == 0"
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 4
 collision_mask = 4
@@ -226,4 +237,87 @@ frame = 1
 wait_time = 0.1
 one_shot = true
 
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("6_can2k")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("7_l0jdq")
+
+[node name="Control" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_elmug")
+initial_state = NodePath("Regular")
+
+[node name="Regular" type="Node" parent="StateChart/Root/Control"]
+script = ExtResource("9_765a5")
+
+[node name="Cutscene" type="Node" parent="StateChart/Root/Control"]
+script = ExtResource("9_765a5")
+
+[node name="Action" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_elmug")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Action"]
+script = ExtResource("9_765a5")
+
+[node name="RollRight" type="Node" parent="StateChart/Root/Action/Idle"]
+script = ExtResource("10_csslr")
+to = NodePath("../../CompoundState/RollRight")
+event = &"roll_right"
+
+[node name="RollLeft" type="Node" parent="StateChart/Root/Action/Idle"]
+script = ExtResource("10_csslr")
+to = NodePath("../../CompoundState/RollLeft")
+event = &"roll_left"
+
+[node name="CompoundState" type="Node" parent="StateChart/Root/Action"]
+script = ExtResource("8_elmug")
+initial_state = NodePath("RollRight")
+
+[node name="RollRight" type="Node" parent="StateChart/Root/Action/CompoundState"]
+script = ExtResource("11_kxvfd")
+animation_player = NodePath("../../../../../RotationContainer/ShipContainer/ShipAnimationPlayer")
+animation_name = &"spin_right"
+
+[node name="RollEnd" type="Node" parent="StateChart/Root/Action/CompoundState/RollRight"]
+script = ExtResource("10_csslr")
+to = NodePath("../../../Idle")
+event = &"roll_end"
+
+[node name="RollLeft" type="Node" parent="StateChart/Root/Action/CompoundState"]
+script = ExtResource("11_kxvfd")
+animation_player = NodePath("../../../../../RotationContainer/ShipContainer/ShipAnimationPlayer")
+animation_name = &"spin_left"
+
+[node name="RollEnd" type="Node" parent="StateChart/Root/Action/CompoundState/RollLeft"]
+script = ExtResource("10_csslr")
+to = NodePath("../../../Idle")
+event = &"roll_end"
+
+[node name="Missile" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_elmug")
+initial_state = NodePath("Inactive")
+
+[node name="Inactive" type="Node" parent="StateChart/Root/Missile"]
+script = ExtResource("9_765a5")
+
+[node name="Hold" type="Node" parent="StateChart/Root/Missile/Inactive"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Active")
+event = &"fire_press"
+guard = SubResource("Resource_ufqae")
+delay_seconds = 0.3
+
+[node name="Active" type="Node" parent="StateChart/Root/Missile"]
+script = ExtResource("9_765a5")
+
+[node name="Release" type="Node" parent="StateChart/Root/Missile/Active"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Inactive")
+event = &"fire_release"
+
+[connection signal="animation_finished" from="RotationContainer/ShipContainer/ShipAnimationPlayer" to="." method="_on_ship_animation_player_animation_finished"]
 [connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]
+[connection signal="state_physics_processing" from="StateChart/Root/Missile/Inactive" to="." method="_on_missile_inactive_state_physics_processing"]
+[connection signal="state_exited" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_physics_processing"]
