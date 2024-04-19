@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	rotation_degrees = get_noise_as_vector3() * max_rotation * pow(trauma, 2)
 
 func get_noise_as_vector3() -> Vector3:
-	var noise_vector: Vector3
+	var noise_vector: Vector3 = Vector3.ZERO
 	noise.seed = 1
 	noise_vector.x = noise.get_noise_1d(noise_speed * time)
 	noise.seed = 2

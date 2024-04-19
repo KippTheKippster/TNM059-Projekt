@@ -1,16 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://eweijww3514t"]
+[gd_scene load_steps=8 format=3 uid="uid://eweijww3514t"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_32pg7"]
 [ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="2_4fkp5"]
 [ext_resource type="PackedScene" uid="uid://dnn82cvidaypk" path="res://player/missile_target.tscn" id="3_wcjp4"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_r31ry"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_soqu2"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_uvu0c"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_5xeta"]
 
 [node name="Enemy" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_32pg7")
 
 [node name="HealthArea" parent="." instance=ExtResource("2_4fkp5")]
 layer = 2
 
 [node name="MissileTarget" parent="." instance=ExtResource("3_wcjp4")]
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("4_r31ry")
+
+[node name="Active" type="Node" parent="StateChart"]
+script = ExtResource("5_soqu2")
+initial_state = NodePath("Asleep")
+
+[node name="Sleep" type="Node" parent="StateChart/Active"]
+script = ExtResource("7_5xeta")
+to = NodePath("../Asleep")
+event = &"sleep"
+
+[node name="Asleep" type="Node" parent="StateChart/Active"]
+script = ExtResource("6_uvu0c")
+
+[node name="Awake" type="Node" parent="StateChart/Active/Asleep"]
+script = ExtResource("7_5xeta")
+event = &"awake"
 
 [connection signal="ready" from="." to="." method="_on_enemy_ready"]
 [connection signal="died" from="HealthArea" to="." method="_on_health_area_died"]

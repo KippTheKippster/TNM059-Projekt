@@ -3,16 +3,20 @@ extends Node3D
 @onready var player: Player = $Player
 @onready var camera_shaker: CameraShaker = $CameraShaker
 
-@export var velocity: Vector3 = Vector3.ZERO
+@export var path_follow: PathFollow3D
+@export var speed: float = 5.0
 @onready var boundaries: AnimatableBody3D = $Boundaries
 
-func _process(delta: float):
-	position += basis * velocity * delta #FIXME FIX ROTATION (If rotated it doesn't behave as expected)
-	player.path_velocity = basis * velocity
+var prev_position: Vector3
 
-func _physics_process(delta: float):
+func _process(delta: float):
+	prev_position = global_position
+	path_follow.progress += speed * delta
+	player.path_velocity = global_position - prev_position
+
+func _physics_process(_delta: float):
 	boundaries.position = Vector3.ZERO
-	boundaries.constant_linear_velocity = velocity
+	boundaries.rotation = Vector3.ZERO
 
 func _on_player_damaged() -> void:
 	camera_shaker.shake(1)

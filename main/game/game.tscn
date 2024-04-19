@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=9 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
@@ -9,6 +9,13 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
 albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_j8dlu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, -9, 0, 0, -80, -4, 0, 0, 4, 0, 0, 10, 0, -89, 0, 0, 0, 0, 0, 0, 22, 0, -89),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_idndb")
@@ -81,9 +88,20 @@ material_override = SubResource("StandardMaterial3D_1h3m5")
 use_collision = true
 size = Vector3(3, 3, 3)
 
-[node name="PlayerController" parent="." instance=ExtResource("1_kn7at")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.4623)
-velocity = Vector3(0, 0, -5)
+[node name="PlayerController" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("1_kn7at")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -69.2619)
+path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_ukv0f")
+
+[node name="PlayerPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_j8dlu")
+
+[node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -69.2619)
+progress = 69.2618
+loop = false
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
+remote_path = NodePath("../../../PlayerController")

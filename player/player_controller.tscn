@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://2f2yv28t3tjk"]
+[gd_scene load_steps=11 format=3 uid="uid://2f2yv28t3tjk"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_b1qqc"]
 [ext_resource type="PackedScene" uid="uid://bwa4jj4c0gee" path="res://player/player_camera.tscn" id="1_xhplf"]
 [ext_resource type="PackedScene" uid="uid://vyiym37a71px" path="res://player/player.tscn" id="2_mmxs2"]
 [ext_resource type="Script" path="res://player/camera_shaker.gd" id="3_3c780"]
 [ext_resource type="PackedScene" uid="uid://dk0xskpejeyr8" path="res://player/player_ui.tscn" id="4_ctj3y"]
+[ext_resource type="Script" path="res://player/enemy_activator.gd" id="5_kcsdw"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_y27u4"]
 frequency = 0.0785
@@ -16,9 +17,11 @@ size = Vector3(20, 1, 5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_b5vyf"]
 size = Vector3(1, 10, 5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0fcf"]
+size = Vector3(32, 32, 17.4946)
+
 [node name="PlayerController" type="Node3D"]
 script = ExtResource("1_b1qqc")
-velocity = Vector3(0, 0, -10)
 
 [node name="Player" parent="." instance=ExtResource("2_mmxs2")]
 
@@ -54,7 +57,18 @@ shape = SubResource("BoxShape3D_b5vyf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 1.5, 0)
 shape = SubResource("BoxShape3D_b5vyf")
 
+[node name="EnemyActivator" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_kcsdw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyActivator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.25269)
+shape = SubResource("BoxShape3D_u0fcf")
+
 [node name="PlayerUi" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_ctj3y")]
 player = NodePath("../Player")
 
 [connection signal="damaged" from="Player" to="." method="_on_player_damaged"]
+[connection signal="body_entered" from="EnemyActivator" to="EnemyActivator" method="_on_body_entered"]
+[connection signal="body_exited" from="EnemyActivator" to="EnemyActivator" method="_on_body_exited"]

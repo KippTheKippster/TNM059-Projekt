@@ -3,6 +3,8 @@ class_name Enemy
 
 var player: Player
 
+@onready var state_chart: StateChart = $StateChart
+
 func _on_enemy_ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as Player
 

@@ -98,10 +98,12 @@ func _physics_process(delta: float) -> void:
 	#Vertical Rotation
 	rotation_container.rotation.x = lerp(rotation_container.rotation.x, rotaion_target.x, rotation_weight.y * delta)
 	
+	var prev_velocity := velocity
+	velocity *= global_transform.basis.inverse()
 	move_and_slide()
+	velocity = prev_velocity
 
-
-func _on_health_area_damaged(hurt_area: HurtArea) -> void:
+func _on_health_area_damaged(_hurt_area: HurtArea) -> void:
 	damaged.emit()
 
 func _on_missile_active_state_physics_processing(delta: float) -> void: #TODO change to state_entered!
@@ -109,7 +111,7 @@ func _on_missile_active_state_physics_processing(delta: float) -> void: #TODO ch
 
 func _on_missile_inactive_state_physics_processing(delta: float) -> void:
 	missle_target_ray_cast.is_active = false
-
+	
 func _on_missile_active_state_exited() -> void:
 	if missle_target_ray_cast.missile_targets.size() == 0: return
 	
