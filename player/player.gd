@@ -61,9 +61,9 @@ func _process(_delta: float) -> void:
 		state_chart.send_event("roll_right")
 
 func _physics_process(delta: float) -> void:
-	var input_dir = Input.get_vector("left", "right", "down", "up")
-	var velocity_2d: Vector2 = Vector2(velocity.x, velocity.y)
-	var weight: float = acceleration
+	var input_dir := Input.get_vector("left", "right", "down", "up")
+	var velocity_2d := Vector2(velocity.x, velocity.y)
+	var weight := acceleration
 	if input_dir == Vector2.ZERO:
 		weight = deceleration
 		
@@ -73,24 +73,25 @@ func _physics_process(delta: float) -> void:
 	true_velocity = velocity + path_velocity
 	
 	#var rotation_2d = Vector2(rotation_container.rotation.x, rotation_container.rotation.y)
-	var rotaion_target = Vector3(
+	var rotaion_target := Vector3(
 		max_rotation.x * input_dir.y,
 		-max_rotation.y * input_dir.x,
 		-max_rotation.z * input_dir.x
 		)
-	var horizontal_rotation_target = Vector2(
+	
+	var horizontal_rotation_target := Vector2(
 		rotaion_target.y,
 		rotaion_target.z
 	)
 		
-	var rotation_weight: Vector2 = Vector2.ONE * rotation_acceleration
+	var rotation_weight := Vector2.ONE * rotation_acceleration
 	if input_dir.x == 0:
 		rotation_weight.x = rotation_deceleration
 	if input_dir.y == 0:
 		rotation_weight.y = rotation_deceleration
 	
 	#Horizontal Rotation
-	var horizontal_rotation: Vector2 = Vector2(rotation_container.rotation.y, rotation_container.rotation.z) 
+	var horizontal_rotation := Vector2(rotation_container.rotation.y, rotation_container.rotation.z) 
 	horizontal_rotation = horizontal_rotation.lerp(horizontal_rotation_target, rotation_weight.x * delta)
 	rotation_container.rotation.y = horizontal_rotation.x
 	rotation_container.rotation.z = horizontal_rotation.y
@@ -98,8 +99,9 @@ func _physics_process(delta: float) -> void:
 	#Vertical Rotation
 	rotation_container.rotation.x = lerp(rotation_container.rotation.x, rotaion_target.x, rotation_weight.y * delta)
 	
+	#Move
 	var prev_velocity := velocity
-	velocity *= global_transform.basis.inverse()
+	velocity *= global_transform.basis.inverse() #Fixes so that the rotation of PlayerController doesn't affect movement of player
 	move_and_slide()
 	velocity = prev_velocity
 
