@@ -21,3 +21,8 @@ func activate() -> void:
 	if is_active: return
 	is_active = true
 	marker_sprite.visible = true
+
+func deactivate() -> void:
+	if !is_active: return
+	is_active = false
+	marker_sprite.visible = false

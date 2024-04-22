@@ -108,22 +108,29 @@ func _physics_process(delta: float) -> void:
 func _on_health_area_damaged(_hurt_area: HurtArea) -> void:
 	damaged.emit()
 
-func _on_missile_active_state_physics_processing(delta: float) -> void: #TODO change to state_entered!
+func _on_missile_active_state_entered():
 	missle_target_ray_cast.is_active = true
 
-func _on_missile_inactive_state_physics_processing(delta: float) -> void:
+func _on_missile_inactive_state_entered():
 	missle_target_ray_cast.is_active = false
-	
+
 func _on_missile_active_state_exited() -> void:
 	if missle_target_ray_cast.missile_targets.size() == 0: return
 	
-	for target in missle_target_ray_cast.missile_targets:
-		if not is_instance_valid(target): continue
+	while missle_target_ray_cast.missile_targets.size() > 0:
+		var target := missle_target_ray_cast.missile_targets[0]
+		missle_target_ray_cast.missile_targets.remove_at(0)
+		if not is_instance_valid(target): 
+			continue
 		var missile := PLAYER_MISSILE.instantiate() as PlayerMissile
 		missile.missile_target = target
 		missile.direction = Vector3.DOWN
 		active_missiles_count += 1
-		missile.tree_exited.connect(func(): active_missiles_count -= 1)
+		missile.tree_exited.connect(func(): 
+			active_missiles_count -= 1
+			if is_instance_valid(missile.missile_target):
+				missile.missile_target.deactivate()
+		)
 		owner.add_sibling(missile)
 		missile.global_position = shoot_marker_3d.global_position
 		await get_tree().create_timer(0.1).timeout

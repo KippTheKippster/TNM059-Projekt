@@ -33,6 +33,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rgghh")
 
 [node name="PlanetAthmosphere" parent="Node" index="0" node_paths=PackedStringArray("planet") instance=ExtResource("4_lyh5v")]
 transform = Transform3D(0.995565, 0, 0, 0, 0.995565, 0, 0, 0, 0.995565, 0, 0, 0)
+visible = false
 script = ExtResource("5_adfl7")
 initial_radius = 0.01
 initial_athmosphere_height = 3.77

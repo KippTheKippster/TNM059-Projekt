@@ -12,8 +12,11 @@ func _ready() -> void:
 	speed = 0
 
 func _process(delta: float) -> void:
-	super._process(delta)
-	if not is_instance_valid(missile_target): return
+	if not is_instance_valid(missile_target): 
+		queue_free()
+		return
+	
 	direction_target = missile_target.global_position - global_position
 	direction = direction.move_toward(direction_target, turn_speed * delta)
 	speed = move_toward(speed, max_speed, acceleration * delta)
+	super._process(delta)

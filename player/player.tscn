@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=21 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
@@ -161,6 +161,8 @@ _data = {
 radius = 0.392519
 height = 2.45711
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_23m8h"]
+
 [sub_resource type="Resource" id="Resource_ufqae"]
 script = ExtResource("11_gw10l")
 expression = "active_missiles == 0"
@@ -209,10 +211,11 @@ shape = SubResource("CapsuleShape3D_7cs1m")
 [node name="ShootMarker3D" type="Marker3D" parent="RotationContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.06048)
 
-[node name="MissleTargetRayCast" type="RayCast3D" parent="RotationContainer"]
-target_position = Vector3(0, 0, -30)
+[node name="MissleTargetRayCast" type="ShapeCast3D" parent="RotationContainer" node_paths=PackedStringArray("target_node")]
+shape = SubResource("BoxShape3D_23m8h")
 collide_with_areas = true
 script = ExtResource("4_7h3uj")
+target_node = NodePath("../Crosshair2")
 
 [node name="Crosshair1" type="Sprite3D" parent="RotationContainer"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -6.25015)
@@ -318,6 +321,8 @@ event = &"fire_release"
 
 [connection signal="animation_finished" from="RotationContainer/ShipContainer/ShipAnimationPlayer" to="." method="_on_ship_animation_player_animation_finished"]
 [connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]
+[connection signal="state_entered" from="StateChart/Root/Missile/Inactive" to="." method="_on_missile_inactive_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Missile/Inactive" to="." method="_on_missile_inactive_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_physics_processing"]
