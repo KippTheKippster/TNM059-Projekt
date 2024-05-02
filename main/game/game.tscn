@@ -44,7 +44,7 @@ transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)
 
 [node name="TurretEnemy" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.71217, -26.6864)
+transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, -5.45364, 1.38429, -29.0803)
 motion_mode = 0
 
 [node name="AttackerShip" parent="Enemies" instance=ExtResource("7_ulmdv")]

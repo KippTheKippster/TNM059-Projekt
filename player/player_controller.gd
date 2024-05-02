@@ -4,6 +4,7 @@ class_name PlayerController
 @onready var player: Player = $Player
 @onready var camera_shaker: CameraShaker = $CameraShaker
 @onready var player_camera: Camera3D = $CameraShaker/PlayerCamera
+@onready var speed_lines_particles: GPUParticles3D = %SpeedLinesParticles
 
 @export var path_follow: PathFollow3D
 @export var path_speed: float = 5.0
@@ -28,6 +29,9 @@ func _process(delta: float):
 		fov_scale = brake_fov_scale
 	else:
 		fov_scale = 1.0
+		
+	speed_lines_particles.emitting = player.boost.active
+	#speed_lines_particles.visible = player.boost.active
 	
 	player_camera.fov = lerp(player_camera.fov, initial_fov * fov_scale, 5 * delta)
 

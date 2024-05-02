@@ -1,7 +1,7 @@
 extends Enemy
 
 const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
-@onready var shoot_marker: Marker3D = $ShootMarker
+@onready var shoot_marker: Marker3D = %ShootMarker
 @onready var small_explosion: Node3D = $SmallExplosion
 @onready var shoot_timer: Timer = $ShootTimer
 
@@ -14,7 +14,9 @@ func _process(delta: float) -> void:
 	var horizontal := Vector2(dif.z, dif.x)
 	var vertical := Vector2(dif.y, horizontal.length())
 	
-	head.rotation = Vector3(vertical.angle(), horizontal.angle(), 0)
+	var angle_x := clamp(vertical.angle(), -PI / 2, PI / 2) as float
+	
+	head.rotation = Vector3(angle_x, horizontal.angle(), 0)
 
 func shoot() -> void:
 	create_bullet()

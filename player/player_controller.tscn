@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://2f2yv28t3tjk"]
+[gd_scene load_steps=13 format=3 uid="uid://2f2yv28t3tjk"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_b1qqc"]
 [ext_resource type="PackedScene" uid="uid://bwa4jj4c0gee" path="res://player/player_camera.tscn" id="1_xhplf"]
 [ext_resource type="PackedScene" uid="uid://vyiym37a71px" path="res://player/player.tscn" id="2_mmxs2"]
 [ext_resource type="Script" path="res://player/camera_shaker.gd" id="3_3c780"]
+[ext_resource type="PackedScene" uid="uid://q3j3ssegkjyb" path="res://player/speed_lines_particles.tscn" id="3_d1kvm"]
 [ext_resource type="PackedScene" uid="uid://dk0xskpejeyr8" path="res://player/player_ui.tscn" id="4_ctj3y"]
 [ext_resource type="Script" path="res://player/enemy_activator.gd" id="5_kcsdw"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_1svny"]
@@ -36,6 +37,10 @@ noise = SubResource("FastNoiseLite_y27u4")
 [node name="PlayerCamera" parent="CameraShaker" node_paths=PackedStringArray("player") instance=ExtResource("1_xhplf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.537, 6.485)
 player = NodePath("../../Player")
+
+[node name="SpeedLinesParticles" parent="CameraShaker/PlayerCamera" instance=ExtResource("3_d1kvm")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.537, -28.4568)
 
 [node name="Boundaries" type="AnimatableBody3D" parent="."]
 transform = Transform3D(1.265, 0, 0, 0, 1.265, 0, 0, 0, 1.265, 0, 0, 0)

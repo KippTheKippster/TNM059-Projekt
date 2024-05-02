@@ -4,6 +4,7 @@ class_name PlayerMissile
 @export var max_speed: float = 25.0
 @export var acceleration: float = 4.0
 @export var turn_speed: float = 10.0
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 var turn_strength: float = 0.05
 
@@ -25,6 +26,7 @@ func _process(delta: float) -> void:
 	#print(strength)
 	direction = direction.move_toward(direction_target, turn_speed * turn_strength * delta)
 	speed = move_toward(speed, max_speed, acceleration * delta)
+	#mesh_instance_3d.look_at(direction)
 	super._process(delta)
 
 
