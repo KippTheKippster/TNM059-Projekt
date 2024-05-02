@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://blhoi7xs1wbau"
-path="res://.godot/imported/cockpit.blend-a55fb0ca41f934719b9f15296758bf82.scn"
+uid="uid://ncwnwq0piciq"
+path="res://.godot/imported/asteroid_single_w_sattelite.blend-780a84eb8cf37f4dcff1c87fb7391e57.scn"
 
 [deps]
 
-source_file="res://assets/cockpit.blend"
-dest_files=["res://.godot/imported/cockpit.blend-a55fb0ca41f934719b9f15296758bf82.scn"]
+source_file="res://assets/asteroid belt/asteroid_single_w_sattelite.blend"
+dest_files=["res://.godot/imported/asteroid_single_w_sattelite.blend-780a84eb8cf37f4dcff1c87fb7391e57.scn"]
 
 [params]
 
