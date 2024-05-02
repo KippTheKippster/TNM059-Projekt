@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://blhoi7xs1wbau"
-path="res://.godot/imported/Cockpit.blend-e00ed5fe9816b3aa44ca753ca87f6938.scn"
+uid="uid://mwsbpyxajve3"
+path="res://.godot/imported/CrabLegs.blend-1cf97dc4722d12486e19440d65392d09.scn"
 
 [deps]
 
-source_file="res://assets/Cockpit.blend"
-dest_files=["res://.godot/imported/Cockpit.blend-e00ed5fe9816b3aa44ca753ca87f6938.scn"]
+source_file="res://assets/asteroid belt/CrabLegs.blend"
+dest_files=["res://.godot/imported/CrabLegs.blend-1cf97dc4722d12486e19440d65392d09.scn"]
 
 [params]
 

@@ -93,7 +93,7 @@ _data = {
 }
 
 [node name="Skewer" instance=ExtResource("1_eaqof")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 0)
 script = ExtResource("2_yjvcp")
 awake_on_collision = false
 

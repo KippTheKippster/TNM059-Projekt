@@ -16,13 +16,13 @@ dest_files=["res://.godot/imported/asteroid_field_rock_boulder_dry_diff_2k.jpg-7
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=1
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=1
 roughness/src_normal="res://assets/asteroid belt/asteroid_field_rock_boulder_dry_diff_2k.jpg"

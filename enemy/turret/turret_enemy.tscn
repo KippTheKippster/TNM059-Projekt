@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bf1xrsy27bg72"]
+[gd_scene load_steps=10 format=3 uid="uid://bf1xrsy27bg72"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_7xlmh"]
 [ext_resource type="Script" path="res://enemy/turret/turret_enemy.gd" id="2_nglpk"]
 [ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="3_t8v2n"]
+[ext_resource type="PackedScene" uid="uid://ba48j6vs8xv7q" path="res://assets/asteroid belt/sattelite.glb" id="3_xdfxl"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_fuqbt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fj8qo"]
@@ -23,8 +24,15 @@ script = ExtResource("2_nglpk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.354348, 0)
 shape = SubResource("BoxShape3D_fj8qo")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+[node name="Sattelite" parent="." index="1" instance=ExtResource("3_xdfxl")]
+transform = Transform3D(0.433281, 0, 0, 0, 0.433281, 0, 0, 0, 0.433281, 0, 0, 0)
+
+[node name="Head" parent="Sattelite/Body" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84888, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.337231, 0, 0, 0, 1, 0, 0.330615, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_ru8kc")
 mesh = SubResource("CylinderMesh_olcp4")
 
@@ -32,21 +40,21 @@ mesh = SubResource("CylinderMesh_olcp4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.381265, 0)
 shape = SubResource("BoxShape3D_k5ts7")
 
-[node name="MissileTarget" parent="." index="3"]
+[node name="MissileTarget" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.258112, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.121075, 0)
 shape = SubResource("BoxShape3D_k5ts7")
 
-[node name="ShootMarker" type="Marker3D" parent="." index="4"]
+[node name="ShootMarker" type="Marker3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02846, 0)
 gizmo_extents = 0.55
 
-[node name="SmallExplosion" parent="." index="5" instance=ExtResource("3_t8v2n")]
+[node name="SmallExplosion" parent="." index="6" instance=ExtResource("3_t8v2n")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
-[node name="ShootTimer" type="Timer" parent="." index="6"]
+[node name="ShootTimer" type="Timer" parent="." index="7"]
 wait_time = 3.0
 
 [node name="Awake" parent="StateChart/Active/Asleep" index="0"]
@@ -58,3 +66,5 @@ script = ExtResource("4_fuqbt")
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="state_entered" from="StateChart/Active/Asleep" to="." method="_on_asleep_state_entered"]
 [connection signal="state_entered" from="StateChart/Active/Awake" to="." method="_on_awake_state_entered"]
+
+[editable path="Sattelite"]

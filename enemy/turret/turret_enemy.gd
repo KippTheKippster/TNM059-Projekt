@@ -5,6 +5,17 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 @onready var small_explosion: Node3D = $SmallExplosion
 @onready var shoot_timer: Timer = $ShootTimer
 
+@onready var head: Node3D = $Sattelite/Body/Head
+
+func _process(delta: float) -> void:
+	var dif := player.global_position - global_position
+	#if name == "TurretEnemy":
+		
+	var horizontal := Vector2(dif.z, dif.x)
+	var vertical := Vector2(dif.y, horizontal.length())
+	
+	head.rotation = Vector3(vertical.angle(), horizontal.angle(), 0)
+
 func shoot() -> void:
 	create_bullet()
 	await get_tree().create_timer(0.2).timeout
