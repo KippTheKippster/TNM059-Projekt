@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://jdgbdhegshdk"]
+
+[ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_fdr80"]
+[ext_resource type="Script" path="res://enemy/attacker ship/attacker_ship.gd" id="2_72tpa"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="2_tojl8"]
+
+[sub_resource type="Curve3D" id="Curve3D_sle0p"]
+_data = {
+"points": PackedVector3Array(-0.0246334, 0, 4.704, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pj7ig"]
+size = Vector3(1.905, 0.64, 2.126)
+
+[sub_resource type="PrismMesh" id="PrismMesh_w60xc"]
+lightmap_size_hint = Vector2i(14, 21)
+
+[sub_resource type="PrismMesh" id="PrismMesh_pm8m0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2kblf"]
+size = Vector3(1, 0.639587, 1.46484)
+
+[node name="AttackerShip" instance=ExtResource("1_fdr80")]
+script = ExtResource("2_72tpa")
+path_follow_speed = 4.0
+
+[node name="Path3D" type="Path3D" parent="." index="0"]
+curve = SubResource("Curve3D_sle0p")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" index="0"]
+transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 0.999998, 0, 0, 0)
+loop = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0414124, 0.0981445)
+shape = SubResource("BoxShape3D_pj7ig")
+
+[node name="Mesh" type="Node3D" parent="." index="2"]
+transform = Transform3D(-0.654879, 0, -5.72513e-08, 0, 0.654879, 0, 5.72513e-08, 0, -0.654879, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
+transform = Transform3D(1, 0, 0, 0, -1.22144e-07, -0.722145, 0, 2.79433, -3.15659e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_w60xc")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" index="1"]
+transform = Transform3D(0.848824, -3.13351e-08, -0.305424, -0.528675, -5.03106e-08, -0.490379, -7.10543e-15, 1.35596, -2.52528e-08, 0.997524, 0, -0.94118)
+mesh = SubResource("PrismMesh_pm8m0")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh" index="2"]
+transform = Transform3D(0.882258, 2.26568e-08, 0.271969, 0.470766, -2.34274e-08, -0.509695, -6.60811e-09, 1.35596, -1.33505e-08, -0.997471, 0, -0.94118)
+mesh = SubResource("PrismMesh_pm8m0")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0414124, -0.232422)
+shape = SubResource("BoxShape3D_2kblf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0414124, -0.232422)
+shape = SubResource("BoxShape3D_2kblf")
+
+[node name="Awake" parent="StateChart/Active/Asleep" index="0"]
+to = NodePath("../../Awake")
+
+[node name="Awake" type="Node" parent="StateChart/Active" index="2"]
+script = ExtResource("2_tojl8")
+
+[connection signal="state_physics_processing" from="StateChart/Active/Awake" to="." method="_on_awake_state_physics_processing"]

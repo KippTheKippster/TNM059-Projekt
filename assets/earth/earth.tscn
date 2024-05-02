@@ -57,5 +57,4 @@ shader_params/u_cloud_coverage_cubemap = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.848288, 0.529534, 0, -0.529534, 0.848288, 0, 0, 0)
-visible = false
 layers = 4

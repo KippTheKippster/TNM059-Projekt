@@ -47,7 +47,7 @@ gizmo_extents = 0.55
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
 [node name="ShootTimer" type="Timer" parent="." index="6"]
-wait_time = 2.0
+wait_time = 3.0
 
 [node name="Awake" parent="StateChart/Active/Asleep" index="0"]
 to = NodePath("../../Awake")

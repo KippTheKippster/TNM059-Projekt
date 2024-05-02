@@ -13,4 +13,4 @@ billboard = 1
 double_sided = false
 texture_filter = 0
 texture = ExtResource("2_u3glk")
-hframes = 2
+hframes = 4

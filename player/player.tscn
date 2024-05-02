@@ -174,7 +174,6 @@ motion_mode = 1
 floor_constant_speed = true
 platform_on_leave = 2
 script = ExtResource("1_wbiqq")
-speed = 8.0
 acceleration = 18.0
 deceleration = 12.0
 max_rotation_degrees = Vector3(25, 35, 25)
@@ -224,7 +223,7 @@ no_depth_test = true
 fixed_size = true
 texture_filter = 0
 texture = ExtResource("2_nxp81")
-hframes = 2
+hframes = 4
 
 [node name="Crosshair2" type="Sprite3D" parent="RotationContainer"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -8.34054)
@@ -233,7 +232,7 @@ no_depth_test = true
 fixed_size = true
 texture_filter = 0
 texture = ExtResource("2_nxp81")
-hframes = 2
+hframes = 4
 frame = 1
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
@@ -256,6 +255,39 @@ script = ExtResource("9_765a5")
 [node name="Cutscene" type="Node" parent="StateChart/Root/Control"]
 script = ExtResource("9_765a5")
 
+[node name="Movement" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_elmug")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("9_765a5")
+
+[node name="Boost" type="Node" parent="StateChart/Root/Movement/Idle"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Boost")
+event = &"boost"
+
+[node name="Brake" type="Node" parent="StateChart/Root/Movement/Idle"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Brake")
+event = &"brake"
+
+[node name="Boost" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("9_765a5")
+
+[node name="BoostRelease" type="Node" parent="StateChart/Root/Movement/Boost"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Idle")
+event = &"boost_release"
+
+[node name="Brake" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("9_765a5")
+
+[node name="BrakeRelease" type="Node" parent="StateChart/Root/Movement/Brake"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Idle")
+event = &"brake_release"
+
 [node name="Action" type="Node" parent="StateChart/Root"]
 script = ExtResource("8_elmug")
 initial_state = NodePath("Idle")
@@ -265,34 +297,34 @@ script = ExtResource("9_765a5")
 
 [node name="RollRight" type="Node" parent="StateChart/Root/Action/Idle"]
 script = ExtResource("10_csslr")
-to = NodePath("../../CompoundState/RollRight")
+to = NodePath("../../Roll/RollRight")
 event = &"roll_right"
 
 [node name="RollLeft" type="Node" parent="StateChart/Root/Action/Idle"]
 script = ExtResource("10_csslr")
-to = NodePath("../../CompoundState/RollLeft")
+to = NodePath("../../Roll/RollLeft")
 event = &"roll_left"
 
-[node name="CompoundState" type="Node" parent="StateChart/Root/Action"]
+[node name="Roll" type="Node" parent="StateChart/Root/Action"]
 script = ExtResource("8_elmug")
 initial_state = NodePath("RollRight")
 
-[node name="RollRight" type="Node" parent="StateChart/Root/Action/CompoundState"]
+[node name="RollRight" type="Node" parent="StateChart/Root/Action/Roll"]
 script = ExtResource("11_kxvfd")
 animation_player = NodePath("../../../../../RotationContainer/ShipContainer/ShipAnimationPlayer")
 animation_name = &"spin_right"
 
-[node name="RollEnd" type="Node" parent="StateChart/Root/Action/CompoundState/RollRight"]
+[node name="RollEnd" type="Node" parent="StateChart/Root/Action/Roll/RollRight"]
 script = ExtResource("10_csslr")
 to = NodePath("../../../Idle")
 event = &"roll_end"
 
-[node name="RollLeft" type="Node" parent="StateChart/Root/Action/CompoundState"]
+[node name="RollLeft" type="Node" parent="StateChart/Root/Action/Roll"]
 script = ExtResource("11_kxvfd")
 animation_player = NodePath("../../../../../RotationContainer/ShipContainer/ShipAnimationPlayer")
 animation_name = &"spin_left"
 
-[node name="RollEnd" type="Node" parent="StateChart/Root/Action/CompoundState/RollLeft"]
+[node name="RollEnd" type="Node" parent="StateChart/Root/Action/Roll/RollLeft"]
 script = ExtResource("10_csslr")
 to = NodePath("../../../Idle")
 event = &"roll_end"
@@ -321,6 +353,9 @@ event = &"fire_release"
 
 [connection signal="animation_finished" from="RotationContainer/ShipContainer/ShipAnimationPlayer" to="." method="_on_ship_animation_player_animation_finished"]
 [connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]
+[connection signal="state_entered" from="StateChart/Root/Movement/Idle" to="." method="_on_movement_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Movement/Boost" to="." method="_on_boost_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Movement/Brake" to="." method="_on_brake_state_entered"]
 [connection signal="state_entered" from="StateChart/Root/Missile/Inactive" to="." method="_on_missile_inactive_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Missile/Inactive" to="." method="_on_missile_inactive_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_entered"]

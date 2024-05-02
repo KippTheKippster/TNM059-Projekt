@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwmkwpvhluueo"]
+
+[ext_resource type="Shader" uid="uid://ko48qkmbaodl" path="res://world/ice_asteroid.tres" id="1_l6huj"]
+[ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="1_muwwm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s74x5"]
+render_priority = 0
+shader = ExtResource("1_l6huj")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ka40u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i6a7q"]
+
+[node name="IceAsteroid" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_s74x5")
+mesh = SubResource("BoxMesh_ka40u")
+
+[node name="HealthArea" parent="." instance=ExtResource("1_muwwm")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea"]
+shape = SubResource("BoxShape3D_i6a7q")

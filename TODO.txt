@@ -1,0 +1,10 @@
+Boost effect
+#Change crosshair color when missile
+Faster missile
+Multiple missile targeting
+Breakable asteroids
+Nuke
+?Fade distant objects
+Missile trail
+#Camera shake when enemies die
+#Missile targeting should get stronger the closer they are

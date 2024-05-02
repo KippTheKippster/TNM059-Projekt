@@ -8,13 +8,21 @@ signal damaged
 @onready var health_area: HealthArea = $RotationContainer/HealthArea
 @onready var shoot_marker_3d: Marker3D = $RotationContainer/ShootMarker3D
 @onready var missle_target_ray_cast: MissileTargetRayCast = $RotationContainer/MissleTargetRayCast
+@onready var crosshair_1: Sprite3D = $RotationContainer/Crosshair1
+@onready var crosshair_2: Sprite3D = $RotationContainer/Crosshair2
 @onready var shoot_cooldown_timer: Timer = $ShootCooldownTimer
 @onready var state_chart: StateChart = $StateChart
+@onready var boost: AtomicState = $StateChart/Root/Movement/Boost
+@onready var brake: AtomicState = $StateChart/Root/Movement/Brake
 
 const PLAYER_BULLET = preload("res://player/player_bullet.tscn")
 const PLAYER_MISSILE = preload("res://player/player_missile.tscn")
 
-@export var speed: float = 6.0
+@export_group("Movement")
+var speed: float
+@export var move_speed: float = 6.0
+@export var boost_speed: float = 10.0
+@export var brake_speed: float = 3.5
 @export var acceleration: float = 10.0
 @export var deceleration: float = 8.0
 @export var max_rotation_degrees: Vector3 = Vector3(90, 90, 45): 
@@ -27,6 +35,10 @@ const PLAYER_MISSILE = preload("res://player/player_missile.tscn")
 var max_rotation: Vector3
 @export var rotation_acceleration: float = 9.0
 @export var rotation_deceleration: float = 5.0
+@export_group("Path")
+var path_speed_scale: float 
+@export var path_boost_scale: float = 2.0
+@export var path_brake_scale: float = 0.5
 
 var path_velocity: Vector3
 var true_velocity: Vector3
@@ -39,6 +51,7 @@ var active_missiles_count: int:
 		state_chart.set_expression_property("active_missiles", value)
 
 func _ready() -> void:
+	speed = move_speed
 	max_rotation_degrees = max_rotation_degrees
 	active_missiles_count = active_missiles_count
 
@@ -59,6 +72,16 @@ func _process(_delta: float) -> void:
 		state_chart.send_event("roll_left")
 	elif Input.is_action_just_pressed("lean_right"):
 		state_chart.send_event("roll_right")
+		
+	if Input.is_action_just_pressed("boost"):
+		state_chart.send_event("boost")
+	if Input.is_action_just_released("boost"):
+		state_chart.send_event("boost_release")
+		
+	if Input.is_action_just_pressed("brake"):
+		state_chart.send_event("brake")
+	if Input.is_action_just_released("brake"):
+		state_chart.send_event("brake_release")
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "down", "up")
@@ -66,7 +89,7 @@ func _physics_process(delta: float) -> void:
 	var weight := acceleration
 	if input_dir == Vector2.ZERO:
 		weight = deceleration
-		
+	
 	velocity_2d = velocity_2d.move_toward(input_dir * speed, weight * delta)
 	
 	velocity = Vector3(velocity_2d.x , velocity_2d.y, 0)
@@ -110,9 +133,13 @@ func _on_health_area_damaged(_hurt_area: HurtArea) -> void:
 
 func _on_missile_active_state_entered():
 	missle_target_ray_cast.is_active = true
+	crosshair_1.frame = 2
+	crosshair_2.frame = 3
 
 func _on_missile_inactive_state_entered():
 	missle_target_ray_cast.is_active = false
+	crosshair_1.frame = 0
+	crosshair_2.frame = 1
 
 func _on_missile_active_state_exited() -> void:
 	if missle_target_ray_cast.missile_targets.size() == 0: return
@@ -124,7 +151,7 @@ func _on_missile_active_state_exited() -> void:
 			continue
 		var missile := PLAYER_MISSILE.instantiate() as PlayerMissile
 		missile.missile_target = target
-		missile.direction = Vector3.DOWN
+		missile.direction = global_basis * Vector3.FORWARD
 		active_missiles_count += 1
 		missile.tree_exited.connect(func(): 
 			active_missiles_count -= 1
@@ -137,10 +164,21 @@ func _on_missile_active_state_exited() -> void:
 	
 	missle_target_ray_cast.missile_targets.clear()
 
-
 func _on_ship_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
 		"spin_right":
 			state_chart.send_event("roll_end")
 		"spin_left":
 			state_chart.send_event("roll_end")
+
+func _on_boost_state_entered() -> void:
+	path_speed_scale = path_boost_scale
+	speed = boost_speed
+
+func _on_brake_state_entered() -> void:
+	path_speed_scale = path_brake_scale
+	speed = brake_speed
+
+func _on_movement_idle_state_entered() -> void:
+	path_speed_scale = 1
+	speed = move_speed
