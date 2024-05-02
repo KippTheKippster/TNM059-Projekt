@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://2f2yv28t3tjk"]
+[gd_scene load_steps=12 format=3 uid="uid://2f2yv28t3tjk"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_b1qqc"]
 [ext_resource type="PackedScene" uid="uid://bwa4jj4c0gee" path="res://player/player_camera.tscn" id="1_xhplf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://player/camera_shaker.gd" id="3_3c780"]
 [ext_resource type="PackedScene" uid="uid://dk0xskpejeyr8" path="res://player/player_ui.tscn" id="4_ctj3y"]
 [ext_resource type="Script" path="res://player/enemy_activator.gd" id="5_kcsdw"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_1svny"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_y27u4"]
 frequency = 0.0785
@@ -57,7 +58,7 @@ shape = SubResource("BoxShape3D_b5vyf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 1.5, 0)
 shape = SubResource("BoxShape3D_b5vyf")
 
-[node name="EnemyActivator" type="Area3D" parent="."]
+[node name="EnemyActivator" type="Area3D" parent="." groups=["enemy_activator"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("5_kcsdw")
@@ -68,6 +69,18 @@ shape = SubResource("BoxShape3D_u0fcf")
 
 [node name="PlayerUi" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_ctj3y")]
 player = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("7_1svny")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 456.0
+offset_bottom = 640.0
+grow_horizontal = 1
+grow_vertical = 1
+initial_node_to_watch = NodePath("../../Player")
 
 [connection signal="damaged" from="Player" to="." method="_on_player_damaged"]
 [connection signal="body_entered" from="EnemyActivator" to="EnemyActivator" method="_on_body_entered"]

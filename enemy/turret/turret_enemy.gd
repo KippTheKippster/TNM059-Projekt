@@ -6,11 +6,16 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 @onready var shoot_timer: Timer = $ShootTimer
 
 func shoot() -> void:
+	create_bullet()
+	await get_tree().create_timer(0.2).timeout
+	create_bullet()
+	await get_tree().create_timer(0.2).timeout
+	create_bullet()
+
+func create_bullet() -> void:
 	var bullet = ENEMY_BULLET.instantiate() as Projectile
 	add_sibling(bullet)
 	bullet.global_position = shoot_marker.global_position
-	#bullet.set_direction_towards(player)
-	#bullet.shoot_at_player(player)
 	bullet.set_direction_towards_position(bullet.predict_position(player, player.path_velocity))
 
 func die() -> void:

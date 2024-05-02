@@ -10,6 +10,9 @@ class_name CameraShaker
 var trauma: float = 0
 var time: float = 0
 
+func _ready() -> void:
+	SignalMaster.camera_shake_requested.connect(func(): shake(0.5))
+
 func _process(delta: float) -> void:
 	time += delta
 	trauma = move_toward(trauma, 0, trauma_reduction_rate * delta)
