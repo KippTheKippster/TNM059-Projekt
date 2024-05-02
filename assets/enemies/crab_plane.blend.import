@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://blhoi7xs1wbau"
-path="res://.godot/imported/cockpit.blend-a55fb0ca41f934719b9f15296758bf82.scn"
+uid="uid://jr62p43sbyqx"
+path="res://.godot/imported/crab_plane.blend-905a8e0ee286a9aa986a882170599c8f.scn"
 
 [deps]
 
-source_file="res://assets/cockpit.blend"
-dest_files=["res://.godot/imported/cockpit.blend-a55fb0ca41f934719b9f15296758bf82.scn"]
+source_file="res://assets/enemies/crab_plane.blend"
+dest_files=["res://.godot/imported/crab_plane.blend-905a8e0ee286a9aa986a882170599c8f.scn"]
 
 [params]
 
