@@ -9,8 +9,8 @@ extends Enemy
 func _ready() -> void:
 	path_3d.reparent.call_deferred(get_parent())
 
-func wake_up(player_controller: PlayerController) -> void:
-	super.wake_up(player_controller)
+func wake_up() -> void:
+	super.wake_up()
 	path_3d.reparent(player_controller.path_follow)
 	reparent(path_follow_3d)
 
@@ -25,7 +25,7 @@ func wake_up(player_controller: PlayerController) -> void:
 	#remote.global_position = global_position
 	#reparent(path_follow_3d)
 
-func sleep(player_controller: PlayerController) -> void:
+func sleep() -> void:
 	#super.sleep(player_controller)
 	#print("SLEEP")
 	pass

@@ -19,12 +19,13 @@ var fov_scale: float = 1.0
 var prev_position: Vector3
 
 func _process(delta: float):
-	prev_position = global_position
 	path_follow.progress += path_speed * player.path_speed_scale * delta
-	player.path_velocity = global_position - prev_position
+	player.path_velocity = (global_position - prev_position) / delta
+	prev_position = global_position
 	
 	if player.boost.active:
 		fov_scale = boost_fov_scale
+		camera_shaker.trauma = max(0.4, camera_shaker.trauma)
 	elif player.brake.active:
 		fov_scale = brake_fov_scale
 	else:

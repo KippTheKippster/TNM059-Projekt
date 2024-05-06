@@ -1,13 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=15 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
+[ext_resource type="AudioStream" uid="uid://bujhb3x50eprv" path="res://assets/music/strata.mp3" id="2_ne7pa"]
 [ext_resource type="PackedScene" uid="uid://cqn1gwnk28s6e" path="res://skybox/asteroid_skybox.tscn" id="3_dlc5f"]
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_ukv0f"]
 [ext_resource type="PackedScene" uid="uid://ck7un7fd4ehec" path="res://skybox/planet_skybox.tscn" id="5_0jny5"]
 [ext_resource type="PackedScene" uid="uid://d3dffh2r4g47" path="res://enemy/skewer/skewer.tscn" id="6_weqjj"]
+[ext_resource type="PackedScene" uid="uid://cd5s5a61atoor" path="res://enemy/circler/circler.tscn" id="7_0mbj4"]
 [ext_resource type="PackedScene" uid="uid://jdgbdhegshdk" path="res://enemy/attacker ship/attacker_ship.tscn" id="7_ulmdv"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="10_ls1n3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
 albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
@@ -26,6 +29,7 @@ point_count = 4
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_idndb")
+music_stream = ExtResource("2_ne7pa")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.903668, -0.0853011, 0.419652, -0.0621246, 0.94348, 0.325556, -0.423703, -0.320265, 0.847293, 0, 0, 0)
@@ -52,7 +56,25 @@ transform = Transform3D(-0.000890389, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.000
 motion_mode = 0
 
 [node name="Skewer" parent="Enemies" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 46.7223, -2.57139, -88.417)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 35.7641, -1.43528, -88.417)
+speed = 32
+
+[node name="Skewer2" parent="Enemies" instance=ExtResource("6_weqjj")]
+transform = Transform3D(-4.37114e-08, 0, 1, -0.379957, 0.925004, -1.66084e-08, -0.925004, -0.379957, -4.04332e-08, 39.8149, -0.105923, -86.5561)
+speed = 32
+
+[node name="Skewer3" parent="Enemies" instance=ExtResource("6_weqjj")]
+transform = Transform3D(-4.37114e-08, 0, 1, -0.991056, 0.13345, -4.33204e-08, -0.13345, -0.991056, -5.83328e-09, 44.0128, 1.53835, -85.6986)
+speed = 32
+
+[node name="Circler" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, -1.30526, 0.226989, -25.9086)
+
+[node name="Circler2" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.999596, 0, 0.0284101, 0, 1, 0, 0.0284101, 0, -0.999596, 3.55964, 0.226989, -35.8609)
+
+[node name="Circler3" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.885547, 0.463868, 0.0251686, -0.463681, 0.885904, -0.0131785, 0.0284101, 0, -0.999596, -0.0940949, 1.93479, -43.2556)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -87,6 +109,7 @@ use_collision = true
 size = Vector3(3, 3, 3)
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("1_kn7at")]
+transform = Transform3D(0.0849413, 0, -0.996385, 0, 1, 0, 0.996385, 0, 0.0849413, 7.34239, 0, -88.9212)
 path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -96,6 +119,8 @@ environment = ExtResource("3_ukv0f")
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
+transform = Transform3D(0.0849413, 0, -0.996385, 0, 1, 0, 0.996385, 0, 0.0849413, 7.34239, 0, -88.9212)
+progress = 93.0738
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
@@ -103,3 +128,15 @@ remote_path = NodePath("../../../PlayerController")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_6ielw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("10_ls1n3")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 456.0
+offset_bottom = 640.0
+grow_horizontal = 1
+grow_vertical = 1
+initial_node_to_watch = NodePath("../../Enemies/Skewer")
