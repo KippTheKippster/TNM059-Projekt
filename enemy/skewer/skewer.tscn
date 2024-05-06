@@ -1,54 +1,68 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3dffh2r4g47"]
+[gd_scene load_steps=18 format=3 uid="uid://d3dffh2r4g47"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_eaqof"]
 [ext_resource type="Script" path="res://enemy/skewer/skewer.gd" id="2_yjvcp"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_ljkyp"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_r3a3r"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_0y2td"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0ydd"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fgpcp"]
 
-[sub_resource type="Animation" id="Animation_88gb2"]
-resource_name = "spin"
-length = 0.5
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_g53p1"]
+resource_name = "RESET"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Spinner:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -6.28319)]
-}
-
-[sub_resource type="Animation" id="Animation_jr58n"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Spinner:rotation")
+tracks/0/path = NodePath("CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HealthArea/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MissileTarget/CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_hcxkv"]
-_data = {
-"RESET": SubResource("Animation_jr58n"),
-"spin": SubResource("Animation_88gb2")
-}
-
-[sub_resource type="Animation" id="Animation_wf1b7"]
+[sub_resource type="Animation" id="Animation_42p1k"]
 resource_name = "appear"
-length = 0.5
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -58,7 +72,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0, 1)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -68,8 +82,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-15, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"points": PackedFloat32Array(-16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -80,42 +94,252 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_m2j1r"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_adt5t"]
+resource_name = "asleep"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MissileTarget/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HealthArea/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vocbj"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gm5ex"]
 _data = {
-"RESET": SubResource("Animation_m2j1r"),
-"appear": SubResource("Animation_wf1b7")
+"RESET": SubResource("Animation_g53p1"),
+"appear": SubResource("Animation_42p1k"),
+"asleep": SubResource("Animation_adt5t")
+}
+
+[sub_resource type="Animation" id="Animation_e54f7"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HealthArea/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MissileTarget/CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_neh7o"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HealthArea/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MissileTarget/CollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_prpl1"]
+_data = {
+"RESET": SubResource("Animation_e54f7"),
+"asleep": SubResource("Animation_neh7o")
+}
+
+[sub_resource type="Animation" id="Animation_jr58n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Spinner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_88gb2"]
+resource_name = "spin"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Spinner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -6.28319)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hcxkv"]
+_data = {
+"RESET": SubResource("Animation_jr58n"),
+"spin": SubResource("Animation_88gb2")
 }
 
 [node name="Skewer" instance=ExtResource("1_eaqof")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 0)
 script = ExtResource("2_yjvcp")
-awake_on_collision = false
+speed = 32
+activation_distance = 7.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
 shape = SubResource("BoxShape3D_d0ydd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(0.198307, 0, 0, 0, 0.255212, 0, 0, 0, 1.25489, 0, 0, 0)
+[node name="Mesh" type="Node3D" parent="." index="1"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
+transform = Transform3D(-0.198307, 0, 1.09706e-07, 0, 0.255212, 0, -1.73365e-08, 0, -1.25489, -3.27784e-09, 0, -0.206259)
 mesh = SubResource("BoxMesh_fgpcp")
+skeleton = NodePath("../..")
 
-[node name="Spinner" type="Node3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0749882)
+[node name="Spinner" type="Node3D" parent="Mesh" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.27784e-09, 0, 0.421956)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Spinner" index="0"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh/Spinner" index="0"]
 transform = Transform3D(0.198307, -1.49012e-08, 0, 0, 0.255212, 0, 0, 0, 0.730138, 0.338515, -7.45058e-09, -0.281087)
 mesh = SubResource("BoxMesh_fgpcp")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Spinner" index="1"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh/Spinner" index="1"]
 transform = Transform3D(0.198307, -1.49012e-08, 0, 0, 0.255212, 0, 0, 0, 0.730138, -0.352811, -7.45058e-09, -0.281087)
 mesh = SubResource("BoxMesh_fgpcp")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
 shape = SubResource("BoxShape3D_d0ydd")
@@ -123,19 +347,48 @@ shape = SubResource("BoxShape3D_d0ydd")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="1"]
 shape = SubResource("BoxShape3D_d0ydd")
 
-[node name="MeshAnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="4"]
+
+[node name="MovementAnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_gm5ex")
+}
+autoplay = "asleep"
+
+[node name="PropertyAnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": SubResource("AnimationLibrary_prpl1")
+}
+
+[node name="MeshAnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 "": SubResource("AnimationLibrary_hcxkv")
 }
 autoplay = "spin"
 
-[node name="MovementAnimationPlayer" type="AnimationPlayer" parent="." index="6"]
-libraries = {
-"": SubResource("AnimationLibrary_vocbj")
-}
+[node name="AttackTimer" type="Timer" parent="." index="8"]
+wait_time = 2.5
+one_shot = true
 
 [node name="Awake" parent="StateChart/Active/Asleep" index="0"]
 to = NodePath("../../Awake")
 
 [node name="Awake" type="Node" parent="StateChart/Active" index="2"]
+script = ExtResource("3_ljkyp")
+initial_state = NodePath("Appear")
+
+[node name="Appear" type="Node" parent="StateChart/Active/Awake" index="0"]
 script = ExtResource("3_r3a3r")
+
+[node name="Transition" type="Node" parent="StateChart/Active/Awake/Appear" index="0"]
+script = ExtResource("5_0y2td")
+to = NodePath("../../Charge")
+event = &"charge"
+
+[node name="Charge" type="Node" parent="StateChart/Active/Awake" index="1"]
+script = ExtResource("3_r3a3r")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="state_entered" from="StateChart/Active/Awake" to="." method="_on_awake_state_entered"]
+[connection signal="state_processing" from="StateChart/Active/Awake/Appear" to="." method="_on_appear_state_processing"]
+[connection signal="state_physics_processing" from="StateChart/Active/Awake/Charge" to="." method="_on_charge_state_physics_processing"]

@@ -135,11 +135,13 @@ func _on_missile_active_state_entered():
 	missle_target_ray_cast.is_active = true
 	crosshair_1.frame = 2
 	crosshair_2.frame = 3
+	crosshair_2.visible = false
 
 func _on_missile_inactive_state_entered():
 	missle_target_ray_cast.is_active = false
 	crosshair_1.frame = 0
 	crosshair_2.frame = 1
+	crosshair_2.visible = true
 
 func _on_missile_active_state_exited() -> void:
 	if missle_target_ray_cast.missile_targets.size() == 0: return

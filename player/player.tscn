@@ -162,6 +162,7 @@ radius = 0.392519
 height = 2.45711
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_23m8h"]
+size = Vector3(1.6, 1.6, 1.6)
 
 [sub_resource type="Resource" id="Resource_ufqae"]
 script = ExtResource("11_gw10l")
@@ -174,8 +175,9 @@ motion_mode = 1
 floor_constant_speed = true
 platform_on_leave = 2
 script = ExtResource("1_wbiqq")
-acceleration = 18.0
-deceleration = 12.0
+move_speed = 7.0
+acceleration = 24.0
+deceleration = 16.0
 max_rotation_degrees = Vector3(25, 35, 25)
 rotation_acceleration = 5.0
 rotation_deceleration = 3.0
@@ -214,7 +216,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.06048)
 shape = SubResource("BoxShape3D_23m8h")
 collide_with_areas = true
 script = ExtResource("4_7h3uj")
-target_node = NodePath("../Crosshair2")
+target_node = NodePath("../Crosshair1")
 
 [node name="Crosshair1" type="Sprite3D" parent="RotationContainer"]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -6.25015)
@@ -226,7 +228,7 @@ texture = ExtResource("2_nxp81")
 hframes = 4
 
 [node name="Crosshair2" type="Sprite3D" parent="RotationContainer"]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -8.34054)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, -8.34054)
 billboard = 1
 no_depth_test = true
 fixed_size = true

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b52wn5ylwy8g"]
+
+[ext_resource type="AudioStream" uid="uid://bujhb3x50eprv" path="res://assets/music/strata.mp3" id="1_7euwc"]
+[ext_resource type="Script" path="res://globals/music_player.gd" id="1_v1c5y"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_7euwc")
+bus = &"Music"
+script = ExtResource("1_v1c5y")

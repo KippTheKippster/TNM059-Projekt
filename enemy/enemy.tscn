@@ -40,3 +40,4 @@ event = &"awake"
 
 [connection signal="ready" from="." to="." method="_on_enemy_ready"]
 [connection signal="died" from="HealthArea" to="." method="_on_health_area_died"]
+[connection signal="state_processing" from="StateChart/Active/Asleep" to="." method="_on_asleep_state_processing"]

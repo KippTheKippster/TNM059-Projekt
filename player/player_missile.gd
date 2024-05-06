@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	
 	direction_target = missile_target.global_position - global_position
 	if direction_target.length() < 3:
-		turn_strength = 1.0
+		turn_strength = 10.0
 	#var strength := min(1.0, 1.0 / direction_target.length()) as float
 	#print(strength)
 	direction = direction.move_toward(direction_target, turn_speed * turn_strength * delta)

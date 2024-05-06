@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Debug="*res://globals/debug/debug.tscn"
 TransitionScreen="*res://globals/transition_screen.tscn"
 SignalMaster="*res://globals/signal_master.gd"
+MusicPlayer="*res://globals/music_player.tscn"
 
 [display]
 
