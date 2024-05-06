@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://np3xjj8axb4j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_botkj"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.219608, 0.211765, 0.2, 1)
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="Curve" id="Curve_rrrgd"]
+_data = [Vector2(0, 0.264507), 0.0, 0.0, 0, 0, Vector2(0.328283, 1), 0.0, 0.0, 0, 0, Vector2(0.790404, 0.704545), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_lhaje"]
+curve = SubResource("Curve_rrrgd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nlfca"]
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, 9, 0)
+spread = 30.567
+initial_velocity_min = 14.85
+initial_velocity_max = 35.93
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_curve = SubResource("CurveTexture_lhaje")
+
+[sub_resource type="SphereMesh" id="SphereMesh_031tl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.124716, 0, 0, 0, 0.143678, 0, 0, 0, 0.124716, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_botkj")
+amount = 128
+visibility_aabb = AABB(-4, -20.4902, -2.77554, 8, 40.9804, 5.55107)
+process_material = SubResource("ParticleProcessMaterial_nlfca")
+draw_pass_1 = SubResource("SphereMesh_031tl")
