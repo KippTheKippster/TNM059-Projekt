@@ -1,13 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck7un7fd4ehec"]
+[gd_scene load_steps=3 format=3 uid="uid://ck7un7fd4ehec"]
 
+[ext_resource type="PackedScene" uid="uid://q34gapvr4g3n" path="res://test/mars/mars.tscn" id="2_xdt2p"]
 [ext_resource type="PackedScene" uid="uid://oaje1aorj7mw" path="res://assets/earth/earth.tscn" id="3_vllat"]
 
 [node name="PlanetSkybox" type="Node3D"]
+transform = Transform3D(160, 0, 0, 0, 160, 0, 0, 0, 160, 0, 0, 0)
 
 [node name="Node3D2" type="Node3D" parent="."]
+visible = false
 
 [node name="Node3D" type="Node3D" parent="Node3D2"]
 transform = Transform3D(-0.988178, 0, -0.153314, 0, 1, 0, 0.153314, 0, -0.988178, 17.2104, -6.77566, -20.8239)
+visible = false
 
 [node name="Earth" parent="Node3D2/Node3D" instance=ExtResource("3_vllat")]
 transform = Transform3D(-0.988177, 0, 0.153314, 0, 1, 0, -0.153314, 0, -0.988177, 0, 0, 0)
+
+[node name="Mars" parent="." instance=ExtResource("2_xdt2p")]
+transform = Transform3D(371.289, 0, 0, 0, 371.289, 0, 0, 0, 371.289, 42.7322, -195.883, -46.418)

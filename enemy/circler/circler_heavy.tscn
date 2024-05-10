@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://rrt50vcpu0a8"]
+
+[ext_resource type="PackedScene" uid="uid://cd5s5a61atoor" path="res://enemy/circler/circler.tscn" id="1_1ch5e"]
+[ext_resource type="Script" path="res://enemy/circler/circler_heavy.gd" id="2_dnpde"]
+[ext_resource type="PackedScene" uid="uid://drymx8tiiv45c" path="res://assets/enemies/crab_plane.glb" id="2_tbf1k"]
+[ext_resource type="Curve3D" uid="uid://tq4rb6qgfvm6" path="res://enemy/circler/circler_heavy_path_1.tres" id="3_3ah31"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gfqxr"]
+size = Vector3(1, 1.11691, 1.5473)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_580mt"]
+top_radius = 0.18
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ilnfj"]
+size = Vector3(1, 1.11691, 1.5473)
+
+[node name="CirclerHeavy" instance=ExtResource("1_1ch5e")]
+script = ExtResource("2_dnpde")
+speed = 12.0
+burst_delay = 0.1
+max_shoot_times = 3
+activation_distance = 8.0
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("BoxShape3D_gfqxr")
+
+[node name="crab_plane" parent="Mesh" index="0" instance=ExtResource("2_tbf1k")]
+transform = Transform3D(-1.79663e-08, 0, 0.41102, 0, 0.41102, 0, -0.41102, 0, -1.79663e-08, 0.0621454, 0.2057, -0.86465)
+
+[node name="MeshInstance3D" parent="Mesh" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.12231e-08, 1, 0, -0.943076, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_580mt")
+
+[node name="HealthArea" parent="." index="2"]
+health = 8.0
+
+[node name="CollisionShape3D" parent="HealthArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0584564, 0.0123596)
+shape = SubResource("BoxShape3D_ilnfj")
+
+[node name="MissileTarget" parent="." index="3"]
+max_targets = 3
+target_timeout = 0.25
+
+[node name="CollisionShape3D" parent="MissileTarget" index="1"]
+shape = SubResource("BoxShape3D_ilnfj")
+
+[node name="Path3D" parent="." index="4"]
+curve = ExtResource("3_3ah31")
+
+[node name="PathFollow3D" parent="Path3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.628975, -29.1242, 0)
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="5"]
+aabb = AABB(-1.91139, -1.83746, -3.43027, 3.82278, 3.67492, 6.86054)
+
+[node name="ShootTimer" parent="." index="6"]
+one_shot = false
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

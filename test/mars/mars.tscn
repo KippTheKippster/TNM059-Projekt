@@ -1,16 +1,14 @@
-[gd_scene load_steps=37 format=3 uid="uid://xown0j27i7yx"]
+[gd_scene load_steps=33 format=3 uid="uid://q34gapvr4g3n"]
 
 [ext_resource type="Texture2D" uid="uid://dbr0kwnu6mkqe" path="res://test/mars/8k_mars.jpg" id="1_lyr0c"]
 [ext_resource type="Texture2D" uid="uid://crf2rvvk7lcos" path="res://test/mars/2k_mars.jpg" id="1_s35rr"]
 [ext_resource type="Texture2D" uid="uid://dd4lr67yl4rmw" path="res://test/mars/fair_clouds_8k.jpg" id="3_00xmf"]
-[ext_resource type="Environment" uid="uid://bbxwhj6v0ux26" path="res://test/mars/mars_enviroment.tres" id="4_7jdip"]
-[ext_resource type="LightmapGIData" uid="uid://b4skcbiepslug" path="res://test/mars/mars.lmbake" id="5_0v3qf"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_g8pwc"]
 lightmap_size_hint = Vector2i(17, 9)
 add_uv2 = true
-radial_segments = 1024
-rings = 512
+radial_segments = 512
+rings = 256
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_88513"]
 expanded_output_ports = [0]
@@ -263,15 +261,7 @@ nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 2, 0, 4, 0, 5, 0, 10, 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_spks5"]
 render_priority = 0
 shader = SubResource("VisualShader_yghio")
-shader_parameter/ScrollSpeed = Vector2(0.001, 0.002)
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dx1ka"]
-auto_exposure_scale = 0.05
-dof_blur_far_enabled = true
-dof_blur_far_distance = 87.2
-dof_blur_amount = 0.01
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_u2y3a"]
+shader_parameter/ScrollSpeed = Vector2(0, 0)
 
 [sub_resource type="FogMaterial" id="FogMaterial_ebyyp"]
 density = 0.439
@@ -279,51 +269,20 @@ albedo = Color(0.65098, 0.227451, 0.0862745, 1)
 edge_fade = 0.254912
 
 [node name="Mars" type="Node3D"]
-transform = Transform3D(45.1495, 0, 0, 0, 45.1495, 0, 0, 0, 45.1495, 0, 0, 0)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.920704, 0.383451, -0.072591, 0.330057, 0.864335, 0.379456, 0.208246, 0.325408, -0.922358, 0, 0.846418, 0)
-light_energy = 2.24
-shadow_enabled = true
-shadow_opacity = 0.85
-
-[node name="UnderLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.896299, 0.412566, -0.162598, -0.44345, 0.833354, -0.329958, -0.000627279, 0.367845, 0.929887, 0.281545, 0.56332, 0.299201)
-visible = false
-light_color = Color(0.321569, 0.537255, 1, 1)
-light_energy = 0.04
-light_angular_distance = 27.0
-shadow_enabled = true
 
 [node name="Planet" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.257991, 0.0938553, 0.961578, -0.873857, 0.447175, 0.190809, -0.412085, -0.889509, 0.197383, 0, 0, 0)
 mesh = SubResource("SphereMesh_g8pwc")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_84t3w")
 
 [node name="Clouds" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.02587, -0.0679558, 0.0741607, 0, 0.759976, 0.696389, -0.100587, -0.693066, 0.756348, 0, 0, 0)
+transform = Transform3D(-0.188281, 0.718801, 0.701137, -0.365324, 0.615434, -0.729039, -0.935314, -0.385077, 0.143614, 0, 0, 0)
 mesh = SubResource("SphereMesh_ylgis")
-surface_material_override/0 = SubResource("ShaderMaterial_spks5")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.958323, -0.285688, 0, 0.285688, 0.958323, 0, 0, 0, 1, 0.003, 0.503, 0.264)
-fov = 61.5
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("4_7jdip")
-camera_attributes = SubResource("CameraAttributesPractical_dx1ka")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3541, 0.508578, 0.118864)
-visible = false
-mesh = SubResource("PlaneMesh_u2y3a")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_spks5")
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
 shape = 0
 material = SubResource("FogMaterial_ebyyp")
-
-[node name="LightmapGI" type="LightmapGI" parent="."]
-quality = 0
-light_data = ExtResource("5_0v3qf")

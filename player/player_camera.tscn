@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://player/player_camera.gd" id="1_kjwj6"]
 
 [node name="PlayerCamera" type="Camera3D"]
+far = 40000.0
 script = ExtResource("1_kjwj6")
 max_rotation_degrees = Vector3(10, 10, 7)
 rotation_weight = 1.8

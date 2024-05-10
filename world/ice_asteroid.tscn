@@ -1,23 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwmkwpvhluueo"]
+[gd_scene load_steps=5 format=3 uid="uid://cwmkwpvhluueo"]
 
-[ext_resource type="Shader" uid="uid://ko48qkmbaodl" path="res://world/ice_asteroid.tres" id="1_l6huj"]
+[ext_resource type="Script" path="res://world/ice_asteroid.gd" id="1_40jna"]
 [ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="1_muwwm"]
+[ext_resource type="PackedScene" uid="uid://cvekcgc44onq7" path="res://assets/asteroid belt/ice_asteroid.glb" id="2_a80vt"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s74x5"]
-render_priority = 0
-shader = ExtResource("1_l6huj")
-
-[sub_resource type="BoxMesh" id="BoxMesh_ka40u"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_i6a7q"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jcxqv"]
+size = Vector3(7.04096, 7.53213, 6.86525)
 
 [node name="IceAsteroid" type="Node3D"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_s74x5")
-mesh = SubResource("BoxMesh_ka40u")
+script = ExtResource("1_40jna")
+rotation_speed = 1.0
+rotation_direction = Vector3(0.167154, 0.648295, 0.742814)
 
 [node name="HealthArea" parent="." instance=ExtResource("1_muwwm")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea"]
-shape = SubResource("BoxShape3D_i6a7q")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.304411, 0.0839355, -0.113698)
+shape = SubResource("BoxShape3D_jcxqv")
+
+[node name="ice_asteroid" parent="." instance=ExtResource("2_a80vt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0593534, 0, 0.129965)
+
+[connection signal="damaged" from="HealthArea" to="." method="_on_health_area_damaged"]
