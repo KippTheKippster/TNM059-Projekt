@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bepv0c7as07lg"]
+
+[ext_resource type="Shader" uid="uid://in7wtdjkwowm" path="res://main/mech game/effects/ExplosionMeshShader.tres" id="1_j4jqi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qifx5"]
+noise_type = 3
+frequency = 0.0197
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vk5ts"]
+noise = SubResource("FastNoiseLite_qifx5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bo4s5"]
+frequency = 0.007
+offset = Vector3(455.45, 0, 0)
+fractal_octaves = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kent7"]
+seamless = true
+noise = SubResource("FastNoiseLite_bo4s5")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_j4jqi")
+shader_parameter/DisplacementScrollSpeed = Vector2(0, 0.1)
+shader_parameter/DisplacementStrength = 0.446
+shader_parameter/EmissionColor = Color(1, 0.545098, 0, 1)
+shader_parameter/EmissionStrength = 5.0
+shader_parameter/DisplacementTexture = SubResource("NoiseTexture2D_kent7")
+shader_parameter/AlphaMask = SubResource("NoiseTexture2D_vk5ts")
