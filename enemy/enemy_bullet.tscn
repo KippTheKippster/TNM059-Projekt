@@ -16,7 +16,7 @@ shader_parameter/Speed = 30.0
 [sub_resource type="SphereMesh" id="SphereMesh_1bn65"]
 
 [node name="EnemyBullet" instance=ExtResource("1_d0js8")]
-speed = 15.0
+speed = 25.0
 
 [node name="HurtArea" parent="." index="0"]
 layer = 5

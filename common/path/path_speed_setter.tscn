@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqff71t3gfqje"]
+
+[ext_resource type="Script" path="res://common/path/path_speed_setter.gd" id="1_65fkd"]
+
+[node name="PathSpeedSetter" type="Node3D"]
+script = ExtResource("1_65fkd")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+gizmo_extents = 5.15
+
+[connection signal="in_range" from="." to="." method="_on_in_range"]

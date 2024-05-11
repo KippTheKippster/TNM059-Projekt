@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cea57wnpeh1lb"]
+
+[ext_resource type="PackedScene" uid="uid://c6jxypg413hag" path="res://assets/asteroid belt/asteroid_single.glb" id="1_2ahoi"]
+[ext_resource type="Script" path="res://world/asteroid.gd" id="1_vjtbc"]
+
+[node name="Asteroid" type="Node3D"]
+script = ExtResource("1_vjtbc")
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
+[node name="asteroid_single" parent="." instance=ExtResource("1_2ahoi")]

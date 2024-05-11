@@ -1,130 +1,233 @@
-[gd_scene load_steps=15 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=17 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
 [ext_resource type="AudioStream" uid="uid://bujhb3x50eprv" path="res://assets/music/strata.mp3" id="2_ne7pa"]
-[ext_resource type="PackedScene" uid="uid://cqn1gwnk28s6e" path="res://skybox/asteroid_skybox.tscn" id="3_dlc5f"]
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_ukv0f"]
 [ext_resource type="PackedScene" uid="uid://ck7un7fd4ehec" path="res://skybox/planet_skybox.tscn" id="5_0jny5"]
-[ext_resource type="PackedScene" uid="uid://d3dffh2r4g47" path="res://enemy/skewer/skewer.tscn" id="6_weqjj"]
 [ext_resource type="PackedScene" uid="uid://cd5s5a61atoor" path="res://enemy/circler/circler.tscn" id="7_0mbj4"]
-[ext_resource type="PackedScene" uid="uid://jdgbdhegshdk" path="res://enemy/attacker ship/attacker_ship.tscn" id="7_ulmdv"]
+[ext_resource type="PackedScene" uid="uid://rrt50vcpu0a8" path="res://enemy/circler/circler_heavy.tscn" id="7_tpfqt"]
+[ext_resource type="Curve3D" uid="uid://tq4rb6qgfvm6" path="res://enemy/circler/circler_heavy_path_1.tres" id="8_tcq8m"]
+[ext_resource type="Curve3D" uid="uid://dgwfwhu2cw54c" path="res://enemy/circler/circler_path_1.tres" id="8_w05of"]
+[ext_resource type="Curve3D" uid="uid://1monpwbn80a2" path="res://enemy/circler/circler_path_2.tres" id="10_dqkbj"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="10_ls1n3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3m5"]
-albedo_color = Color(0.568627, 0.568627, 0.568627, 1)
-distance_fade_mode = 1
-distance_fade_min_distance = 100.0
-distance_fade_max_distance = 0.0
+[ext_resource type="PackedScene" uid="uid://cwmkwpvhluueo" path="res://world/ice_asteroid.tscn" id="11_k344t"]
+[ext_resource type="PackedScene" uid="uid://cea57wnpeh1lb" path="res://world/asteroid.tscn" id="12_aiofw"]
+[ext_resource type="PackedScene" uid="uid://cqff71t3gfqje" path="res://common/path/path_speed_setter.tscn" id="13_35dk4"]
 
 [sub_resource type="Curve3D" id="Curve3D_j8dlu"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, -9, 0, 0, -80, -4, 0, 0, 4, 0, 0, 10, 0, -89, 0, 0, 5, 0, 0, -5, 49.1035, -0.791734, -88.8398, 0, 0, 0, 0, 0, 0, 47.5143, 0, -136.577),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, -24, 0, 0, -80, -0.331572, -8.39233e-05, 18.4924, 0.331572, 8.39233e-05, -18.4924, 15.4568, -3.96094, -135.27, 0, 0, 10, 0, 0, -10, 0, 0, -192, 0, 0, 0, 0, 0, 0, 0, 0, -1108),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
 }
-point_count = 5
-
-[sub_resource type="BoxMesh" id="BoxMesh_6ielw"]
+point_count = 6
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_idndb")
 music_stream = ExtResource("2_ne7pa")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.903668, -0.0853011, 0.419652, -0.0621246, 0.94348, 0.325556, -0.423703, -0.320265, 0.847293, 0, 0, 0)
+transform = Transform3D(0.885552, -0.337238, 0.319482, -0.0399613, 0.629886, 0.775659, -0.462818, -0.699653, 0.54432, 0, 0, 0)
 light_color = Color(1, 0.862745, 0.780392, 1)
 light_energy = 2.0
 shadow_enabled = true
+directional_shadow_max_distance = 311.0
 
 [node name="PlanetSkybox" parent="." instance=ExtResource("5_0jny5")]
-transform = Transform3D(160, 0, 0, 0, 160, 0, 0, 0, 160, 0, 0, 0)
 visible = false
-
-[node name="AsteroidSkybox" parent="." instance=ExtResource("3_dlc5f")]
-transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, 0, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)
 
 [node name="TurretEnemy" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, -5.45364, 1.38429, -29.0803)
+transform = Transform3D(0.997316, -0.0732208, 0, 0.0732208, 0.997316, 0, 0, 0, 1, -2.79219, 2.32198, -61.3335)
 motion_mode = 0
 
-[node name="AttackerShip" parent="Enemies" instance=ExtResource("7_ulmdv")]
-transform = Transform3D(-0.000890389, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.000890389, 78.9339, -0.038955, -88.0043)
+[node name="TurretEnemy2" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.954486, -0.298258, 0, 0.298258, 0.954486, 0, 0, 0, 1, -2.79219, 2.32198, -412.257)
 motion_mode = 0
 
-[node name="Skewer" parent="Enemies" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 35.7641, -1.43528, -88.417)
+[node name="Asteroid" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.992786, -0.0997323, -0.0665559, 0.0952737, 0.319163, 0.942899, -0.0727952, -0.942438, 0.326363, -2.45764, 1.26735, -412.303)
 
-[node name="Skewer2" parent="Enemies" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, -0.379957, 0.925004, -1.66084e-08, -0.925004, -0.379957, -4.04332e-08, 39.8149, -0.105923, -86.5561)
+[node name="Asteroid4" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.544412, -0.720486, -0.429554, 0.825845, -0.550097, -0.123993, -0.146961, -0.422248, 0.894489, 12.5864, 1.26735, -375.487)
 
-[node name="Skewer3" parent="Enemies" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, -0.991056, 0.13345, -4.33204e-08, -0.13345, -0.991056, -5.83328e-09, 44.0128, 1.53835, -85.6986)
+[node name="Asteroid10" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.97342, -0.0988581, -0.206595, 0.175662, -0.901074, -0.396496, -0.146961, -0.422248, 0.894489, -14.5038, 1.26735, -426.562)
 
-[node name="Circler" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, -1.30526, 0.226989, -25.9086)
+[node name="Asteroid11" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-1.24827, -0.126771, -0.264928, 0.22526, -1.1555, -0.508448, -0.188456, -0.541471, 1.14705, 17.0077, 1.26735, -481.166)
+
+[node name="Asteroid12" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-1.13628, -0.0940945, -0.409589, 0.205052, -0.857655, -0.78608, -0.171549, -0.401902, 1.77338, -17.8735, 1.26735, -508.998)
+
+[node name="Asteroid14" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.36472, 0.844607, -0.672213, 1.04685, 0.374291, 0.40198, 0.365663, -0.229121, -1.8213, 6.22959, 13.744, -508.998)
+
+[node name="Asteroid15" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-1.11311, 0.0742139, 0.576769, 0.0112952, -0.911344, 0.571644, 0.351399, 0.264377, 1.80863, -8.65915, 13.744, -451.789)
+
+[node name="Asteroid16" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.561839, 0.492354, -1.40296, 1.00756, 0.132332, -0.962423, -0.178277, -0.803758, -1.01786, 14.0231, -25.8371, -471.877)
+
+[node name="Asteroid17" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.561839, 0.492354, -1.40296, 1.00756, 0.132332, -0.962423, -0.178277, -0.803758, -1.01786, -8.34733, -25.8371, -548.648)
+
+[node name="Asteroid13" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.97145, 0.215671, -0.781773, 0.792865, -0.508953, 0.844825, -0.170437, -1.13835, -0.525831, 6.61153, 1.26736, -561.304)
+
+[node name="Asteroid18" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(11.2186, 13.7975, 7.58838, -9.2031, 1.18734, 13.5967, 6.90071, -20.8475, 5.79662, 36.1233, -1.81981, -647.024)
+
+[node name="Asteroid22" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(11.2186, 13.7975, 7.58838, -9.2031, 1.18734, 13.5967, 6.90071, -20.8475, 5.79662, 36.1233, -1.81981, -647.024)
+
+[node name="Asteroid20" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-7.07034, -20.6069, 5.955, -13.1534, 13.3114, 3.6016, -5.9307, -4.95597, -15.0871, 8.40225, 30.3086, -761.079)
+
+[node name="Asteroid19" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.481, 8.5733, -15.5344, -3.94427, -22.5794, -5.89383, -15.5056, 6.56255, 0.0155089, -33.6144, -1.1586, -727.796)
+
+[node name="Asteroid23" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(9.81583, 10.9363, -3.16142, -1.02316, -5.79972, -12.2386, -7.5892, 14.9269, -2.43898, -85.04, 10.4042, -920.855)
+
+[node name="Asteroid24" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(14.5434, -17.2226, -3.82016, -7.62059, -1.23696, -15.4753, 13.3046, 18.1177, -4.688, 66.3637, -1.1586, -944.427)
+
+[node name="Asteroid25" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(4.51547, 12.6693, 11.2094, 12.4775, -10.6693, 4.28717, 9.06073, 8.37885, -11.4901, -164.583, -1.1586, -763.991)
+
+[node name="Asteroid26" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(4.51547, 17.0825, 11.2094, 12.4775, -14.3858, 4.28717, 9.06073, 11.2975, -11.4901, 177.592, -1.15857, -727.271)
+
+[node name="Asteroid21" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-15.0058, -8.92333, 0.442662, 0.199482, 1.05453, 16.5989, -5.74124, 23.3594, -0.580244, 19.0604, -28.561, -745.416)
+
+[node name="Asteroid5" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.992786, -0.0997323, -0.0665559, 0.0952737, 0.319163, 0.942899, -0.0727952, -0.942438, 0.326363, -6.74132, 8.86892, -290.754)
+
+[node name="Asteroid6" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.4255, 0.824324, 0.373417, 0.552261, 0.09036, -0.82876, -0.716909, 0.558861, -0.416793, 14.862, 8.86892, -258.31)
+
+[node name="Asteroid2" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.819643, 0.129907, 0.557952, -0.568232, 0.308117, 0.763005, -0.0727952, -0.942438, 0.326363, 15.974, -2.31901, -451.421)
+
+[node name="Asteroid7" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.807277, 0.0290902, 0.589455, -0.578588, 0.235935, 0.78075, -0.116361, -0.971334, 0.207296, 3.98587, 4.62022, -509.42)
+
+[node name="Asteroid8" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.975378, -0.0723862, 0.208325, -0.187347, 0.226433, 0.95584, -0.116361, -0.971334, 0.207296, 15.0002, -0.957056, -543.374)
+
+[node name="Asteroid9" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.980762, -0.0794355, 0.178316, -0.156737, 0.224057, 0.96189, -0.116361, -0.971334, 0.207296, -7.42077, -2.26656, -553.364)
+
+[node name="Asteroid3" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.57899, -0.0772445, 0.056925, -0.0950809, 0.028235, 0.938022, -0.0626781, -1.98878, 0.0111063, -7.84414, -2.33397, -477.594)
+
+[node name="TurretEnemy3" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.931247, 0.364389, 0, -0.364389, 0.931247, 0, 0, 0, 1, 16.3082, -1.21486, -451.327)
+motion_mode = 0
+
+[node name="TurretEnemy4" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, -7.6396, -1.23484, -477.592)
+motion_mode = 0
+
+[node name="TurretEnemy7" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, 3.86537, 5.91319, -509.485)
+motion_mode = 0
+
+[node name="TurretEnemy8" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(-0.999491, 0.0318993, 0, -0.0318993, -0.999491, 0, 0, 0, 1, 3.86537, 3.29061, -509.485)
+motion_mode = 0
+
+[node name="TurretEnemy5" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, 15.0604, 0.215596, -543.232)
+motion_mode = 0
+
+[node name="TurretEnemy6" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, -7.28815, -1.21239, -552.872)
+motion_mode = 0
 
 [node name="Circler2" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(0.999596, 0, 0.0284101, 0, 1, 0, 0.0284101, 0, -0.999596, 3.55964, 0.226989, -35.8609)
+transform = Transform3D(-0.998817, 0, 0.0486233, 0, 1, 0, -0.0486233, 0, -0.998817, 4.87004, 0.226989, -80.5272)
+path_curve = ExtResource("10_dqkbj")
 
 [node name="Circler3" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(0.885547, 0.463868, 0.0251686, -0.463681, 0.885904, -0.0131785, 0.0284101, 0, -0.999596, -0.0940949, 1.93479, -43.2556)
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 13.9801, 0.226989, -695.532)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler5" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -702.137)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler6" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -712.364)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler7" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -812.99)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler9" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -9.1479, 0.226989, -875.944)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler10" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.3525, 0.226989, -875.944)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler8" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -823.216)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler4" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(-0.990509, 0, 0.137444, 0, 1, 0, -0.137444, 0, -0.990509, -1.3162, 0.226989, -96.6705)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="CirclerHeavy" parent="Enemies" instance=ExtResource("7_tpfqt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.17291, 0, -212.703)
+path_curve = ExtResource("8_tcq8m")
+activation_distance = 20.0
+
+[node name="CirclerHeavy2" parent="Enemies" instance=ExtResource("7_tpfqt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.17291, 0, -808.289)
+path_curve = ExtResource("8_tcq8m")
+activation_distance = 20.0
+
+[node name="IceAsteroid" parent="Enemies" instance=ExtResource("11_k344t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88305, -8.42323, -656.857)
+rotation_direction = Vector3(0.752759, 0.218199, 0.621082)
+
+[node name="IceAsteroid4" parent="Enemies" instance=ExtResource("11_k344t")]
+transform = Transform3D(0.782315, -0.622883, 0, 0.622883, 0.782315, 0, 0, 0, 1, 13.2734, 3.81896, -697.5)
+rotation_direction = Vector3(0.717776, 0.463088, 0.51995)
+
+[node name="IceAsteroid5" parent="Enemies" instance=ExtResource("11_k344t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.30365, 0.873465, -726.421)
+rotation_direction = Vector3(0.547149, 0.836994, 0.00833942)
 
 [node name="World" type="Node3D" parent="."]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37915, -5.65516, -0.215576)
-material_override = SubResource("StandardMaterial3D_1h3m5")
-use_collision = true
-size = Vector3(16.0112, 0.541992, 15)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08477, -4.60334, 0.100801)
-material_override = SubResource("StandardMaterial3D_1h3m5")
-use_collision = true
-size = Vector3(2.34264, 2.72949, 6.14441)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="World"]
-transform = Transform3D(0.961358, -0.275302, 0, 0.274558, 0.95876, 0.0734645, -0.0202249, -0.0706256, 0.997298, -6.19263, -0.488456, -29.8258)
-material_override = SubResource("StandardMaterial3D_1h3m5")
-use_collision = true
-size = Vector3(3, 3, 3)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="World"]
-transform = Transform3D(-0.798389, 0.184718, 0.57311, 0.274558, 0.95876, 0.0734645, -0.535904, 0.216005, -0.816179, 8.09747, -0.488456, -62.6433)
-material_override = SubResource("StandardMaterial3D_1h3m5")
-use_collision = true
-size = Vector3(3, 3, 3)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="World"]
-transform = Transform3D(0.961358, -0.275302, 1.85761e-09, 0.188191, 0.657165, 0.729876, -0.200936, -0.701672, 0.68358, -3.23831, -0.488456, -88.2379)
-material_override = SubResource("StandardMaterial3D_1h3m5")
-use_collision = true
-size = Vector3(3, 3, 3)
-
-[node name="PlayerController" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("1_kn7at")]
-transform = Transform3D(0.0849407, 0, -0.996385, 0, 1, 0, 0.996385, 0, 0.0849407, 7.3424, 0, -88.9212)
-path_follow = NodePath("../PlayerPath/PlayerPathFollow")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_ukv0f")
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("1_kn7at")]
+transform = Transform3D(0.999995, -0.00236774, 0, 0.00236774, 0.999996, 0, 0, 0, 0.999998, 0, 0, -572.724)
+path_follow = NodePath("../PlayerPath/PlayerPathFollow")
+path_speed = 16.0
 
 [node name="PlayerPath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
-transform = Transform3D(0.0849407, 0, -0.996385, 0, 1, 0, 0.996385, 0, 0.0849407, 7.3424, 0, -88.9212)
-progress = 93.0738
+transform = Transform3D(0.999995, -0.00236774, 0, 0.00236774, 0.999996, 0, 0, 0, 0.999998, 0, 0, -572.724)
+progress = 593.999
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
 remote_path = NodePath("../../../PlayerController")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_6ielw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -136,60 +239,36 @@ offset_right = 456.0
 offset_bottom = 640.0
 grow_horizontal = 1
 grow_vertical = 1
-initial_node_to_watch = NodePath("../../Enemies/Skewer")
 
 [node name="Stage" type="Node3D" parent="."]
 
-[node name="Circler" parent="Stage" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, 49.2225, 0.226989, -91.1349)
+[node name="Asteroid" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.27281, 0, 0, 0, 1.27281, 0, 0, 0, 1.27281, -5.46502, 0, -6.25351)
+visible = false
 
-[node name="Circler2" parent="Stage" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, 45.8587, 0.226989, -91.1349)
+[node name="Asteroid2" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(2.07062, -0.23658, 0.441349, 0, 1.1218, 0.601329, -0.886099, -0.552835, 1.03134, 9.08306, 7.57948, -24.922)
 
-[node name="Circler3" parent="Stage" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, 52.1955, 0.226989, -91.1349)
+[node name="Asteroid3" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.175787, -0.524523, 1.175, 0.515912, 1.16644, 0.511965, -1.44499, 0.480272, 0.0398475, -3.34062, 0, -61.5743)
 
-[node name="Circler4" parent="Stage" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, 40.2555, 0.226989, -91.1349)
+[node name="Asteroid4" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.22085, -4.37546, 3.48436, 1.69665, 3.62398, 3.93522, -6.26069, 0.827755, 1.18936, -9.55187, 0, -117.229)
 
-[node name="Circler5" parent="Stage" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, 40.2555, 0.226989, -116.623)
+[node name="Asteroid5" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.2274, -4.12423, 3.60792, 1.83098, -3.52123, -3.97569, 6.10448, 1.8854, 0.46704, -9.89678, 0, -155.603)
 
-[node name="Circler6" parent="Stage" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.999596, 0, 0.0284102, 0, 1, 0, -0.0284102, 0, -0.999596, 56.491, 0.226989, -118.33)
+[node name="Asteroid6" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.22085, -4.37546, 3.48436, -4.52517, -2.7651, -2.8614, 4.64733, -2.48449, -2.95177, -28.6185, 7.4034, -138.172)
 
-[node name="Skewer" parent="Stage" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 42.8625, -1.43528, -116.096)
+[node name="PathSpeedSetter" parent="." instance=ExtResource("13_35dk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.9542)
+speed = 16.0
 
-[node name="Skewer2" parent="Stage" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 54.4809, -1.43528, -118.041)
+[node name="PathSpeedSetter2" parent="." instance=ExtResource("13_35dk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -371.832)
+speed = 13.0
 
-[node name="Skewer3" parent="Stage" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 50.8596, -1.43528, -115.969)
-
-[node name="Skewer4" parent="Stage" instance=ExtResource("6_weqjj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 51.1225, -1.43528, -112.936)
-
-[node name="TurretEnemy" parent="Stage" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, 47.1464, 1.38429, -94.4954)
-motion_mode = 0
-
-[node name="TurretEnemy2" parent="Stage" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, 52.9537, 1.38429, -94.4954)
-motion_mode = 0
-
-[node name="TurretEnemy3" parent="Stage" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, 47.1464, 1.38429, -111.668)
-motion_mode = 0
-
-[node name="TurretEnemy4" parent="Stage" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, 52.8003, 1.38429, -110.673)
-motion_mode = 0
-
-[node name="TurretEnemy5" parent="Stage" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, 47.1464, 1.38429, -107.178)
-motion_mode = 0
-
-[node name="TurretEnemy6" parent="Stage" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.979428, -0.201796, 0, 0.201796, 0.979428, 0, 0, 0, 1, 51.8788, 1.38429, -107.132)
-motion_mode = 0
+[node name="PathSpeedSetter3" parent="." instance=ExtResource("13_35dk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -590.151)
+speed = 18.0
