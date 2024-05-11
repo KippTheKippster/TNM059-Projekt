@@ -1,7 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=22 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
-[ext_resource type="PackedScene" uid="uid://c8dkml17lg3e1" path="res://player/player_test_v2.glb" id="2_5m4cv"]
+[ext_resource type="PackedScene" uid="uid://de8jlfyhyhke4" path="res://player/player_test_v3.glb" id="2_etpdk"]
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
 [ext_resource type="PackedScene" uid="uid://b2x2oamlwh8xs" path="res://assets/ship.blend" id="2_rs7pv"]
 [ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="2_xq6mt"]
@@ -16,8 +16,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhyyo"]
 size = Vector3(1.8642, 1, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4uach"]
 
 [sub_resource type="Animation" id="Animation_buqbx"]
 length = 0.001
@@ -194,25 +192,8 @@ shape = SubResource("BoxShape3D_fhyyo")
 [node name="ShipContainer" type="Node3D" parent="RotationContainer"]
 transform = Transform3D(1, -4.46638e-06, 0, 4.46638e-06, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="player_test_v2" parent="RotationContainer/ShipContainer" instance=ExtResource("2_5m4cv")]
+[node name="player_test_v3" parent="RotationContainer/ShipContainer" instance=ExtResource("2_etpdk")]
 transform = Transform3D(0.308771, 1.37909e-06, 0, -1.37909e-06, 0.308771, 0, 0, 0, 0.308771, 0, 0, 0)
-
-[node name="Cube_006" parent="RotationContainer/ShipContainer/player_test_v2" index="1"]
-transform = Transform3D(0.553568, 0, 0, 0, 0.451114, 0.0979676, 0, -0.035553, 1.24306, 0, 0.834604, 1.00022)
-visible = false
-
-[node name="Cube_008" parent="RotationContainer/ShipContainer/player_test_v2" index="2"]
-transform = Transform3D(1, 0, 0, 0, -0.418811, 0.0252951, 0, 0.0225359, 0.470088, 0, 0.67721, 3.01706)
-surface_material_override/0 = SubResource("StandardMaterial3D_4uach")
-
-[node name="Cube" parent="RotationContainer/ShipContainer/player_test_v2" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1.31394, 0, 0, 0, 1, 0, -0.109507, 0)
-
-[node name="Cylinder_003" parent="RotationContainer/ShipContainer/player_test_v2" index="8"]
-transform = Transform3D(0, -2.48688e-08, 0.521469, 0.265987, 0, -3.1082e-08, -1.5854e-08, 0.417229, 0, 0, -0.0162048, 3.73398)
-
-[node name="Cube_003" parent="RotationContainer/ShipContainer/player_test_v2" index="9"]
-transform = Transform3D(1.30452, 0, 0, 0, -0.402512, 0, 0, 0, 1, 0, -0.109507, 3.50234)
 
 [node name="Ship" parent="RotationContainer/ShipContainer" instance=ExtResource("2_rs7pv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95329, -2.82269, 0)
@@ -229,7 +210,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.200817)
 health = 10.0
 layer = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RotationContainer/HealthArea"]
+[node name="HealthCollisionShape" type="CollisionShape3D" parent="RotationContainer/HealthArea"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_7cs1m")
 
@@ -378,6 +359,26 @@ script = ExtResource("10_csslr")
 to = NodePath("../../Inactive")
 event = &"fire_release"
 
+[node name="Invincibility" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_elmug")
+initial_state = NodePath("Inactive")
+
+[node name="Inactive" type="Node" parent="StateChart/Root/Invincibility"]
+script = ExtResource("9_765a5")
+
+[node name="Hurt" type="Node" parent="StateChart/Root/Invincibility/Inactive"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Active")
+event = &"hurt"
+
+[node name="Active" type="Node" parent="StateChart/Root/Invincibility"]
+script = ExtResource("9_765a5")
+
+[node name="Transition" type="Node" parent="StateChart/Root/Invincibility/Active"]
+script = ExtResource("10_csslr")
+to = NodePath("../../Inactive")
+delay_seconds = 1.0
+
 [connection signal="animation_finished" from="RotationContainer/ShipContainer/ShipAnimationPlayer" to="." method="_on_ship_animation_player_animation_finished"]
 [connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Idle" to="." method="_on_movement_idle_state_entered"]
@@ -388,5 +389,5 @@ event = &"fire_release"
 [connection signal="state_entered" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_physics_processing"]
-
-[editable path="RotationContainer/ShipContainer/player_test_v2"]
+[connection signal="state_entered" from="StateChart/Root/Invincibility/Inactive" to="." method="_on_invincibility_inactive_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Invincibility/Active" to="." method="_on_invincibility_active_state_entered"]

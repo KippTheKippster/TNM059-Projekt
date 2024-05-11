@@ -18,7 +18,6 @@ script = ExtResource("1_32pg7")
 layer = 2
 
 [node name="MissileTarget" parent="." instance=ExtResource("3_wcjp4")]
-target_timeout = null
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("4_r31ry")

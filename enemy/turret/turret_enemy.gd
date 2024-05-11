@@ -1,6 +1,9 @@
 extends Enemy
 
 const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
+
+@export var shoot_amount: int = 3
+
 @onready var shoot_marker: Marker3D = %ShootMarker
 @onready var small_explosion: Node3D = $SmallExplosion
 @onready var shoot_timer: Timer = $ShootTimer
@@ -19,11 +22,9 @@ func _process(delta: float) -> void:
 	head.rotation = Vector3(angle_x, horizontal.angle(), 0)
 
 func shoot() -> void:
-	create_bullet()
-	await get_tree().create_timer(0.2).timeout
-	create_bullet()
-	await get_tree().create_timer(0.2).timeout
-	create_bullet()
+	for i in shoot_amount:
+		create_bullet()
+		await get_tree().create_timer(0.2).timeout
 
 func create_bullet() -> void:
 	var bullet = ENEMY_BULLET.instantiate() as Projectile

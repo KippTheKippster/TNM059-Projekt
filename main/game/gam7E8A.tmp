@@ -1,0 +1,673 @@
+[gd_scene load_steps=18 format=3 uid="uid://bu6bypayly4ur"]
+
+[ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
+[ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
+[ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
+[ext_resource type="AudioStream" uid="uid://bujhb3x50eprv" path="res://assets/music/strata.mp3" id="2_ne7pa"]
+[ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_ukv0f"]
+[ext_resource type="PackedScene" uid="uid://ck7un7fd4ehec" path="res://skybox/planet_skybox.tscn" id="5_0jny5"]
+[ext_resource type="PackedScene" uid="uid://cd5s5a61atoor" path="res://enemy/circler/circler.tscn" id="7_0mbj4"]
+[ext_resource type="PackedScene" uid="uid://rrt50vcpu0a8" path="res://enemy/circler/circler_heavy.tscn" id="7_tpfqt"]
+[ext_resource type="Curve3D" uid="uid://tq4rb6qgfvm6" path="res://enemy/circler/circler_heavy_path_1.tres" id="8_tcq8m"]
+[ext_resource type="Curve3D" uid="uid://dgwfwhu2cw54c" path="res://enemy/circler/circler_path_1.tres" id="8_w05of"]
+[ext_resource type="Curve3D" uid="uid://1monpwbn80a2" path="res://enemy/circler/circler_path_2.tres" id="10_dqkbj"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="10_ls1n3"]
+[ext_resource type="PackedScene" uid="uid://cwmkwpvhluueo" path="res://world/ice_asteroid.tscn" id="11_k344t"]
+[ext_resource type="PackedScene" uid="uid://cea57wnpeh1lb" path="res://world/asteroid.tscn" id="12_aiofw"]
+[ext_resource type="PackedScene" uid="uid://cqff71t3gfqje" path="res://common/path/path_speed_setter.tscn" id="13_35dk4"]
+[ext_resource type="PackedScene" uid="uid://cuyaigwc26uod" path="res://world/laser_barrier.tscn" id="16_4kjuv"]
+
+[sub_resource type="Curve3D" id="Curve3D_j8dlu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, -24, 0, 0, -80, -0.331572, -8.39233e-05, 18.4924, 0.331572, 8.39233e-05, -18.4924, 15.4568, -3.96094, -135.27, 0, 0, 10, 0, 0, -10, 0, 0, -192, 0, 0, 0, 0, 0, 0, 0, 0, -2040),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_idndb")
+music_stream = ExtResource("2_ne7pa")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.885552, -0.337238, 0.319482, -0.0399613, 0.629886, 0.775659, -0.462818, -0.699653, 0.54432, 0, 0, 0)
+light_color = Color(1, 0.862745, 0.780392, 1)
+light_energy = 2.0
+shadow_enabled = true
+directional_shadow_max_distance = 311.0
+
+[node name="PlanetSkybox" parent="." instance=ExtResource("5_0jny5")]
+visible = false
+
+[node name="Enemies" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)
+
+[node name="TurretEnemy" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997316, -0.0732208, 0, 0.0732208, 0.997316, 0, 0, 0, 1, -2.79219, 2.32198, -61.3335)
+motion_mode = 0
+
+[node name="TurretEnemy2" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.954486, -0.298258, 0, 0.298258, 0.954486, 0, 0, 0, 1, -2.79219, 2.32198, -412.257)
+motion_mode = 0
+
+[node name="Asteroid" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.992786, -0.0997323, -0.0665559, 0.0952737, 0.319163, 0.942899, -0.0727952, -0.942438, 0.326363, -2.45764, 1.26735, -412.303)
+
+[node name="Asteroid4" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.544412, -0.720486, -0.429554, 0.825845, -0.550097, -0.123993, -0.146961, -0.422248, 0.894489, 12.5864, 1.26735, -375.487)
+
+[node name="Asteroid10" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.97342, -0.0988581, -0.206595, 0.175662, -0.901074, -0.396496, -0.146961, -0.422248, 0.894489, -14.5038, 1.26735, -426.562)
+
+[node name="Asteroid11" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-1.24827, -0.126771, -0.264928, 0.22526, -1.1555, -0.508448, -0.188456, -0.541471, 1.14705, 17.0077, 1.26735, -481.166)
+
+[node name="Asteroid12" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-1.13628, -0.0940945, -0.409589, 0.205052, -0.857655, -0.78608, -0.171549, -0.401902, 1.77338, -17.8735, 1.26735, -508.998)
+
+[node name="Asteroid14" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.36472, 0.844607, -0.672213, 1.04685, 0.374291, 0.40198, 0.365663, -0.229121, -1.8213, 6.22959, 13.744, -508.998)
+
+[node name="Asteroid15" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-1.11311, 0.0742139, 0.576769, 0.0112952, -0.911344, 0.571644, 0.351399, 0.264377, 1.80863, -8.65915, 13.744, -451.789)
+
+[node name="Asteroid16" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.561839, 0.492354, -1.40296, 1.00756, 0.132332, -0.962423, -0.178277, -0.803758, -1.01786, 14.0231, -25.8371, -471.877)
+
+[node name="Asteroid17" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.561839, 0.492354, -1.40296, 1.00756, 0.132332, -0.962423, -0.178277, -0.803758, -1.01786, -8.34733, -25.8371, -548.648)
+
+[node name="Asteroid13" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.97145, 0.215671, -0.781773, 0.792865, -0.508953, 0.844825, -0.170437, -1.13835, -0.525831, 6.61153, 1.26736, -561.304)
+
+[node name="Asteroid18" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(11.2186, 13.7975, 7.58838, -9.2031, 1.18734, 13.5967, 6.90071, -20.8475, 5.79662, 36.1233, -1.81981, -647.024)
+
+[node name="Asteroid22" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(11.2186, 13.7975, 7.58838, -9.2031, 1.18734, 13.5967, 6.90071, -20.8475, 5.79662, 36.1233, -1.81981, -647.024)
+
+[node name="Asteroid20" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-7.07034, -20.6069, 5.955, -13.1534, 13.3114, 3.6016, -5.9307, -4.95597, -15.0871, 8.40225, 30.3086, -761.079)
+
+[node name="Asteroid19" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.481, 8.5733, -15.5344, -3.94427, -22.5794, -5.89383, -15.5056, 6.56255, 0.0155089, -33.6144, -1.1586, -727.796)
+
+[node name="Asteroid23" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(9.81583, 10.9363, -3.16142, -1.02316, -5.79972, -12.2386, -7.5892, 14.9269, -2.43898, -85.04, 10.4042, -920.855)
+
+[node name="Asteroid24" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(14.5434, -17.2226, -3.82016, -7.62059, -1.23696, -15.4753, 13.3046, 18.1177, -4.688, 66.3637, -1.1586, -944.427)
+
+[node name="Asteroid25" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(4.51547, 12.6693, 11.2094, 12.4775, -10.6693, 4.28717, 9.06073, 8.37885, -11.4901, -164.583, -1.1586, -763.991)
+
+[node name="Asteroid26" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(4.51547, 17.0825, 11.2094, 12.4775, -14.3858, 4.28717, 9.06073, 11.2975, -11.4901, 177.592, -1.15857, -727.271)
+
+[node name="Asteroid21" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-15.0058, -8.92333, 0.442662, 0.199482, 1.05453, 16.5989, -5.74124, 23.3594, -0.580244, 19.0604, -28.561, -745.416)
+
+[node name="Asteroid5" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.992786, -0.0997323, -0.0665559, 0.0952737, 0.319163, 0.942899, -0.0727952, -0.942438, 0.326363, -6.74132, 8.86892, -290.754)
+
+[node name="Asteroid6" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.4255, 0.824324, 0.373417, 0.552261, 0.09036, -0.82876, -0.716909, 0.558861, -0.416793, 14.862, 8.86892, -258.31)
+
+[node name="Asteroid2" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.819643, 0.129907, 0.557952, -0.568232, 0.308117, 0.763005, -0.0727952, -0.942438, 0.326363, 15.974, -2.31901, -451.421)
+
+[node name="Asteroid7" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.807277, 0.0290902, 0.589455, -0.578588, 0.235935, 0.78075, -0.116361, -0.971334, 0.207296, 3.98587, 4.62022, -509.42)
+
+[node name="Asteroid8" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.975378, -0.0723862, 0.208325, -0.187347, 0.226433, 0.95584, -0.116361, -0.971334, 0.207296, 15.0002, -0.957056, -543.374)
+
+[node name="Asteroid9" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.980762, -0.0794355, 0.178316, -0.156737, 0.224057, 0.96189, -0.116361, -0.971334, 0.207296, -7.42077, -2.26656, -553.364)
+
+[node name="Asteroid3" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.57899, -0.0772445, 0.056925, -0.0950809, 0.028235, 0.938022, -0.0626781, -1.98878, 0.0111063, -7.84414, -2.33397, -477.594)
+
+[node name="TurretEnemy3" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.931247, 0.364389, 0, -0.364389, 0.931247, 0, 0, 0, 1, 16.3082, -1.21486, -451.327)
+motion_mode = 0
+
+[node name="TurretEnemy4" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, -7.6396, -1.23484, -477.592)
+motion_mode = 0
+
+[node name="TurretEnemy7" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, 3.86537, 5.91319, -509.485)
+motion_mode = 0
+
+[node name="TurretEnemy8" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(-0.999491, 0.0318993, 0, -0.0318993, -0.999491, 0, 0, 0, 1, 3.86537, 3.29061, -509.485)
+motion_mode = 0
+
+[node name="TurretEnemy5" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, 15.0604, 0.215596, -543.232)
+motion_mode = 0
+
+[node name="TurretEnemy6" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, -7.28815, -1.21239, -552.872)
+motion_mode = 0
+
+[node name="TurretEnemy9" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.917889, -0.254174, 0.304756, 0.393855, 0.677472, -0.621216, -0.0485673, 0.690237, 0.721951, 3.94598, -0.486314, -1115.58)
+motion_mode = 0
+
+[node name="TurretEnemy10" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.67392, -0.486314, -1366.87)
+motion_mode = 0
+
+[node name="TurretEnemy11" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.04698, -0.486314, -1369.96)
+motion_mode = 0
+
+[node name="TurretEnemy12" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(-0.375043, 0, 0.927007, 0, 1, 0, -0.927007, 0, -0.375043, -4.3078, -0.486314, -1384.57)
+motion_mode = 0
+
+[node name="TurretEnemy13" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(-0.375043, 0, 0.927007, 0, 1, 0, -0.927007, 0, -0.375043, -6.55967, -0.486314, -1381.9)
+motion_mode = 0
+
+[node name="TurretEnemy14" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.994092, 0, -0.108537, 0, 1, 0, 0.108537, 0, 0.994092, 6.71544, -0.486314, -1398.91)
+motion_mode = 0
+
+[node name="TurretEnemy15" parent="Enemies" instance=ExtResource("2_htpxb")]
+transform = Transform3D(0.994092, 0, -0.108537, 0, 1, 0, 0.108537, 0, 0.994092, 5.43328, -0.486314, -1402.16)
+motion_mode = 0
+
+[node name="Circler2" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(-0.998817, 0, 0.0486233, 0, 1, 0, -0.0486233, 0, -0.998817, 4.87004, 0.226989, -80.5272)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler3" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 13.9801, 0.226989, -695.532)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler5" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -702.137)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler6" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -712.364)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler7" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -812.99)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler9" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -9.1479, 0.226989, -875.944)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler10" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.3525, 0.226989, -875.944)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler8" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -823.216)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler11" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -1188.59)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler12" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -1198.81)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler13" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -1231.66)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler15" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.39249, 0.227, -1282.52)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler16" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.83616, 0.227, -1282.52)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler14" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -1241.88)
+path_curve = ExtResource("8_w05of")
+
+[node name="Circler4" parent="Enemies" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(-0.990509, 0, 0.137444, 0, 1, 0, -0.137444, 0, -0.990509, -1.3162, 0.226989, -96.6705)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="CirclerHeavy" parent="Enemies" instance=ExtResource("7_tpfqt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.17291, 0, -212.703)
+path_curve = ExtResource("8_tcq8m")
+activation_distance = 20.0
+
+[node name="CirclerHeavy2" parent="Enemies" instance=ExtResource("7_tpfqt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.17291, 0, -808.289)
+path_curve = ExtResource("8_tcq8m")
+activation_distance = 20.0
+
+[node name="IceAsteroid" parent="Enemies" instance=ExtResource("11_k344t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88305, -8.42323, -656.857)
+rotation_direction = Vector3(0.752759, 0.218199, 0.621082)
+
+[node name="IceAsteroid4" parent="Enemies" instance=ExtResource("11_k344t")]
+transform = Transform3D(0.782315, -0.622883, 0, 0.622883, 0.782315, 0, 0, 0, 1, 13.2734, 3.81896, -697.5)
+rotation_direction = Vector3(0.717776, 0.463088, 0.51995)
+
+[node name="IceAsteroid5" parent="Enemies" instance=ExtResource("11_k344t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.30365, 0.873465, -726.421)
+rotation_direction = Vector3(0.547149, 0.836994, 0.00833942)
+
+[node name="MissileGroup" type="Node3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98529, 0.226999, -1413.28)
+
+[node name="Circler17" parent="Enemies/MissileGroup" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler18" parent="Enemies/MissileGroup" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler19" parent="Enemies/MissileGroup" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, 1.35852)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="MissileGroup2" type="Node3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.11553, 0.226999, -1421.68)
+
+[node name="Circler17" parent="Enemies/MissileGroup2" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler18" parent="Enemies/MissileGroup2" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler19" parent="Enemies/MissileGroup2" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, 1.35852)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="MissileGroup3" type="Node3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17978, 0.226999, -1433.96)
+
+[node name="Circler17" parent="Enemies/MissileGroup3" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler18" parent="Enemies/MissileGroup3" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler19" parent="Enemies/MissileGroup3" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, 1.35852)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="MissileGroup4" type="Node3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.91012, 0.226999, -1456.96)
+
+[node name="Circler17" parent="Enemies/MissileGroup4" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler18" parent="Enemies/MissileGroup4" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler19" parent="Enemies/MissileGroup4" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, 1.35852)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="MissileGroup5" type="Node3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.34615, 0.226999, -1458.89)
+
+[node name="Circler17" parent="Enemies/MissileGroup5" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler18" parent="Enemies/MissileGroup5" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -1.50171)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="Circler19" parent="Enemies/MissileGroup5" instance=ExtResource("7_0mbj4")]
+transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, 1.35852)
+path_curve = ExtResource("10_dqkbj")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_ukv0f")
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("1_kn7at")]
+transform = Transform3D(0.999995, -0.00236774, 0, 0.00236774, 0.999996, 0, 0, 0, 0.999998, 0, 0, -1027.3)
+path_follow = NodePath("../PlayerPath/PlayerPathFollow")
+path_speed = 16.0
+
+[node name="PlayerPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_j8dlu")
+
+[node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
+transform = Transform3D(0.999995, -0.00236774, 0, 0.00236774, 0.999996, 0, 0, 0, 0.999998, 0, 0, -1027.3)
+progress = 1048.57
+loop = false
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
+remote_path = NodePath("../../../PlayerController")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("10_ls1n3")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 456.0
+offset_bottom = 640.0
+grow_horizontal = 1
+grow_vertical = 1
+initial_node_to_watch = NodePath("../../PlayerController/Player")
+
+[node name="Stage" type="Node3D" parent="."]
+
+[node name="Asteroid" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.27281, 0, 0, 0, 1.27281, 0, 0, 0, 1.27281, -5.46502, 0, -6.25351)
+visible = false
+
+[node name="Asteroid2" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(2.07062, -0.23658, 0.441349, 0, 1.1218, 0.601329, -0.886099, -0.552835, 1.03134, 9.08306, 7.57948, -24.922)
+
+[node name="Asteroid3" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.175787, -0.524523, 1.175, 0.515912, 1.16644, 0.511965, -1.44499, 0.480272, 0.0398475, -3.34062, 0, -61.5743)
+
+[node name="Asteroid4" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.22085, -4.37546, 3.48436, 1.69665, 3.62398, 3.93522, -6.26069, 0.827755, 1.18936, -9.55187, 0, -117.229)
+
+[node name="Asteroid5" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(1.2274, -4.12423, 3.60792, 1.83098, -3.52123, -3.97569, 6.10448, 1.8854, 0.46704, -9.89678, 0, -155.603)
+
+[node name="Asteroid6" parent="." instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.22085, -4.37546, 3.48436, -4.52517, -2.7651, -2.8614, 4.64733, -2.48449, -2.95177, -28.6185, 7.4034, -138.172)
+
+[node name="PathSpeedSetter" parent="." instance=ExtResource("13_35dk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.9542)
+speed = 16.0
+
+[node name="PathSpeedSetter2" parent="." instance=ExtResource("13_35dk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -371.832)
+speed = 13.0
+
+[node name="PathSpeedSetter3" parent="." instance=ExtResource("13_35dk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -590.151)
+speed = 18.0
+
+[node name="LaserBarrier3" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(0.451329, -0.892357, 0, 0.892357, 0.451329, 0, 0, 0, 1, 12.9977, -5.27447, -1004.98)
+max_height = 32.0
+
+[node name="LaserBarrier4" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(0.796139, -0.605113, 0, 0.605113, 0.796139, 0, 0, 0, 1, 6.20572, -5.27447, -1048.77)
+max_height = 32.0
+
+[node name="LaserBarrier5" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-0.578157, -0.815926, 0, 0.815926, -0.578157, 0, 0, 0, 1, 15.2956, 9.22518, -1061.8)
+max_height = 32.0
+
+[node name="LaserBarrier6" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-0.578157, -0.815926, 0, 0.815926, -0.578157, 0, 0, 0, 1, 7.48813, 13.8034, -1070.26)
+max_height = 32.0
+
+[node name="LaserBarrier7" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-0.881238, 0.472674, 0, -0.472674, -0.881238, 0, 0, 0, 1, -4.80842, 20.8034, -1079.98)
+max_height = 32.0
+
+[node name="LaserBarrier9" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.3401, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier10" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 5, 21.6599, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier11" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -10.3401, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier12" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 15, 21.6599, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier13" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -15, 21.6599, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier14" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -10.3401, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier15" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -5, 21.6599, -1145.45)
+max_height = 32.0
+
+[node name="LaserBarrier23" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.3401, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier24" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 5, 21.6599, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier25" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -10.3401, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier26" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 15, 21.6599, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier27" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -15, 21.6599, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier28" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -10.3401, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier29" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -5, 21.6599, -1194.65)
+max_height = 32.0
+
+[node name="LaserBarrier16" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 7.94561, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier17" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 13.7143, 2.94561, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier18" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, -2.05439, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier19" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 13.7143, -7.05439, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier20" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 13.7143, 22.9456, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier21" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 17.9456, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier37" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10.7943, 21.9661, -1228.23)
+max_height = 32.0
+
+[node name="LaserBarrier38" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1.72327, 21.9661, -1224.28)
+max_height = 32.0
+
+[node name="LaserBarrier39" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -5.87922, 21.9661, -1237.28)
+max_height = 32.0
+
+[node name="LaserBarrier40" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5.79665, 21.9661, -1245.46)
+max_height = 32.0
+
+[node name="LaserBarrier41" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -8.32517, 21.9661, -1253.9)
+max_height = 32.0
+
+[node name="LaserBarrier42" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 12.3509, 21.9661, -1235.19)
+max_height = 32.0
+
+[node name="LaserBarrier43" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18.1911, 21.9661, -1245.83)
+max_height = 32.0
+
+[node name="LaserBarrier44" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10.7943, 21.9661, -1262.08)
+max_height = 32.0
+
+[node name="LaserBarrier45" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1.72327, 21.9661, -1258.14)
+max_height = 32.0
+
+[node name="LaserBarrier58" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2.74314, 21.9661, -1247.87)
+max_height = 32.0
+
+[node name="LaserBarrier59" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2.70593, 21.9661, -1273.69)
+max_height = 32.0
+
+[node name="LaserBarrier60" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.815121, 21.9661, -1294.01)
+max_height = 32.0
+
+[node name="LaserBarrier61" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -1.4276, 21.9661, -1309.15)
+max_height = 32.0
+
+[node name="LaserBarrier46" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -5.87922, 21.9661, -1271.14)
+max_height = 32.0
+
+[node name="LaserBarrier47" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5.79665, 21.9661, -1279.31)
+max_height = 32.0
+
+[node name="LaserBarrier48" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -8.32517, 21.9661, -1287.75)
+max_height = 32.0
+
+[node name="LaserBarrier49" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 12.3509, 21.9661, -1269.05)
+max_height = 32.0
+
+[node name="LaserBarrier50" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18.1911, 21.9661, -1279.69)
+max_height = 32.0
+
+[node name="LaserBarrier51" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10.7943, 21.9661, -1293.05)
+max_height = 32.0
+
+[node name="LaserBarrier52" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1.72327, 21.9661, -1289.1)
+max_height = 32.0
+
+[node name="LaserBarrier53" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -5.87922, 21.9661, -1302.11)
+max_height = 32.0
+
+[node name="LaserBarrier54" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5.79665, 21.9661, -1310.28)
+max_height = 32.0
+
+[node name="LaserBarrier55" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -8.32517, 21.9661, -1318.72)
+max_height = 32.0
+
+[node name="LaserBarrier56" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 12.3509, 21.9661, -1300.02)
+max_height = 32.0
+
+[node name="LaserBarrier57" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18.1911, 21.9661, -1310.66)
+max_height = 32.0
+
+[node name="LaserBarrier62" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.815121, 21.9661, -1315.77)
+max_height = 32.0
+
+[node name="LaserBarrier63" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -1.4276, 21.9661, -1330.91)
+max_height = 32.0
+
+[node name="LaserBarrier64" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10.7943, 21.9661, -1314.81)
+max_height = 32.0
+
+[node name="LaserBarrier65" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -5.87922, 21.9661, -1323.87)
+max_height = 32.0
+
+[node name="LaserBarrier66" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5.79665, 21.9661, -1332.04)
+max_height = 32.0
+
+[node name="LaserBarrier67" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -8.32517, 21.9661, -1340.48)
+max_height = 32.0
+
+[node name="LaserBarrier68" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 12.3509, 21.9661, -1321.78)
+max_height = 32.0
+
+[node name="LaserBarrier69" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18.1911, 21.9661, -1332.42)
+max_height = 32.0
+
+[node name="LaserBarrier22" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 13.7143, 12.9456, -1168.64)
+max_height = 32.0
+
+[node name="LaserBarrier30" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 7.94561, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier31" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 13.7143, 2.94561, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier32" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, -2.05439, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier33" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 13.7143, -7.05439, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier34" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 13.7143, 22.9456, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier35" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 17.9456, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier36" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 13.7143, 12.9456, -1194.7)
+max_height = 32.0
+
+[node name="LaserBarrier8" parent="." instance=ExtResource("16_4kjuv")]
+transform = Transform3D(-0.881238, 0.472674, 0, -0.472674, -0.881238, 0, 0, 0, 1, -13.2609, 14.7005, -1080.67)
+max_height = 32.0
+
+[editable path="PlayerController"]

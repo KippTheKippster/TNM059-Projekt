@@ -6,6 +6,7 @@ signal damaged
 @onready var rotation_container: Node3D = $RotationContainer
 @onready var ship_animation_player = %ShipAnimationPlayer
 @onready var health_area: HealthArea = $RotationContainer/HealthArea
+@onready var health_collision_shape: CollisionShape3D = $RotationContainer/HealthArea/HealthCollisionShape
 @onready var shoot_marker_3d: Marker3D = $RotationContainer/ShootMarker3D
 @onready var missle_target_ray_cast: MissileTargetRayCast = $RotationContainer/MissleTargetRayCast
 @onready var crosshair_1: Sprite3D = $RotationContainer/Crosshair1
@@ -130,6 +131,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_health_area_damaged(_hurt_area: HurtArea) -> void:
 	damaged.emit()
+	state_chart.send_event("hurt")
 
 func _on_missile_active_state_entered():
 	missle_target_ray_cast.is_active = true
@@ -184,3 +186,9 @@ func _on_brake_state_entered() -> void:
 func _on_movement_idle_state_entered() -> void:
 	path_speed_scale = 1
 	speed = move_speed
+
+func _on_invincibility_active_state_entered() -> void:
+	health_collision_shape.set_deferred("disabled", true)
+
+func _on_invincibility_inactive_state_entered() -> void:
+	health_collision_shape.set_deferred("disabled", false)
