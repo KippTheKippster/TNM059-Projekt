@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd5s5a61atoor"]
+[gd_scene load_steps=10 format=3 uid="uid://cd5s5a61atoor"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_m7dvm"]
 [ext_resource type="Script" path="res://enemy/circler/circler.gd" id="2_6d5c1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="2_l3du2"]
+[ext_resource type="PackedScene" uid="uid://ddyu40anul43d" path="res://enemy/enemy_bullet.tscn" id="3_f4fvv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0rm7j"]
 size = Vector3(1, 1.11691, 1.5473)
@@ -101,6 +102,8 @@ speed = 16.0
 shoot_time = 2.5
 burst_delay = 0.2
 max_shoot_times = 1
+shoot_amount = 3
+bullet_scene = ExtResource("3_f4fvv")
 awake_on_collision = false
 activation_distance = 0.1
 
@@ -118,10 +121,6 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0123596)
 shape = SubResource("BoxShape3D_0rm7j")
-
-[node name="MissileTarget" parent="." index="3"]
-sprite_scale = 6.0
-target_timeout = 0.25
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0123596)

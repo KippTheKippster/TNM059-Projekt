@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuyaigwc26uod"]
+
+[ext_resource type="Script" path="res://world/laser_barrier.gd" id="1_f7xfk"]
+[ext_resource type="PackedScene" uid="uid://di1gb34fn1q3w" path="res://world/laser.tscn" id="1_ugvdc"]
+[ext_resource type="PackedScene" uid="uid://1ib5ib8en883" path="res://common/path/path_activator.tscn" id="3_yfu0n"]
+
+[node name="LaserBarrier" type="Node3D"]
+script = ExtResource("1_f7xfk")
+max_height = 4.0
+extend_time = 0.25
+activation_distance = 24.0
+
+[node name="Laser" parent="." instance=ExtResource("1_ugvdc")]
+height = 4.0
+
+[node name="PathActivator" parent="." instance=ExtResource("3_yfu0n")]
+activation_distance = 24.0
+
+[connection signal="in_range" from="PathActivator" to="." method="_on_path_activator_in_range"]

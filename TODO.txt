@@ -8,3 +8,4 @@ Nuke
 Missile trail
 #Camera shake when enemies die
 #Missile targeting should get stronger the closer they are
+Screen flash red on hit

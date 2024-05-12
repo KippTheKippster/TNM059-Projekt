@@ -7,8 +7,6 @@ extends Enemy
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var mesh: Node3D = $Mesh
 
-const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
-
 @export var path_curve: Curve3D:
 	get: 
 		return path_curve
@@ -21,6 +19,10 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 @export var shoot_time: float = 1
 @export var burst_delay: float = 0.2
 @export var max_shoot_times: int = 1
+@export var shoot_amount: int = 3
+
+@export var bullet_scene: PackedScene
+
 var shoot_times: int = 0
 
 func _ready() -> void:
@@ -59,14 +61,12 @@ func _on_shoot_timer_timeout() -> void:
 		return
 	
 	shoot_times += 1
-	create_bullet()
-	await get_tree().create_timer(burst_delay).timeout
-	create_bullet()
-	await get_tree().create_timer(burst_delay).timeout
-	create_bullet()
+	for i in shoot_amount:
+		create_bullet()
+		await get_tree().create_timer(burst_delay).timeout
 
 func create_bullet() -> void:
-	var bullet = ENEMY_BULLET.instantiate() as Projectile
+	var bullet = bullet_scene.instantiate() as Projectile
 	add_sibling(bullet)
 	bullet.global_position = global_position
 	bullet.set_direction_towards_position(bullet.predict_position(player, player.path_velocity))

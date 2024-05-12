@@ -19,6 +19,7 @@ script = ExtResource("2_dnpde")
 speed = 12.0
 burst_delay = 0.1
 max_shoot_times = 3
+bullet_scene = null
 activation_distance = 8.0
 
 [node name="CollisionShape3D" parent="." index="0"]
@@ -41,7 +42,6 @@ shape = SubResource("BoxShape3D_ilnfj")
 
 [node name="MissileTarget" parent="." index="3"]
 max_targets = 3
-target_timeout = 0.25
 
 [node name="CollisionShape3D" parent="MissileTarget" index="1"]
 shape = SubResource("BoxShape3D_ilnfj")
