@@ -1,0 +1,69 @@
+[gd_scene load_steps=15 format=3 uid="uid://b437wlea5rxtv"]
+
+[ext_resource type="Shader" uid="uid://8i2liw7o2ybk" path="res://assets/explosions/ExplosionMeshShader.tres" id="1_wpuqp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_26gam"]
+frequency = 0.0001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hja85"]
+noise = SubResource("FastNoiseLite_26gam")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_df1yp"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kts8u"]
+noise = SubResource("FastNoiseLite_df1yp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srv6o"]
+render_priority = 0
+shader = ExtResource("1_wpuqp")
+shader_parameter/DisplacementScrollSpeed = Vector2(0, 0.1)
+shader_parameter/DisplacementStrength = 1.321
+shader_parameter/EmissionColor = Color(0, 0, 0, 1)
+shader_parameter/EmissionStrength = 1.0
+shader_parameter/DisplacementTexture = SubResource("NoiseTexture2D_kts8u")
+shader_parameter/AlphaMask = SubResource("NoiseTexture2D_hja85")
+
+[sub_resource type="Curve" id="Curve_0k2le"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.747475, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_v8mnf"]
+curve = SubResource("Curve_0k2le")
+
+[sub_resource type="Gradient" id="Gradient_oj4bh"]
+offsets = PackedFloat32Array(0, 0.188525, 0.594262, 0.766393, 0.922131)
+colors = PackedColorArray(1, 0.9, 0, 1, 1, 0.116667, 0, 1, 0.279322, 0.0193896, 0, 1, 0.112138, 0.00697351, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wxc0y"]
+gradient = SubResource("Gradient_oj4bh")
+
+[sub_resource type="Curve" id="Curve_rrrgd"]
+_data = [Vector2(0, 0.264507), 0.0, 0.0, 0, 0, Vector2(0.328283, 1), 0.0, 0.0, 0, 0, Vector2(0.838384, 0.748549), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_lhaje"]
+curve = SubResource("Curve_rrrgd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_67t7b"]
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, 9, 0)
+spread = 7.642
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_lhaje")
+color_ramp = SubResource("GradientTexture1D_wxc0y")
+alpha_curve = SubResource("CurveTexture_v8mnf")
+
+[sub_resource type="SphereMesh" id="SphereMesh_031tl"]
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+transform = Transform3D(0.124716, 0, 0, 0, 0.143678, 0, 0, 0, 0.124716, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_srv6o")
+amount = 50
+visibility_aabb = AABB(-4, -20.4902, -2.77554, 8, 40.9804, 5.55107)
+process_material = SubResource("ParticleProcessMaterial_67t7b")
+draw_pass_1 = SubResource("SphereMesh_031tl")

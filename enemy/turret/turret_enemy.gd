@@ -6,6 +6,7 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 
 @onready var shoot_marker: Marker3D = %ShootMarker
 @onready var small_explosion: Node3D = $SmallExplosion
+@onready var scrap_particles: GPUParticles3D = $ScrapParticles
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var awake: AtomicState = $StateChart/Active/Awake
 
@@ -36,6 +37,9 @@ func create_bullet() -> void:
 func die() -> void:
 	queue_free()
 	small_explosion.explode()
+	scrap_particles.reparent(get_parent())
+	scrap_particles.emitting = true
+	
 
 func _on_shoot_timer_timeout() -> void:
 	shoot()

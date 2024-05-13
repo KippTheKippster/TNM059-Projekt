@@ -1,13 +1,229 @@
-[gd_scene load_steps=8 format=3 uid="uid://xv8rcu5a8rki"]
+[gd_scene load_steps=42 format=3 uid="uid://xv8rcu5a8rki"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_4vk7c"]
 [ext_resource type="Script" path="res://enemy/boss/boss.gd" id="2_ip04m"]
 [ext_resource type="PackedScene" uid="uid://cqiwd06dvtwgp" path="res://assets/enemies/boss.glb" id="2_yelu5"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_gq2xy"]
+[ext_resource type="PackedScene" uid="uid://qgskfu4v5oqd" path="res://common/health/hurt_area.tscn" id="4_4l8cn"]
+[ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="4_ms6r8"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_yicj1"]
+[ext_resource type="PackedScene" uid="uid://di1gb34fn1q3w" path="res://world/laser.tscn" id="5_2c5em"]
+[ext_resource type="PackedScene" uid="uid://dnn82cvidaypk" path="res://player/missile_target.tscn" id="5_6ptal"]
+[ext_resource type="PackedScene" uid="uid://b437wlea5rxtv" path="res://assets/explosions/boss_smoke.tscn" id="5_sd3um"]
+[ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="6_0icqb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_m6ulk"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="8_hnpx5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="9_c0pds"]
+[ext_resource type="Script" path="res://enemy/boss/whiteout.gd" id="10_bk6nk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_877o4"]
+size = Vector3(7.73894, 12, 6.09)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_krtvt"]
+cull_mode = 2
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_glbmi"]
+material = SubResource("StandardMaterial3D_krtvt")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3yvyi"]
+radius = 0.982908
+
+[sub_resource type="SphereMesh" id="SphereMesh_8kx7e"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="Animation" id="Animation_q76to"]
+resource_name = "appear"
+length = 1.16667
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -3.06118, 57.6121, 3.06118, 0.0333333, 1, -3.08527, 57.2239, 3.06118, 0.0666667, 1, -3.143, 56.2935, 3.06118, 0.1, 1, -3.23188, 54.8611, 3.06118, 0.133333, 1, -3.34942, 52.9668, 3.06118, 0.166667, 1, -3.49313, 50.6508, 3.06118, 0.2, 1, -3.66674, 47.8529, 3.06118, 0.233333, 1, -3.85904, 44.7538, 3.06118, 0.266667, 1, -4.06754, 41.3936, 3.06118, 0.3, 1, -4.28974, 37.8126, 3.06118, 0.333333, 1, -4.52316, 34.0508, 3.06118, 0.366667, 1, -4.76655, 30.1283, 3.06118, 0.466667, 1, -5.50917, 18.1603, 3.06118, 0.5, 1, -5.75256, 14.2378, 3.06118, 0.533333, 1, -5.98598, 10.476, 3.06118, 0.566667, 1, -6.20819, 6.89499, 3.06118, 0.6, 1, -6.41669, 3.53481, 3.06118, 0.633333, 1, -6.60899, 0.435693, 3.06118, 0.666667, 1, -6.7826, -2.36221, 3.06118, 0.7, 1, -6.9263, -4.67819, 3.06118, 0.733333, 1, -7.04384, -6.57247, 3.06118, 0.766667, 1, -7.13273, -8.00489, 3.06118, 0.8, 1, -7.19046, -8.93529, 3.06118, 0.833333, 1, -7.21455, -9.32352, 3.06118, 0.866667, 1, -7.07178, -9.06197, 3.06118, 0.9, 1, -6.75378, -8.47943, 3.06118, 0.933333, 1, -6.29951, -7.64723, 3.06118, 0.966667, 1, -5.74789, -6.63671, 3.06118, 1.03333, 1, -4.52784, -4.40166, 3.06118, 1.06667, 1, -3.97622, -3.39113, 3.06118, 1.1, 1, -3.52194, -2.55893, 3.06118, 1.13333, 1, -3.20395, -1.97639, 3.06118, 1.16667, 1, -3.06118, -1.71484, 3.06118)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, -0.410035, 0.91207, 0.0333333, 1, 0, 0, -0.40604, 0.913855, 0.0666667, 1, 0, 0, -0.396434, 0.918063, 0.1, 1, 0, 0, -0.38156, 0.924344, 0.133333, 1, 0, 0, -0.361738, 0.93228, 0.166667, 1, 0, 0, -0.337281, 0.941404, 0.2, 1, 0, 0, -0.307429, 0.951571, 0.233333, 1, 0, 0, -0.274007, 0.961728, 0.266667, 1, 0, 0, -0.237394, 0.971413, 0.3, 1, 0, 0, -0.198001, 0.980202, 0.333333, 1, 0, 0, -0.156273, 0.987714, 0.366667, 1, 0, 0, -0.112465, 0.993656, 0.433333, 1, 0, 0, -0.0226928, 0.999743, 0.466667, 1, 0, 0, 0.0221948, 0.999754, 0.5, 1, 0, 0, 0.0663602, 0.997796, 0.533333, 1, 0, 0, 0.108596, 0.994086, 0.566667, 1, 0, 0, 0.148622, 0.988894, 0.6, 1, 0, 0, 0.185961, 0.982557, 0.633333, 1, 0, 0, 0.220164, 0.975463, 0.666667, 1, 0, 0, 0.250813, 0.968036, 0.7, 1, 0, 0, 0.275995, 0.961159, 0.733333, 1, 0, 0, 0.296453, 0.955048, 0.766667, 1, 0, 0, 0.311833, 0.950137, 0.8, 1, 0, 0, 0.32178, 0.946814, 0.833333, 1, 0, 0, 0.32592, 0.945397, 0.866667, 1, 0, 0, 0.315111, 0.949055, 0.9, 1, 0, 0, 0.290889, 0.956757, 0.933333, 1, 0, 0, 0.255964, 0.966686, 0.966667, 1, 0, 0, 0.213106, 0.977029, 1.03333, 1, 0, 0, 0.116964, 0.993136, 1.06667, 1, 0, 0, 0.0730752, 0.997326, 1.1, 1, 0, 0, 0.0368212, 0.999322, 1.13333, 1, 0, 0, 0.0114117, 0.999935, 1.16667, 1, 0, 0, 0, 1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D:Bone")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
+
+[sub_resource type="Animation" id="Animation_7m7wm"]
+resource_name = "chomp"
+length = 1.33333
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D:Bone")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933, 0.0333333, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933, 0.0666667, 1, 3.74552e-07, 8.13948e-08, -0.925326, 0.379172, 0.1, 1, 3.68936e-07, 8.90559e-08, -0.915421, 0.402498, 0.133333, 1, 3.59554e-07, 1.00993e-07, -0.898642, 0.438682, 0.166667, 1, 3.46886e-07, 1.15706e-07, -0.87562, 0.483, 0.2, 1, 3.31893e-07, 1.3136e-07, -0.848119, 0.529806, 0.233333, 1, 3.16729e-07, 1.45705e-07, -0.820005, 0.572357, 0.266667, 1, 3.02928e-07, 1.57692e-07, -0.794208, 0.607646, 0.3, 1, 2.99949e-07, 1.69499e-07, -0.774028, 0.633151, 0.333333, 1, 3.25048e-07, 1.86474e-07, -0.762808, 0.646625, 0.366667, 1, 3.30366e-07, 1.78846e-07, -0.779032, 0.626984, 0.4, 1, 3.43081e-07, 1.58094e-07, -0.81937, 0.573265, 0.433333, 1, 3.59128e-07, 1.24333e-07, -0.874764, 0.484549, 0.466667, 1, 3.73125e-07, 7.8666e-08, -0.932123, 0.362143, 0.5, 1, 3.79643e-07, 2.4002e-08, -0.977194, 0.212347, 0.533333, 1, 3.75491e-07, -3.05891e-08, -0.998231, 0.0594504, 0.566667, 1, 3.64131e-07, -7.6652e-08, -0.997391, -0.0721848, 0.6, 1, -3.50566e-07, 1.11349e-07, 0.98492, 0.173011, 0.633333, 1, -3.39488e-07, 1.33409e-07, 0.971287, 0.237912, 0.666667, 1, -3.34292e-07, 1.42534e-07, 0.964262, 0.264949, 0.7, 1, -3.35456e-07, 8.86268e-08, 0.996979, 0.0776664, 0.733333, 1, -2.99126e-07, -1.9899e-08, 0.96039, -0.278659, 0.766667, 1, 2.6323e-07, 1.2637e-07, -0.824762, 0.56548, 0.8, 1, 2.68389e-07, 1.92626e-07, -0.715374, 0.698742, 0.833333, 1, 2.90794e-07, 2.05727e-07, -0.694853, 0.719152, 0.866667, 1, 2.89138e-07, 2.00881e-07, -0.68504, 0.728505, 0.9, 1, 2.83425e-07, 2.21773e-07, -0.680664, 0.732596, 0.933333, 1, 2.81609e-07, 2.35488e-07, -0.682936, 0.730478, 0.966667, 1, 2.80382e-07, 2.25722e-07, -0.693016, 0.720922, 1, 1, 2.65122e-07, 1.92746e-07, -0.71189, 0.702291, 1.03333, 1, 2.79644e-07, 1.82762e-07, -0.739168, 0.673521, 1.06667, 1, 2.95899e-07, 1.70671e-07, -0.769691, 0.638417, 1.1, 1, 3.12817e-07, 1.56931e-07, -0.801349, 0.598197, 1.16667, 1, 3.44846e-07, 1.26856e-07, -0.860719, 0.509081, 1.2, 1, 3.57824e-07, 1.12633e-07, -0.884534, 0.466476, 1.23333, 1, 3.68187e-07, 1.00193e-07, -0.903314, 0.428979, 1.26667, 1, 3.75838e-07, 9.02499e-08, -0.91701, 0.398864, 1.3, 1, 3.79536e-07, 8.30131e-08, -0.92568, 0.378308, 1.33333, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
+tracks/1/type = "position_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -3.06118, -1.71484, 3.06118, 0.0333333, 1, -3.06118, -1.71484, 3.06118, 0.0666667, 1, -3.28011, -1.71484, 3.06118, 0.1, 1, -3.80247, -1.71484, 3.06118, 0.133333, 1, -4.62443, -1.71484, 3.06118, 0.166667, 1, -5.6538, -1.71484, 3.06118, 0.2, 1, -6.77534, -1.71484, 3.06118, 0.233333, 1, -7.82775, -1.71484, 3.06118, 0.266667, 1, -8.71885, -1.71484, 3.06118, 0.3, 1, -9.35644, -1.71484, 3.06118, 0.333333, 1, -9.64835, -1.71484, 3.06118, 0.366667, 1, -8.6971, -1.71484, 3.06118, 0.4, 1, -6.54123, -1.71484, 3.06118, 0.433333, 1, -3.40303, -1.71484, 3.06118, 0.466667, 1, 0.495234, -1.71484, 3.06118, 0.5, 1, 4.9313, -1.71484, 3.06118, 0.533333, 1, 9.6399, -1.71484, 3.06118, 0.566667, 1, 14.2195, -1.71484, 3.06118, 0.6, 1, 18.4478, -1.71484, 3.06118, 0.633333, 1, 22.1025, -1.71484, 3.06118, 0.666667, 1, 24.9614, -1.71484, 3.06118, 0.7, 1, 26.4843, -1.71484, 3.06118, 0.733333, 1, 27.3078, -1.71484, 3.06118, 0.766667, 1, 27.7184, -1.71484, 3.06118, 0.8, 1, 27.9705, -1.71484, 3.06118, 0.833333, 1, 28.2868, -1.71484, 3.06118, 0.866667, 1, 28.6204, -1.71484, 3.06118, 0.9, 1, 28.8199, -1.71484, 3.06118, 0.933333, 1, 28.5393, -1.71484, 3.06118, 0.966667, 1, 27.5167, -1.71484, 3.06118, 1, 1, 25.5736, -1.71484, 3.06118, 1.03333, 1, 22.7101, -1.71484, 3.06118, 1.06667, 1, 19.3864, -1.71484, 3.06118, 1.1, 1, 15.7559, -1.71484, 3.06118, 1.16667, 1, 8.18819, -1.71484, 3.06118, 1.2, 1, 4.71111, -1.71484, 3.06118, 1.23333, 1, 1.69424, -1.71484, 3.06118, 1.26667, 1, -0.709037, -1.71484, 3.06118, 1.3, 1, -2.34531, -1.71484, 3.06118, 1.33333, 1, -3.06118, -1.71484, 3.06118)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, 0, 0, 0, 1, 0.0666667, 1, 0, 0, -0.00570332, 0.999984, 0.1, 1, 0, 0, -0.0193102, 0.999814, 0.133333, 1, 0, 0, -0.0407127, 0.999171, 0.166667, 1, 0, 0, -0.0674884, 0.99772, 0.2, 1, 0, 0, -0.096606, 0.995323, 0.233333, 1, 0, 0, -0.123854, 0.9923, 0.266667, 1, 0, 0, -0.146854, 0.989158, 0.3, 1, 0, 0, -0.163262, 0.986583, 0.333333, 1, 0, 0, -0.17076, 0.985313, 0.366667, 1, 0, 0, -0.170496, 0.985358, 0.4, 1, 0, 0, -0.169043, 0.985609, 0.433333, 1, 0, 0, -0.165606, 0.986192, 0.466667, 1, 0, 0, -0.159389, 0.987216, 0.5, 1, 0, 0, -0.149587, 0.988749, 0.533333, 1, 0, 0, -0.133396, 0.991063, 0.566667, 1, 0, 0, -0.111176, 0.993801, 0.6, 1, 0, 0, -0.0820883, 0.996625, 0.633333, 1, 0, 0, -0.0452979, 0.998974, 0.666667, 1, 0, 0, 0, 1, 0.7, 1, 0, 0, 0.0593258, 0.998239, 0.733333, 1, 0, 0, 0.123873, 0.992298, 0.766667, 1, 0, 0, 0.187034, 0.982353, 0.8, 1, 0, 0, 0.242937, 0.970042, 0.833333, 1, 0, 0, 0.286574, 0.958058, 0.866667, 1, 0, 0, 0.312478, 0.949925, 0.9, 1, 0, 0, 0.325345, 0.945596, 0.933333, 1, 0, 0, 0.326066, 0.945347, 0.966667, 1, 0, 0, 0.315886, 0.948797, 1, 1, 0, 0, 0.296444, 0.95505, 1.03333, 1, 0, 0, 0.267571, 0.963538, 1.06667, 1, 0, 0, 0.233754, 0.972296, 1.1, 1, 0, 0, 0.196492, 0.980505, 1.16667, 1, 0, 0, 0.117962, 0.993018, 1.2, 1, 0, 0, 0.0816003, 0.996665, 1.23333, 1, 0, 0, 0.0499613, 0.998751, 1.26667, 1, 0, 0, 0.0247198, 0.999694, 1.3, 1, 0, 0, 0.00752412, 0.999972, 1.33333, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_wilyg"]
+resource_name = "idle"
+length = 0.666667
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D:Bone")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933, 0.0333333, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933, 0.0666667, 1, 3.75291e-07, 8.03639e-08, -0.926637, 0.375957, 0.1, 1, 3.71541e-07, 8.55958e-08, -0.920079, 0.391733, 0.133333, 1, 3.65377e-07, 9.3796e-08, -0.909188, 0.416386, 0.166667, 1, 3.57208e-07, 1.03998e-07, -0.894572, 0.446924, 0.2, 1, 3.47718e-07, 1.14993e-07, -0.877446, 0.479676, 0.233333, 1, 3.38317e-07, 1.25149e-07, -0.86031, 0.509771, 0.266667, 1, 3.30003e-07, 1.33609e-07, -0.845031, 0.534717, 0.3, 1, 3.28923e-07, 1.41584e-07, -0.83369, 0.552233, 0.333333, 1, 3.46303e-07, 1.52329e-07, -0.828394, 0.560146, 0.366667, 1, 3.48546e-07, 1.50244e-07, -0.832507, 0.554014, 0.4, 1, 3.53467e-07, 1.45556e-07, -0.841531, 0.54021, 0.433333, 1, 3.60315e-07, 1.38771e-07, -0.854058, 0.520178, 0.466667, 1, 3.68333e-07, 1.30404e-07, -0.868664, 0.495402, 0.533333, 1, 3.84804e-07, 1.11475e-07, -0.898458, 0.43906, 0.566667, 1, 3.91641e-07, 1.02778e-07, -0.910713, 0.413041, 0.6, 1, 3.96983e-07, 9.55679e-08, -0.920216, 0.39141, 0.633333, 1, 3.95501e-07, 8.8491e-08, -0.926546, 0.376182, 0.666667, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
+tracks/1/type = "position_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -3.06118, -1.71484, 3.06118)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_dq4qp"]
+resource_name = "laugh"
+length = 0.416667
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D:Bone")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933, 0.0333333, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933, 0.0666667, 1, 3.51902e-07, 1.09727e-07, -0.885135, 0.465335, 0.1, 1, 3.28689e-07, 1.56555e-07, -0.810975, 0.58508, 0.133333, 1, 3.28611e-07, 1.8739e-07, -0.761949, 0.647637, 0.166667, 1, 3.6457e-07, 1.56792e-07, -0.825572, 0.564297, 0.2, 1, 4.19116e-07, 9.33834e-08, -0.92176, 0.387762, 0.233333, 1, 4.10897e-07, 3.72545e-08, -0.963988, 0.265945, 0.266667, 1, 3.81282e-07, 4.02965e-08, -0.954276, 0.298928, 0.333333, 1, 3.34126e-07, 1.70874e-07, -0.795538, 0.605904, 0.416667, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
+tracks/1/type = "position_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -3.06118, -1.71484, 3.06118, 0.0333333, 1, -3.06118, -1.71484, 3.06118, 0.0666667, 1, -3.06118, -1.32794, 3.06118, 0.1, 1, -3.06118, -0.590986, 3.06118, 0.133333, 1, -3.06118, 0.256515, 3.06118, 0.166667, 1, -3.06118, 0.772384, 3.06118, 0.2, 1, -3.06118, 0.529397, 3.06118, 0.233333, 1, -3.06118, 0.0126162, 3.06118, 0.266667, 1, -3.06118, -0.687271, 3.06118, 0.3, 1, -3.06118, -1.46989, 3.06118, 0.333333, 1, -3.06118, -2.22518, 3.06118, 0.366667, 1, -3.06118, -2.56891, 3.06118, 0.4, 1, -3.06118, -2.09084, 3.06118, 0.416667, 1, -3.06118, -1.71484, 3.06118)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_3mhd2"]
+resource_name = "shake"
+length = 0.708333
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -3.06118, -1.71484, 3.06118)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, 0, 0, 0, 1, 0.0666667, 1, -0.017169, 0.0586834, 0.0579008, 0.996448, 0.1, 1, -0.0317845, 0.13258, 0.136495, 0.981214, 0.133333, 1, -0.0394989, 0.165792, 0.17641, 0.96945, 0.166667, 1, -0.0513552, 0.0906461, 0.0968037, 0.989836, 0.2, 1, -0.0432848, 0.010404, 0.0168236, 0.998867, 0.233333, 1, -0.0382724, 0.0268878, 0.00755832, 0.998877, 0.266667, 1, -0.0349786, 0.0756307, 0.0218611, 0.996282, 0.3, 1, -0.0348879, 0.0944678, 0.0250277, 0.994602, 0.333333, 1, -0.0425203, 0.0237739, -0.00488852, 0.998801, 0.366667, 1, -0.0443012, -0.0621497, -0.0364441, 0.996417, 0.4, 1, -0.0297957, -0.0979455, -0.03663, 0.994071, 0.433333, 1, -0.00132728, -0.109036, -0.0147365, 0.993928, 0.466667, 1, 0.0352048, -0.0881873, 0.0211732, 0.995256, 0.5, 1, 0.0698366, 0.00439651, 0.0638868, 0.995501, 0.533333, 1, 0.0914274, 0.0958449, 0.0805124, 0.987913, 0.566667, 1, 0.0920758, 0.0661593, 0.0895742, 0.989506, 0.6, 1, 0.0855063, -0.00402945, 0.0958655, 0.991707, 0.633333, 1, 0.0726522, -0.0514834, 0.0900446, 0.991949, 0.666667, 1, 0.0419522, -0.0306198, 0.0489885, 0.997448, 0.7, 1, 0.00839729, -0.00612896, 0.0098057, 0.999898, 0.708333, 1, 0, 0, 0, 1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D:Bone")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmmqj"]
+_data = {
+"appear": SubResource("Animation_q76to"),
+"chomp": SubResource("Animation_7m7wm"),
+"idle": SubResource("Animation_wilyg"),
+"laugh": SubResource("Animation_dq4qp"),
+"shake": SubResource("Animation_3mhd2")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rxpfx"]
+animation = &"appear"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kc06h"]
+animation = &"chomp"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kiqwj"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w8b2v"]
+animation = &"laugh"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k33vu"]
+animation = &"shake"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_okean"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t0kqh"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i384a"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nxhu8"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ge2ss"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ftd4x"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qxa0w"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2py5c"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ig8ab"]
+xfade_time = 0.3
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8fxk7"]
+states/Start/position = Vector2(119, 92)
+states/appear/node = SubResource("AnimationNodeAnimation_rxpfx")
+states/appear/position = Vector2(251, 92)
+states/chomp/node = SubResource("AnimationNodeAnimation_kc06h")
+states/chomp/position = Vector2(665, 92)
+states/idle/node = SubResource("AnimationNodeAnimation_kiqwj")
+states/idle/position = Vector2(513, 92)
+states/laugh/node = SubResource("AnimationNodeAnimation_w8b2v")
+states/laugh/position = Vector2(378, 92)
+states/shake/node = SubResource("AnimationNodeAnimation_k33vu")
+states/shake/position = Vector2(513, 194)
+transitions = ["laugh", "idle", SubResource("AnimationNodeStateMachineTransition_okean"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_t0kqh"), "idle", "chomp", SubResource("AnimationNodeStateMachineTransition_i384a"), "chomp", "idle", SubResource("AnimationNodeStateMachineTransition_nxhu8"), "Start", "appear", SubResource("AnimationNodeStateMachineTransition_ge2ss"), "appear", "laugh", SubResource("AnimationNodeStateMachineTransition_ftd4x"), "laugh", "shake", SubResource("AnimationNodeStateMachineTransition_qxa0w"), "idle", "shake", SubResource("AnimationNodeStateMachineTransition_2py5c"), "chomp", "shake", SubResource("AnimationNodeStateMachineTransition_ig8ab")]
+graph_offset = Vector2(55, -21)
 
 [node name="Boss" instance=ExtResource("1_4vk7c")]
 script = ExtResource("2_ip04m")
@@ -15,32 +231,236 @@ activation_distance = 64.0
 
 [node name="boss" parent="." index="0" instance=ExtResource("2_yelu5")]
 
-[node name="Skeleton3D" parent="boss/Armature" index="8"]
+[node name="Armature" parent="boss" index="0"]
+transform = Transform3D(0.995941, -0.0778431, -0.0451795, 0.0747188, 0.994941, -0.0671488, 0.050178, 0.0635005, 0.99672, -3.06118, -1.71484, 3.06118)
+
+[node name="HurtArea" parent="boss/Armature" index="0" instance=ExtResource("4_4l8cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06118, 1.71484, -3.06118)
+collision_layer = 8
+layer = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boss/Armature/HurtArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60697, 0, 0)
+shape = SubResource("BoxShape3D_877o4")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="boss/Armature" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.72723, -4.72872)
+remote_path = NodePath("../../../HealthArea")
+
+[node name="RemoteTransform3D2" type="RemoteTransform3D" parent="boss/Armature" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.66405, -1.37567)
+remote_path = NodePath("../../../HealthArea2")
+
+[node name="RemoteTransform3D3" type="RemoteTransform3D" parent="boss/Armature" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83718, 2.7481, -4.73316)
+remote_path = NodePath("../../../MissileTarget")
+
+[node name="RemoteTransform3D4" type="RemoteTransform3D" parent="boss/Armature" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83718, 2.6638, -1.37222)
+remote_path = NodePath("../../../MissileTarget2")
+
+[node name="Skeleton3D" parent="boss/Armature" index="12"]
 bones/0/rotation = Quaternion(-3.76819e-07, -7.81699e-08, 0.929298, -0.36933)
-bones/0/scale = Vector3(1, 1, 1)
+
+[node name="MouthMarker" type="Marker3D" parent="boss/Armature" index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.33062, -2.02197, -3.22173)
+gizmo_extents = 1.0
+
+[node name="FinalExplosion" type="MeshInstance3D" parent="boss/Armature" index="14"]
+transform = Transform3D(1.33566, 0, 0, 0, 1.33566, 0, 0, 0, 1.33566, 3.06118, 1.71484, -3.06118)
+mesh = SubResource("SphereMesh_glbmi")
+
+[node name="HealthArea" parent="." index="1"]
+transform = Transform3D(0.995941, -0.0778431, -0.0451795, 0.0747188, 0.994941, -0.0671488, 0.050178, 0.0635005, 0.99672, 2.75378, 1.75228, -1.18594)
+health = 16.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
+shape = SubResource("SphereShape3D_3yvyi")
+
+[node name="SmokeThruster" parent="HealthArea" index="1" instance=ExtResource("5_sd3um")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+draw_pass_1 = SubResource("SphereMesh_8kx7e")
+
+[node name="SmallExplosion" parent="HealthArea" index="2" instance=ExtResource("6_0icqb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10527, 0, 0)
+
+[node name="HealthArea2" parent="." index="2" instance=ExtResource("4_ms6r8")]
+transform = Transform3D(0.995941, -0.0778431, -0.0451795, 0.0747188, 0.994941, -0.0671488, 0.050178, 0.0635005, 0.99672, 2.60721, 1.46426, 2.15209)
+health = 16.0
+layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea2" index="0"]
+shape = SubResource("SphereShape3D_3yvyi")
+
+[node name="SmokeThruster2" parent="HealthArea2" index="1" instance=ExtResource("5_sd3um")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+draw_pass_1 = SubResource("SphereMesh_8kx7e")
+
+[node name="SmallExplosion2" parent="HealthArea2" index="2" instance=ExtResource("6_0icqb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95183, 0, 0)
+
+[node name="MissileTarget" parent="." index="3"]
+transform = Transform3D(0.995941, -0.0778431, -0.0451795, 0.0747188, 0.994941, -0.0671488, 0.050178, 0.0635005, 0.99672, 2.75223, 1.77332, -1.18905)
+max_targets = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="1"]
+shape = SubResource("SphereShape3D_3yvyi")
+
+[node name="Laser" parent="MissileTarget" index="2" instance=ExtResource("5_2c5em")]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0.235701, 0, 0)
+height = 0.0
+
+[node name="MissileTarget2" parent="." index="4" instance=ExtResource("5_6ptal")]
+transform = Transform3D(0.995941, -0.0778431, -0.0451795, 0.0747188, 0.994941, -0.0671488, 0.050178, 0.0635005, 0.99672, 2.60695, 1.46377, 2.1555)
+max_targets = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget2" index="1"]
+shape = SubResource("SphereShape3D_3yvyi")
+
+[node name="Laser2" parent="MissileTarget2" index="2" instance=ExtResource("5_2c5em")]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0.236, 0.084, 0)
+height = 0.0
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="5"]
+root_node = NodePath("../boss")
+libraries = {
+"": SubResource("AnimationLibrary_fmmqj")
+}
+tree_root = SubResource("AnimationNodeStateMachine_8fxk7")
+anim_player = NodePath("../boss/AnimationPlayer")
+
+[node name="Whiteout" type="CanvasLayer" parent="." index="6"]
+script = ExtResource("10_bk6nk")
+
+[node name="ColorRect" type="ColorRect" parent="Whiteout" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Awake" parent="StateChart/Active/Asleep" index="0"]
-to = NodePath("../../Awake/Start")
+to = NodePath("../../Awake/Movement/Start")
 
 [node name="Awake" type="Node" parent="StateChart/Active" index="2"]
+script = ExtResource("8_hnpx5")
+
+[node name="Movement" type="Node" parent="StateChart/Active/Awake" index="0"]
 script = ExtResource("3_gq2xy")
 initial_state = NodePath("Start")
 
-[node name="Start" type="Node" parent="StateChart/Active/Awake" index="0"]
-script = ExtResource("4_yicj1")
+[node name="Dead" type="Node" parent="StateChart/Active/Awake/Movement" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../Die")
+event = &"dead"
 
-[node name="Transition" type="Node" parent="StateChart/Active/Awake/Start" index="0"]
+[node name="Start" type="Node" parent="StateChart/Active/Awake/Movement" index="1"]
+script = ExtResource("9_c0pds")
+animation_tree = NodePath("../../../../../AnimationTree")
+state_name = &"laugh"
+
+[node name="End" type="Node" parent="StateChart/Active/Awake/Movement/Start" index="0"]
 script = ExtResource("6_m6ulk")
 to = NodePath("../../Idle")
-delay_seconds = 3.0
+delay_seconds = 3.5
 
-[node name="Idle" type="Node" parent="StateChart/Active/Awake" index="1"]
+[node name="Idle" type="Node" parent="StateChart/Active/Awake/Movement" index="2"]
+script = ExtResource("9_c0pds")
+animation_tree = NodePath("../../../../../AnimationTree")
+state_name = &"idle"
+
+[node name="Chomp" type="Node" parent="StateChart/Active/Awake/Movement/Idle" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../Stop")
+event = &"chomp"
+
+[node name="Stop" type="Node" parent="StateChart/Active/Awake/Movement" index="3"]
 script = ExtResource("4_yicj1")
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="4"]
-tree_root = SubResource("AnimationNodeStateMachine_8fxk7")
+[node name="ChompEnd" type="Node" parent="StateChart/Active/Awake/Movement/Stop" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../Idle")
+event = &"chomp_end"
 
-[connection signal="state_entered" from="StateChart/Active/Awake/Start" to="." method="_on_start_state_entered"]
-[connection signal="state_entered" from="StateChart/Active/Awake/Idle" to="." method="_on_idle_state_entered"]
+[node name="Die" type="Node" parent="StateChart/Active/Awake/Movement" index="4"]
+script = ExtResource("9_c0pds")
+animation_tree = NodePath("../../../../../AnimationTree")
+state_name = &"shake"
+
+[node name="Attack" type="Node" parent="StateChart/Active/Awake" index="1"]
+script = ExtResource("3_gq2xy")
+initial_state = NodePath("AttackStop")
+
+[node name="Dead" type="Node" parent="StateChart/Active/Awake/Attack" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../AttackStop")
+event = &"dead"
+
+[node name="AttackStop" type="Node" parent="StateChart/Active/Awake/Attack" index="1"]
+script = ExtResource("4_yicj1")
+
+[node name="AttackIdle" type="Node" parent="StateChart/Active/Awake/Attack/AttackStop" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../AttackIdle")
+event = &"attack_idle"
+
+[node name="AttackIdle" type="Node" parent="StateChart/Active/Awake/Attack" index="2"]
+script = ExtResource("4_yicj1")
+
+[node name="LaserTransition" type="Node" parent="StateChart/Active/Awake/Attack/AttackIdle" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../Laser")
+event = &"laser"
+
+[node name="SprayTransition" type="Node" parent="StateChart/Active/Awake/Attack/AttackIdle" index="1"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../Spray")
+event = &"spray"
+
+[node name="ChompTransition" type="Node" parent="StateChart/Active/Awake/Attack/AttackIdle" index="2"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../Chomp")
+event = &"chomp"
+
+[node name="Laser" type="Node" parent="StateChart/Active/Awake/Attack" index="3"]
+script = ExtResource("4_yicj1")
+
+[node name="Transition" type="Node" parent="StateChart/Active/Awake/Attack/Laser" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../AttackIdle")
+delay_seconds = 8.0
+
+[node name="Spray" type="Node" parent="StateChart/Active/Awake/Attack" index="4"]
+script = ExtResource("4_yicj1")
+
+[node name="Transition" type="Node" parent="StateChart/Active/Awake/Attack/Spray" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../AttackIdle")
+delay_seconds = 8.0
+
+[node name="Chomp" type="Node" parent="StateChart/Active/Awake/Attack" index="5"]
+script = ExtResource("9_c0pds")
+animation_tree = NodePath("../../../../../AnimationTree")
+state_name = &"chomp"
+
+[node name="Transition" type="Node" parent="StateChart/Active/Awake/Attack/Chomp" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../AttackIdle")
+event = &"chomp_end"
+
+[connection signal="died" from="HealthArea2" to="." method="_on_health_area_2_died"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Movement/Start" to="." method="_on_start_state_entered"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Movement/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_processing" from="StateChart/Active/Awake/Movement/Idle" to="." method="_on_idle_state_processing"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Movement/Die" to="." method="_on_die_state_entered"]
+[connection signal="state_processing" from="StateChart/Active/Awake/Movement/Die" to="." method="_on_die_state_processing"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Attack/AttackIdle" to="." method="_on_attack_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Attack/Laser" to="." method="_on_laser_state_entered"]
+[connection signal="state_exited" from="StateChart/Active/Awake/Attack/Laser" to="." method="_on_laser_state_exited"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Attack/Spray" to="." method="_on_spray_state_entered"]
+[connection signal="state_processing" from="StateChart/Active/Awake/Attack/Spray" to="." method="_on_spray_state_processing"]
 
 [editable path="boss"]

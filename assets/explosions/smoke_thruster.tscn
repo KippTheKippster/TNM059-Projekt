@@ -59,7 +59,7 @@ alpha_curve = SubResource("CurveTexture_v8mnf")
 
 [sub_resource type="SphereMesh" id="SphereMesh_031tl"]
 
-[node name="Node3D" type="Node3D"]
+[node name="SmokeThruster" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.124716, 0, 0, 0, 0.143678, 0, 0, 0, 0.124716, 0, 0, 0)

@@ -4,7 +4,9 @@
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
-text = "Made by:
+text = "SPACE WARS
+
+Made by:
 JDOIASJHDIOSAJd
 SDAKLAPÅSODKOPÅAS
 dsakLÅPODSAOPÅDKSAOPdkosA

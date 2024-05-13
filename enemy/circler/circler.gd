@@ -7,6 +7,7 @@ extends Enemy
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var mesh: Node3D = $Mesh
 @onready var small_explosion: Node3D = $SmallExplosion
+@onready var scrap_particles: GPUParticles3D = $ScrapParticles
 
 @export var path_curve: Curve3D:
 	get: 
@@ -39,6 +40,8 @@ func die() -> void:
 	path_3d.queue_free()
 	small_explosion.reparent(get_parent().get_parent())
 	small_explosion.explode()
+	scrap_particles.reparent(path_3d.get_parent())
+	scrap_particles.emitting = true
 
 func _on_awake_state_entered() -> void:
 	path_3d.reparent(player_controller.path_follow)

@@ -13,10 +13,10 @@ frequency = 0.0785
 fractal_octaves = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xwfb"]
-size = Vector3(20, 1, 5)
+size = Vector3(32, 1, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b5vyf"]
-size = Vector3(1, 10, 5)
+size = Vector3(1, 22, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u0fcf"]
 size = Vector3(32, 32, 17.4946)
@@ -34,8 +34,9 @@ noise_speed = 75.0
 noise = SubResource("FastNoiseLite_y27u4")
 
 [node name="PlayerCamera" parent="CameraShaker" node_paths=PackedStringArray("player") instance=ExtResource("1_xhplf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.537, 5.605)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.537, 7.8158)
 fov = 90.0
+far = 400000.0
 player = NodePath("../../Player")
 
 [node name="SpeedLinesParticles" parent="CameraShaker/PlayerCamera" instance=ExtResource("3_d1kvm")]
@@ -50,19 +51,19 @@ collision_mask = 0
 sync_to_physics = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.87154, 0)
 shape = SubResource("BoxShape3D_2xwfb")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.07154, 0)
 shape = SubResource("BoxShape3D_2xwfb")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1715, 1.5, 0)
 shape = SubResource("BoxShape3D_b5vyf")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1715, 1.5, 0)
 shape = SubResource("BoxShape3D_b5vyf")
 
 [node name="EnemyActivator" type="Area3D" parent="." groups=["enemy_activator"]]

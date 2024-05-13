@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bysvmhdwxut3e"
+path="res://.godot/imported/scrap.obj-841671c2cb466430db942584f9a0751a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/scrap.obj-841671c2cb466430db942584f9a0751a.mesh"]
+
+source_file="res://assets/enemies/scrap.obj"
+dest_files=["res://.godot/imported/scrap.obj-841671c2cb466430db942584f9a0751a.mesh", "res://.godot/imported/scrap.obj-841671c2cb466430db942584f9a0751a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

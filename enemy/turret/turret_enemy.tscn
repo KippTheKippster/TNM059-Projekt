@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf1xrsy27bg72"]
+[gd_scene load_steps=12 format=3 uid="uid://bf1xrsy27bg72"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_7xlmh"]
 [ext_resource type="Script" path="res://enemy/turret/turret_enemy.gd" id="2_nglpk"]
 [ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="3_t8v2n"]
 [ext_resource type="PackedScene" uid="uid://ba48j6vs8xv7q" path="res://assets/asteroid belt/sattelite.glb" id="3_xdfxl"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_fuqbt"]
+[ext_resource type="PackedScene" uid="uid://dnbvfoexm5ba5" path="res://assets/explosions/scrap_particles.tscn" id="5_woypg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fj8qo"]
 
@@ -62,11 +63,13 @@ shape = SubResource("BoxShape3D_ad601")
 [node name="SmallExplosion" parent="." index="5" instance=ExtResource("3_t8v2n")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="6"]
+[node name="ScrapParticles" parent="." index="6" instance=ExtResource("5_woypg")]
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13573, 0)
 aabb = AABB(-1, -1.27928, -1, 2, 2.55856, 2)
 
-[node name="ShootTimer" type="Timer" parent="." index="7"]
+[node name="ShootTimer" type="Timer" parent="." index="8"]
 wait_time = 3.0
 
 [node name="Awake" parent="StateChart/Active/Asleep" index="0"]
