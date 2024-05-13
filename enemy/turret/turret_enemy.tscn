@@ -62,7 +62,11 @@ shape = SubResource("BoxShape3D_ad601")
 [node name="SmallExplosion" parent="." index="5" instance=ExtResource("3_t8v2n")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
-[node name="ShootTimer" type="Timer" parent="." index="6"]
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13573, 0)
+aabb = AABB(-1, -1.27928, -1, 2, 2.55856, 2)
+
+[node name="ShootTimer" type="Timer" parent="." index="7"]
 wait_time = 3.0
 
 [node name="Awake" parent="StateChart/Active/Asleep" index="0"]
@@ -71,6 +75,7 @@ to = NodePath("../../Awake")
 [node name="Awake" type="Node" parent="StateChart/Active" index="2"]
 script = ExtResource("4_fuqbt")
 
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="state_entered" from="StateChart/Active/Asleep" to="." method="_on_asleep_state_entered"]
 [connection signal="state_entered" from="StateChart/Active/Awake" to="." method="_on_awake_state_entered"]

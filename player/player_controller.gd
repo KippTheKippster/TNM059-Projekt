@@ -6,6 +6,7 @@ class_name PlayerController
 @onready var player_camera: Camera3D = $CameraShaker/PlayerCamera
 @onready var speed_lines_particles: GPUParticles3D = %SpeedLinesParticles
 
+@export var path: Path3D
 @export var path_follow: PathFollow3D
 @export var path_speed: float = 5.0
 @onready var boundaries: AnimatableBody3D = $Boundaries
@@ -15,6 +16,8 @@ class_name PlayerController
 var fov_scale: float = 1.0
 @export var boost_fov_scale: float = 1.1
 @export var brake_fov_scale: float = 0.9
+
+var player_point: Vector3
 
 var prev_position: Vector3
 
@@ -35,6 +38,8 @@ func _process(delta: float):
 	#speed_lines_particles.visible = player.boost.active
 	
 	player_camera.fov = lerp(player_camera.fov, initial_fov * fov_scale, 5 * delta)
+	
+	player_point = path.curve.get_closest_point(global_position - path.global_position)
 
 func _physics_process(_delta: float):
 	boundaries.position = Vector3.ZERO

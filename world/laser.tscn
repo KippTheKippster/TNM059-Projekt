@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://world/laser.gd" id="1_v58dn"]
 [ext_resource type="Shader" uid="uid://c0863d4l1tg16" path="res://world/laser_shader.tres" id="2_oj1bw"]
-[ext_resource type="Script" path="res://common/health/hurt_area.gd" id="3_htgsu"]
+[ext_resource type="PackedScene" uid="uid://qgskfu4v5oqd" path="res://common/health/hurt_area.tscn" id="3_ftd4g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k6qck"]
 resource_local_to_scene = true
@@ -12,12 +12,12 @@ shader_parameter/Color1 = Color(0.109804, 0.623529, 1, 1)
 shader_parameter/Color2 = Color(1, 1, 1, 1)
 shader_parameter/Speed = 30.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_yksmw"]
+[sub_resource type="QuadMesh" id="QuadMesh_xrk7m"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_k6qck")
 size = Vector2(0.2, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cwyaw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_m3jh3"]
 resource_local_to_scene = true
 size = Vector3(0.1, 1, 0.1)
 
@@ -26,11 +26,12 @@ script = ExtResource("1_v58dn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("QuadMesh_yksmw")
+mesh = SubResource("QuadMesh_xrk7m")
 
-[node name="HurtArea" type="Area3D" parent="MeshInstance3D"]
-script = ExtResource("3_htgsu")
+[node name="HurtArea" parent="MeshInstance3D" instance=ExtResource("3_ftd4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 layer = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/HurtArea"]
-shape = SubResource("BoxShape3D_cwyaw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_m3jh3")

@@ -29,6 +29,18 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Asteroid Mat.001": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/asteroid belt/Asteroid Mat.001.tres"
+}
+},
+"nodes": {
+"PATH:Cube": {
+"mesh_instance/visibility_range_end_margin": 495.48
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=2

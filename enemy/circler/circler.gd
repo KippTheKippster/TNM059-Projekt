@@ -6,6 +6,7 @@ extends Enemy
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var mesh: Node3D = $Mesh
+@onready var small_explosion: Node3D = $SmallExplosion
 
 @export var path_curve: Curve3D:
 	get: 
@@ -36,6 +37,8 @@ func _ready() -> void:
 func die() -> void:
 	super.die()
 	path_3d.queue_free()
+	small_explosion.reparent(get_parent().get_parent())
+	small_explosion.explode()
 
 func _on_awake_state_entered() -> void:
 	path_3d.reparent(player_controller.path_follow)

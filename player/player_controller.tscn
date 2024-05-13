@@ -35,6 +35,7 @@ noise = SubResource("FastNoiseLite_y27u4")
 
 [node name="PlayerCamera" parent="CameraShaker" node_paths=PackedStringArray("player") instance=ExtResource("1_xhplf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.537, 5.605)
+fov = 90.0
 player = NodePath("../../Player")
 
 [node name="SpeedLinesParticles" parent="CameraShaker/PlayerCamera" instance=ExtResource("3_d1kvm")]
@@ -46,6 +47,7 @@ emitting = false
 transform = Transform3D(1.265, 0, 0, 0, 1.265, 0, 0, 0, 1.265, 0, 0, 0)
 collision_layer = 4
 collision_mask = 0
+sync_to_physics = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 0)

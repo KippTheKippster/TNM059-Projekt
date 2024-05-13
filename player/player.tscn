@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=24 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
 [ext_resource type="PackedScene" uid="uid://de8jlfyhyhke4" path="res://player/player_test_v3.glb" id="2_etpdk"]
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
 [ext_resource type="PackedScene" uid="uid://b2x2oamlwh8xs" path="res://assets/ship.blend" id="2_rs7pv"]
+[ext_resource type="PackedScene" uid="uid://b3awrqjkfe507" path="res://player/shipFinal.glb" id="2_sgaee"]
 [ext_resource type="PackedScene" uid="uid://da5pumyn1st8" path="res://common/health/health_area.tscn" id="2_xq6mt"]
+[ext_resource type="PackedScene" uid="uid://np3xjj8axb4j" path="res://assets/explosions/smoke_thruster.tscn" id="3_yku1l"]
 [ext_resource type="Script" path="res://player/missile_target_raycast.gd" id="4_7h3uj"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="6_can2k"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="7_l0jdq"]
@@ -192,8 +194,15 @@ shape = SubResource("BoxShape3D_fhyyo")
 [node name="ShipContainer" type="Node3D" parent="RotationContainer"]
 transform = Transform3D(1, -4.46638e-06, 0, 4.46638e-06, 1, 0, 0, 0, 1, 0, 0, 0)
 
+[node name="shipFinal" parent="RotationContainer/ShipContainer" instance=ExtResource("2_sgaee")]
+transform = Transform3D(0.308771, 1.37909e-06, 0, -1.37909e-06, 0.308771, 0, 0, 0, 0.308771, 0, 0, 0)
+
+[node name="Node3D" parent="RotationContainer/ShipContainer/shipFinal" instance=ExtResource("3_yku1l")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 4.0804)
+
 [node name="player_test_v3" parent="RotationContainer/ShipContainer" instance=ExtResource("2_etpdk")]
 transform = Transform3D(0.308771, 1.37909e-06, 0, -1.37909e-06, 0.308771, 0, 0, 0, 0.308771, 0, 0, 0)
+visible = false
 
 [node name="Ship" parent="RotationContainer/ShipContainer" instance=ExtResource("2_rs7pv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95329, -2.82269, 0)
@@ -219,6 +228,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.06048)
 
 [node name="MissleTargetRayCast" type="ShapeCast3D" parent="RotationContainer" node_paths=PackedStringArray("target_node")]
 shape = SubResource("BoxShape3D_23m8h")
+collision_mask = 17
 collide_with_areas = true
 script = ExtResource("4_7h3uj")
 length = 48.0

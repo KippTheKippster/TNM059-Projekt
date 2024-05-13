@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://xv8rcu5a8rki"]
+
+[ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_4vk7c"]
+[ext_resource type="Script" path="res://enemy/boss/boss.gd" id="2_ip04m"]
+[ext_resource type="PackedScene" uid="uid://cqiwd06dvtwgp" path="res://assets/enemies/boss.glb" id="2_yelu5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_gq2xy"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_yicj1"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_m6ulk"]
+
+[node name="Boss" instance=ExtResource("1_4vk7c")]
+script = ExtResource("2_ip04m")
+activation_distance = 64.0
+
+[node name="boss" parent="." index="0" instance=ExtResource("2_yelu5")]
+
+[node name="Skeleton3D" parent="boss/Armature" index="8"]
+bones/0/rotation = Quaternion(-3.76819e-07, -7.81699e-08, 0.929298, -0.36933)
+bones/0/scale = Vector3(1, 1, 1)
+
+[node name="Awake" parent="StateChart/Active/Asleep" index="0"]
+to = NodePath("../../Awake/Start")
+
+[node name="Awake" type="Node" parent="StateChart/Active" index="2"]
+script = ExtResource("3_gq2xy")
+initial_state = NodePath("Start")
+
+[node name="Start" type="Node" parent="StateChart/Active/Awake" index="0"]
+script = ExtResource("4_yicj1")
+
+[node name="Transition" type="Node" parent="StateChart/Active/Awake/Start" index="0"]
+script = ExtResource("6_m6ulk")
+to = NodePath("../../Idle")
+delay_seconds = 3.0
+
+[node name="Idle" type="Node" parent="StateChart/Active/Awake" index="1"]
+script = ExtResource("4_yicj1")
+
+[connection signal="state_entered" from="StateChart/Active/Awake/Start" to="." method="_on_start_state_entered"]
+[connection signal="state_entered" from="StateChart/Active/Awake/Idle" to="." method="_on_idle_state_entered"]
+
+[editable path="boss"]

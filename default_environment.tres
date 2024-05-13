@@ -1,33 +1,42 @@
 [gd_resource type="Environment" load_steps=4 format=3 uid="uid://cfgh4ncavbfvh"]
 
-[ext_resource type="Texture2D" uid="uid://goxof76xptxg" path="res://assets/skybox/PanoramaSpaceSkyTexture.hdr" id="1_lstnh"]
+[ext_resource type="Texture2D" uid="uid://cgiy5kjsww7nw" path="res://assets/skybox/PanoramaSpaceSkyGrayTexture.hdr" id="1_vsjke"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmxt0"]
-panorama = ExtResource("1_lstnh")
+panorama = ExtResource("1_vsjke")
+filter = false
 
 [sub_resource type="Sky" id="Sky_ujc8i"]
 sky_material = SubResource("PanoramaSkyMaterial_vmxt0")
-radiance_size = 4
+process_mode = 2
 
 [resource]
 background_mode = 2
 sky = SubResource("Sky_ujc8i")
-sky_rotation = Vector3(0, -3.14159, 0)
+sky_rotation = Vector3(0, -4.88518, 0)
 ambient_light_source = 3
 reflected_light_source = 2
-tonemap_mode = 2
-ssr_enabled = true
+tonemap_mode = 1
 ssao_enabled = true
-ssao_intensity = 2.5
+ssao_radius = 2.0
+ssao_intensity = 7.48
+ssao_power = 0.304595
+ssao_detail = 1.13
 ssil_enabled = true
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 glow_enabled = true
 glow_levels/1 = 0.45
-glow_bloom = 0.2
+glow_levels/2 = 0.54
+glow_levels/4 = 0.85
+glow_intensity = 3.62
+glow_strength = 0.37
+glow_bloom = 0.03
+glow_blend_mode = 0
 fog_light_color = Color(0, 0, 0, 1)
 fog_density = 0.0169
 fog_sky_affect = 0.0
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0.623529, 0.843137, 1, 1)
 adjustment_enabled = true

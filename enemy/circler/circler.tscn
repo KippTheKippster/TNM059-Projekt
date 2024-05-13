@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cd5s5a61atoor"]
+[gd_scene load_steps=11 format=3 uid="uid://cd5s5a61atoor"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_m7dvm"]
 [ext_resource type="Script" path="res://enemy/circler/circler.gd" id="2_6d5c1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="2_l3du2"]
 [ext_resource type="PackedScene" uid="uid://ddyu40anul43d" path="res://enemy/enemy_bullet.tscn" id="3_f4fvv"]
+[ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="4_k2niy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0rm7j"]
 size = Vector3(1, 1.11691, 1.5473)
@@ -122,6 +123,9 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0123596)
 shape = SubResource("BoxShape3D_0rm7j")
 
+[node name="MarkerSprite" parent="MissileTarget" index="0"]
+visible = true
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0123596)
 shape = SubResource("BoxShape3D_0rm7j")
@@ -134,11 +138,13 @@ rotation_mode = 0
 use_model_front = true
 loop = false
 
-[node name="ShootTimer" type="Timer" parent="." index="5"]
+[node name="SmallExplosion" parent="." index="5" instance=ExtResource("4_k2niy")]
+
+[node name="ShootTimer" type="Timer" parent="." index="6"]
 wait_time = 3.0
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 "": SubResource("AnimationLibrary_kxpmn")
 }
@@ -153,3 +159,5 @@ script = ExtResource("2_l3du2")
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="state_entered" from="StateChart/Active/Awake" to="." method="_on_awake_state_entered"]
 [connection signal="state_processing" from="StateChart/Active/Awake" to="." method="_on_awake_state_processing"]
+
+[editable path="MissileTarget"]

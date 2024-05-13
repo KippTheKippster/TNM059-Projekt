@@ -30,9 +30,9 @@ func _on_asleep_state_processing(delta: float) -> void:
 	#var dif = enemy_activator.global_position - global_position
 	#global_position.project(player_controller.global_position 
 	#	+ player_controller.path_follow.basis * Vector3.FORWARD)
-	var path := player_controller.path_follow.get_parent() as Path3D
+	var path := player_controller.path
 	var point := path.curve.get_closest_point(global_position - path.global_position)
-	var player_point := path.curve.get_closest_point(player_controller.global_position - path.global_position)
+	var player_point := player_controller.player_point 
 	var dif := player_point - point
 	if dif.length() < activation_distance:
 		wake_up()

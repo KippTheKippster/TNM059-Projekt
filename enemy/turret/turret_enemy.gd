@@ -7,6 +7,7 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 @onready var shoot_marker: Marker3D = %ShootMarker
 @onready var small_explosion: Node3D = $SmallExplosion
 @onready var shoot_timer: Timer = $ShootTimer
+@onready var awake: AtomicState = $StateChart/Active/Awake
 
 @onready var head: Node3D = $Sattelite/Body/Head
 
@@ -45,3 +46,7 @@ func _on_asleep_state_entered() -> void:
 func _on_awake_state_entered() -> void:
 	shoot_timer.start()
 	shoot()
+
+func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
+	if awake.active: 
+		queue_free()

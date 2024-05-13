@@ -26,8 +26,7 @@ func _process(_delta: float) -> void:
 		var collider = instance_from_id(rest_info.collider_id)
 		if collider is MissileTarget:
 			var target := collider as MissileTarget
-			if target.can_target and missile_targets.count(target) <= target.max_targets:
-				print(missile_targets.count(target))
+			if target.can_target and missile_targets.count(target) < target.max_targets:
 				missile_targets.push_back(collider)
 				target.activate()
 				can_target = false

@@ -4,13 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_u3glk"]
 
 [node name="MissileTarget" type="Area3D"]
+collision_layer = 16
+collision_mask = 0
 script = ExtResource("1_mycyc")
 
 [node name="MarkerSprite" type="Sprite3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-modulate = Color(1, 0, 0, 1)
+visible = false
 billboard = 1
 double_sided = false
+no_depth_test = true
 texture_filter = 0
 texture = ExtResource("2_u3glk")
 hframes = 4
+frame = 2
