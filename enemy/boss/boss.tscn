@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://xv8rcu5a8rki"]
+[gd_scene load_steps=8 format=3 uid="uid://xv8rcu5a8rki"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_4vk7c"]
 [ext_resource type="Script" path="res://enemy/boss/boss.gd" id="2_ip04m"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_gq2xy"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_yicj1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_m6ulk"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8fxk7"]
 
 [node name="Boss" instance=ExtResource("1_4vk7c")]
 script = ExtResource("2_ip04m")
@@ -34,6 +36,9 @@ delay_seconds = 3.0
 
 [node name="Idle" type="Node" parent="StateChart/Active/Awake" index="1"]
 script = ExtResource("4_yicj1")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="4"]
+tree_root = SubResource("AnimationNodeStateMachine_8fxk7")
 
 [connection signal="state_entered" from="StateChart/Active/Awake/Start" to="." method="_on_start_state_entered"]
 [connection signal="state_entered" from="StateChart/Active/Awake/Idle" to="." method="_on_idle_state_entered"]

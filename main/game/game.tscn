@@ -1,5 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bu6bypayly4ur"]
-[gd_scene load_steps=20 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=21 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
@@ -97,81 +96,107 @@ motion_mode = 0
 
 [node name="Asteroid" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.992786, -0.0997323, -0.0665559, 0.0952737, 0.319163, 0.942899, -0.0727952, -0.942438, 0.326363, -2.45764, 1.26735, -412.303)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid4" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-0.544412, -0.720486, -0.429554, 0.825845, -0.550097, -0.123993, -0.146961, -0.422248, 0.894489, 12.5864, 1.26735, -375.487)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid10" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-0.97342, -0.0988581, -0.206595, 0.175662, -0.901074, -0.396496, -0.146961, -0.422248, 0.894489, -14.5038, 1.26735, -426.562)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid11" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-1.24827, -0.126771, -0.264928, 0.22526, -1.1555, -0.508448, -0.188456, -0.541471, 1.14705, 17.0077, 1.26735, -481.166)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid12" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-1.13628, -0.0940945, -0.409589, 0.205052, -0.857655, -0.78608, -0.171549, -0.401902, 1.77338, -17.8735, 1.26735, -508.998)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid14" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-0.36472, 0.844607, -0.672213, 1.04685, 0.374291, 0.40198, 0.365663, -0.229121, -1.8213, 6.22959, 13.744, -508.998)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid15" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-1.11311, 0.0742139, 0.576769, 0.0112952, -0.911344, 0.571644, 0.351399, 0.264377, 1.80863, -8.65915, 13.744, -451.789)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid16" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-0.561839, 0.492354, -1.40296, 1.00756, 0.132332, -0.962423, -0.178277, -0.803758, -1.01786, 14.0231, -25.8371, -471.877)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid17" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-0.561839, 0.492354, -1.40296, 1.00756, 0.132332, -0.962423, -0.178277, -0.803758, -1.01786, -8.34733, -25.8371, -548.648)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid13" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.97145, 0.215671, -0.781773, 0.792865, -0.508953, 0.844825, -0.170437, -1.13835, -0.525831, 6.61153, 1.26736, -561.304)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid18" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(11.2186, 13.7975, 7.58838, -9.2031, 1.18734, 13.5967, 6.90071, -20.8475, 5.79662, 36.1233, -1.81981, -647.024)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid22" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(11.2186, 13.7975, 7.58838, -9.2031, 1.18734, 13.5967, 6.90071, -20.8475, 5.79662, 36.1233, -1.81981, -647.024)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid20" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-7.07034, -20.6069, 5.955, -13.1534, 13.3114, 3.6016, -5.9307, -4.95597, -15.0871, 8.40225, 30.3086, -761.079)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid19" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(1.481, 8.5733, -15.5344, -3.94427, -22.5794, -5.89383, -15.5056, 6.56255, 0.0155089, -33.6144, -1.1586, -727.796)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid23" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(9.81583, 10.9363, -3.16142, -1.02316, -5.79972, -12.2386, -7.5892, 14.9269, -2.43898, -85.04, 10.4042, -920.855)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid24" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(14.5434, -17.2226, -3.82016, -7.62059, -1.23696, -15.4753, 13.3046, 18.1177, -4.688, 66.3637, -1.1586, -944.427)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid25" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(4.51547, 12.6693, 11.2094, 12.4775, -10.6693, 4.28717, 9.06073, 8.37885, -11.4901, -164.583, -1.1586, -763.991)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid26" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(4.51547, 17.0825, 11.2094, 12.4775, -14.3858, 4.28717, 9.06073, 11.2975, -11.4901, 177.592, -1.15857, -727.271)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid21" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(-15.0058, -8.92333, 0.442662, 0.199482, 1.05453, 16.5989, -5.74124, 23.3594, -0.580244, 19.0604, -28.561, -745.416)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid5" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.992786, -0.0997323, -0.0665559, 0.0952737, 0.319163, 0.942899, -0.0727952, -0.942438, 0.326363, -6.74132, 8.86892, -290.754)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid6" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.4255, 0.824324, 0.373417, 0.552261, 0.09036, -0.82876, -0.716909, 0.558861, -0.416793, 14.862, 8.86892, -258.31)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid2" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.819643, 0.129907, 0.557952, -0.568232, 0.308117, 0.763005, -0.0727952, -0.942438, 0.326363, 15.974, -2.31901, -451.421)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid7" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.807277, 0.0290902, 0.589455, -0.578588, 0.235935, 0.78075, -0.116361, -0.971334, 0.207296, 3.98587, 4.62022, -509.42)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid8" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.975378, -0.0723862, 0.208325, -0.187347, 0.226433, 0.95584, -0.116361, -0.971334, 0.207296, 15.0002, -0.957056, -543.374)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid9" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.980762, -0.0794355, 0.178316, -0.156737, 0.224057, 0.96189, -0.116361, -0.971334, 0.207296, -7.42077, -2.26656, -553.364)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid3" parent="Enemies" instance=ExtResource("12_aiofw")]
 transform = Transform3D(1.57899, -0.0772445, 0.056925, -0.0950809, 0.028235, 0.938022, -0.0626781, -1.98878, 0.0111063, -7.84414, -2.33397, -477.594)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="TurretEnemy3" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.931247, 0.364389, 0, -0.364389, 0.931247, 0, 0, 0, 1, 16.3082, -1.21486, -451.327)
@@ -502,21 +527,27 @@ initial_node_to_watch = NodePath("../../PlayerController/Player")
 [node name="Asteroid" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(1.27281, 0, 0, 0, 1.27281, 0, 0, 0, 1.27281, -5.46502, 0, -6.25351)
 visible = false
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid2" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(2.07062, -0.23658, 0.441349, 0, 1.1218, 0.601329, -0.886099, -0.552835, 1.03134, -45.39, -66.1174, -225.883)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid3" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(-0.175787, -0.524523, 1.175, 0.515912, 1.16644, 0.511965, -1.44499, 0.480272, 0.0398475, -3.34062, 0, -61.5743)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid4" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.22085, -4.37546, 3.48436, 1.69665, 3.62398, 3.93522, -6.26069, 0.827755, 1.18936, -9.55187, 0, -117.229)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid5" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(1.2274, -4.12423, 3.60792, 1.83098, -3.52123, -3.97569, 6.10448, 1.8854, 0.46704, -9.89678, 0, -155.603)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid6" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(0.22085, -4.37546, 3.48436, -4.52517, -2.7651, -2.8614, 4.64733, -2.48449, -2.95177, -28.6185, 7.4034, -138.172)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="PathSpeedSetter" parent="." instance=ExtResource("13_35dk4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.9542)
@@ -821,9 +852,11 @@ transform = Transform3D(2.45, 0, -2.13163e-14, 0, 2.45, 0, 2.13163e-14, 0, 2.45,
 
 [node name="Asteroid7" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(3.06716, 0, 0, 0, 3.06716, 0, 0, 0, 3.06716, -16.9849, 18.1427, -1651.91)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid8" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(-1.20193, 0, 2.82184, 0, 3.06716, 0, -2.82184, 0, -1.20193, -18.6143, -0.707587, -1637.58)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="LaserGrid" type="Node3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2.9599, 18.9626, -1713.52)
