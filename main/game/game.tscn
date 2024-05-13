@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=20 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
@@ -12,7 +12,6 @@
 [ext_resource type="Curve3D" uid="uid://dgwfwhu2cw54c" path="res://enemy/circler/circler_path_1.tres" id="8_w05of"]
 [ext_resource type="Curve3D" uid="uid://1monpwbn80a2" path="res://enemy/circler/circler_path_2.tres" id="10_dqkbj"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="10_ls1n3"]
-[ext_resource type="PackedScene" uid="uid://ddyu40anul43d" path="res://enemy/enemy_bullet.tscn" id="11_ggej7"]
 [ext_resource type="PackedScene" uid="uid://cwmkwpvhluueo" path="res://world/ice_asteroid.tscn" id="11_k344t"]
 [ext_resource type="PackedScene" uid="uid://cea57wnpeh1lb" path="res://world/asteroid.tscn" id="12_aiofw"]
 [ext_resource type="PackedScene" uid="uid://cqff71t3gfqje" path="res://common/path/path_speed_setter.tscn" id="13_35dk4"]
@@ -375,13 +374,11 @@ path_curve = ExtResource("10_dqkbj")
 [node name="CirclerHeavy" parent="Enemies" instance=ExtResource("7_tpfqt")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.17291, 0, -212.703)
 path_curve = ExtResource("8_tcq8m")
-bullet_scene = ExtResource("11_ggej7")
 activation_distance = 20.0
 
 [node name="CirclerHeavy2" parent="Enemies" instance=ExtResource("7_tpfqt")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.17291, 0, -808.289)
 path_curve = ExtResource("8_tcq8m")
-bullet_scene = ExtResource("11_ggej7")
 activation_distance = 20.0
 
 [node name="IceAsteroid" parent="Enemies" instance=ExtResource("11_k344t")]
@@ -492,7 +489,7 @@ shoot_amount = 1
 environment = ExtResource("3_ukv0f")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path_follow") instance=ExtResource("1_kn7at")]
-transform = Transform3D(0.99999, -0.00236738, -0.000580838, 0.00236805, 0.99999, 0.00116168, 0.000578086, -0.00116305, 0.999992, 0.00259703, -0.00519405, -196.89)
+transform = Transform3D(0.99999, -0.00236738, -0.000580836, 0.00236805, 0.99999, 0.00116167, 0.000578084, -0.00116305, 0.999992, 0.00259683, -0.00519366, -196.89)
 path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 path_speed = 16.0
 
@@ -500,7 +497,7 @@ path_speed = 16.0
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
-transform = Transform3D(0.99999, -0.00236738, -0.000580838, 0.00236805, 0.99999, 0.00116168, 0.000578086, -0.00116305, 0.999992, 0.00259703, -0.00519405, -196.89)
+transform = Transform3D(0.99999, -0.00236738, -0.000580836, 0.00236805, 0.99999, 0.00116167, 0.000578084, -0.00116305, 0.999992, 0.00259683, -0.00519366, -196.89)
 progress = 218.166
 loop = false
 
