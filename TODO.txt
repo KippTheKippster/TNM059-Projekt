@@ -1,11 +1,10 @@
 Boost effect
 #Change crosshair color when missile
-Faster missile
-Multiple missile targeting
-Breakable asteroids
-Nuke
-?Fade distant objects
-Missile trail
+##Faster missile
+#Multiple missile targeting
 #Camera shake when enemies die
 #Missile targeting should get stronger the closer they are
 Screen flash red on hit
+Missile trail
+Missile model
+Fix blender textures

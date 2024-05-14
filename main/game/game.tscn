@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=22 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
 [ext_resource type="PackedScene" uid="uid://bf1xrsy27bg72" path="res://enemy/turret/turret_enemy.tscn" id="2_htpxb"]
 [ext_resource type="AudioStream" uid="uid://bujhb3x50eprv" path="res://assets/music/strata.mp3" id="2_ne7pa"]
+[ext_resource type="PackedScene" uid="uid://ckgn3hx6n7yua" path="res://main/game/pause_menu.tscn" id="3_nsp8c"]
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="3_ukv0f"]
 [ext_resource type="PackedScene" uid="uid://cqn1gwnk28s6e" path="res://skybox/asteroid_skybox.tscn" id="4_hn6te"]
 [ext_resource type="PackedScene" uid="uid://ck7un7fd4ehec" path="res://skybox/planet_skybox.tscn" id="5_0jny5"]
@@ -68,6 +69,8 @@ func generate_spiral() -> void:
 [node name="Game" type="Node3D"]
 script = ExtResource("1_idndb")
 music_stream = ExtResource("2_ne7pa")
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_nsp8c")]
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.885552, -0.337237, 0.319482, -0.0399613, 0.629886, 0.775659, -0.462818, -0.699653, 0.54432, 0, 0, 0)
