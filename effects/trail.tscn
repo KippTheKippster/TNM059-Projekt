@@ -1,0 +1,31 @@
+[gd_scene load_steps=9 format=3 uid="uid://bspcg330jrvlf"]
+
+[ext_resource type="Script" path="res://effects/trail.gd" id="1_su17y"]
+[ext_resource type="Shader" path="res://effects/trail.gdshader" id="1_uhsu3"]
+[ext_resource type="Shader" path="res://effects/trail_particles.gdshader" id="2_g0mho"]
+[ext_resource type="Texture2D" uid="uid://bf234e1sa0256" path="res://icon.svg" id="2_nb0ss"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3tge8"]
+render_priority = 0
+shader = ExtResource("1_uhsu3")
+shader_parameter/tex = ExtResource("2_nb0ss")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t0dlr"]
+shader = ExtResource("2_g0mho")
+
+[sub_resource type="QuadMesh" id="QuadMesh_an8fb"]
+
+[sub_resource type="Curve" id="Curve_7o518"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Trail" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_3tge8")
+fixed_fps = 1
+process_material = SubResource("ShaderMaterial_t0dlr")
+draw_pass_1 = SubResource("QuadMesh_an8fb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.201797, 0)
+script = ExtResource("1_su17y")
+width_profile = SubResource("Curve_7o518")

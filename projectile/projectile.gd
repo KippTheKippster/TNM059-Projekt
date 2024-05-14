@@ -9,9 +9,13 @@ var direction: Vector3 = Vector3.FORWARD:
 		direction = value.normalized()
 
 @export var free_on_impact: bool = true
+@export var move_with_rotation: bool = true
 
 func _process(delta: float) -> void:
-	position += basis * direction * speed * delta
+	if move_with_rotation:
+		position += basis * direction * speed * delta
+	else:
+		position += direction * speed * delta
 
 func set_direction_towards(node: Node3D) -> void:
 	set_direction_towards_position(node.global_position)
