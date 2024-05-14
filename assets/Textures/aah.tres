@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://4yi6nmjxacd"]
+
+[ext_resource type="Texture2D" uid="uid://d2bucx7rngfes" path="res://assets/Textures/aah_normal.png" id="3"]
+
+[resource]
+albedo_color = Color(0.168629, 0.168629, 0.168629, 1)
+metallic = 0.31
+roughness = 0.12
+normal_enabled = true
+normal_scale = 0.66
+normal_texture = ExtResource("3")
