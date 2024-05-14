@@ -137,6 +137,8 @@ func _on_attack_idle_state_entered() -> void:
 			
 func _on_health_area_died() -> void:
 	print("Oh no 1!")
+	if eye_1_destroyed: 
+		return
 	if is_instance_valid(missile_target):
 		missile_target.queue_free()
 		remove_child(missile_target)
@@ -147,6 +149,8 @@ func _on_health_area_died() -> void:
 	
 func _on_health_area_2_died() -> void:
 	print("Oh no 2!")
+	if eye_2_destroyed: 
+		return
 	if is_instance_valid(missile_target_2):
 		missile_target_2.queue_free()
 		remove_child(missile_target_2)

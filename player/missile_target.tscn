@@ -1,20 +1,180 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnn82cvidaypk"]
+[gd_scene load_steps=12 format=3 uid="uid://dnn82cvidaypk"]
 
 [ext_resource type="Script" path="res://player/missile_target.gd" id="1_mycyc"]
-[ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_u3glk"]
+[ext_resource type="Shader" path="res://player/billboard_shader.gdshader" id="2_o0v7w"]
+[ext_resource type="Texture2D" uid="uid://2gadvxg62erc" path="res://assets/ui/MissileTarget1.png" id="3_n710m"]
+[ext_resource type="Texture2D" uid="uid://bmvk16subgptd" path="res://assets/ui/MissileTarget2.png" id="4_bx8wc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mry4v"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_o0v7w")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/scale = 0.0
+shader_parameter/size = 5.0
+shader_parameter/rotation = 0.0
+shader_parameter/tex = ExtResource("3_n710m")
+
+[sub_resource type="QuadMesh" id="QuadMesh_r32xd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lwav0"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_o0v7w")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/scale = 1.0
+shader_parameter/size = 5.0
+shader_parameter/rotation = 180.0
+shader_parameter/tex = ExtResource("4_bx8wc")
+
+[sub_resource type="Animation" id="Animation_dep4b"]
+resource_name = "appear"
+length = 0.4
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarkerSprite:material_override:shader_parameter/scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(3, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarkerSprite:material_override:shader_parameter/rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(180, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarkerSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarkerSprite2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_s2jed"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarkerSprite:material_override:shader_parameter/scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarkerSprite:material_override:shader_parameter/rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarkerSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarkerSprite2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kp11o"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarkerSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarkerSprite2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uk1n2"]
+_data = {
+"RESET": SubResource("Animation_s2jed"),
+"appear": SubResource("Animation_dep4b"),
+"hide": SubResource("Animation_kp11o")
+}
 
 [node name="MissileTarget" type="Area3D"]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_mycyc")
 
-[node name="MarkerSprite" type="Sprite3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-visible = false
-billboard = 1
-double_sided = false
-no_depth_test = true
-texture_filter = 0
-texture = ExtResource("2_u3glk")
-hframes = 4
-frame = 2
+[node name="MarkerSprite" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_mry4v")
+mesh = SubResource("QuadMesh_r32xd")
+
+[node name="MarkerSprite2" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_lwav0")
+mesh = SubResource("QuadMesh_r32xd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uk1n2")
+}
+autoplay = "hide"

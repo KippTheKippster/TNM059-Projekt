@@ -488,7 +488,7 @@ shoot_amount = 1
 environment = ExtResource("3_ukv0f")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("1_kn7at")]
-transform = Transform3D(0.99998, 0, 0, 0, 0.999975, 0, 0, 0, 0.999977, 0, 0, 16)
+transform = Transform3D(0.999683, 0.0241188, 0, -0.024119, 0.999677, 0, 0, 0, 0.999969, 0, 0, -2235)
 path = NodePath("../PlayerPath")
 path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 path_speed = 16.0
@@ -497,7 +497,8 @@ path_speed = 16.0
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
-transform = Transform3D(0.99998, 0, 0, 0, 0.999975, 0, 0, 0, 0.999977, 0, 0, 16)
+transform = Transform3D(0.999683, 0.0241188, 0, -0.024119, 0.999677, 0, 0, 0, 0.999969, 0, 0, -2235)
+progress = 2279.69
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]

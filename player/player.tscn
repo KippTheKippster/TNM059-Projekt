@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://vyiym37a71px"]
+[gd_scene load_steps=28 format=3 uid="uid://vyiym37a71px"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_wbiqq"]
 [ext_resource type="PackedScene" uid="uid://de8jlfyhyhke4" path="res://player/player_test_v3.glb" id="2_etpdk"]
+[ext_resource type="PackedScene" uid="uid://bacglpgxeudwi" path="res://player/shipThrusters.glb" id="2_gjbxt"]
 [ext_resource type="Texture2D" uid="uid://b6mw6l8nn6eab" path="res://assets/ui/Crosshair.png" id="2_nxp81"]
 [ext_resource type="PackedScene" uid="uid://b2x2oamlwh8xs" path="res://assets/ship.blend" id="2_rs7pv"]
 [ext_resource type="PackedScene" uid="uid://b3awrqjkfe507" path="res://player/shipFinal.glb" id="2_sgaee"]
@@ -160,12 +161,122 @@ _data = {
 "spin_right": SubResource("Animation_yt6ap")
 }
 
+[sub_resource type="Animation" id="Animation_b2yd7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipContainer/shipThrusters/Armature_001/Skeleton3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipContainer/shipThrusters/Armature_001/Skeleton3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipContainer/shipThrusters/Armature_002/Skeleton3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipContainer/shipThrusters/Armature_002/Skeleton3D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yidak"]
+resource_name = "wave"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipContainer/shipThrusters/Armature_001/Skeleton3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1.1, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipContainer/shipThrusters/Armature_001/Skeleton3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipContainer/shipThrusters/Armature_002/Skeleton3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipContainer/shipThrusters/Armature_002/Skeleton3D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1.1, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yipql"]
+_data = {
+"RESET": SubResource("Animation_b2yd7"),
+"wave": SubResource("Animation_yidak")
+}
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7cs1m"]
 radius = 0.392519
 height = 2.45711
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_23m8h"]
-size = Vector3(1.6, 1.6, 1.6)
+size = Vector3(2, 2, 2)
 
 [sub_resource type="Resource" id="Resource_ufqae"]
 script = ExtResource("11_gw10l")
@@ -195,8 +306,24 @@ shape = SubResource("BoxShape3D_fhyyo")
 [node name="ShipContainer" type="Node3D" parent="RotationContainer"]
 transform = Transform3D(1, -4.46638e-06, 0, 4.46638e-06, 1, 0, 0, 0, 1, 0, 0, 0)
 
+[node name="shipThrusters" parent="RotationContainer/ShipContainer" instance=ExtResource("2_gjbxt")]
+transform = Transform3D(0.308771, 1.37909e-06, 0, -1.37909e-06, 0.308771, 0, 0, 0, 0.308771, 0, 0, 0)
+
+[node name="Armature_001" parent="RotationContainer/ShipContainer/shipThrusters" index="13"]
+transform = Transform3D(0.67, 0, 0, 0, -4.37114e-08, -1.04, 0, 1, -4.54598e-08, -1.36019, 0.06, 4.98019)
+
+[node name="Skeleton3D" parent="RotationContainer/ShipContainer/shipThrusters/Armature_001" index="0"]
+transform = Transform3D(1, 0, 2.1684e-19, 0, 1, 0, -2.1684e-19, 0, 1, 0, 0, 0)
+bones/0/rotation = Quaternion(0.774026, -0.00565804, -0.63309, -0.00691761)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/scale = Vector3(1, 1, 1)
+
+[node name="Armature_002" parent="RotationContainer/ShipContainer/shipThrusters" index="17"]
+transform = Transform3D(0.67, 0, 0, 0, -4.37114e-08, -1.04, 0, 1, -4.54598e-08, 1.36019, 0.06, 4.98019)
+
 [node name="shipFinal" parent="RotationContainer/ShipContainer" instance=ExtResource("2_sgaee")]
 transform = Transform3D(0.308771, 1.37909e-06, 0, -1.37909e-06, 0.308771, 0, 0, 0, 0.308771, 0, 0, 0)
+visible = false
 
 [node name="Smoke" parent="RotationContainer/ShipContainer/shipFinal" instance=ExtResource("3_yku1l")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 4.0804)
@@ -215,6 +342,13 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_4xqpq")
 }
+
+[node name="ThrusterAnimationPlayer" type="AnimationPlayer" parent="RotationContainer/ShipContainer"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_yipql")
+}
+autoplay = "wave"
 
 [node name="HealthArea" parent="RotationContainer" instance=ExtResource("2_xq6mt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.200817)
@@ -403,3 +537,5 @@ delay_seconds = 1.0
 [connection signal="state_physics_processing" from="StateChart/Root/Missile/Active" to="." method="_on_missile_active_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Invincibility/Inactive" to="." method="_on_invincibility_inactive_state_entered"]
 [connection signal="state_entered" from="StateChart/Root/Invincibility/Active" to="." method="_on_invincibility_active_state_entered"]
+
+[editable path="RotationContainer/ShipContainer/shipThrusters"]
