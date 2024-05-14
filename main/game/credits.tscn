@@ -1,20 +1,163 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5duynqju0ca7"]
+[gd_scene load_steps=21 format=3 uid="uid://b5duynqju0ca7"]
 
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="1_4r8eu"]
+[ext_resource type="PackedScene" uid="uid://q34gapvr4g3n" path="res://test/mars/mars.tscn" id="2_6r8kc"]
+[ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="3_dbj3t"]
+[ext_resource type="AudioStream" uid="uid://ddu7d6ixj200l" path="res://assets/music/Darude - Sandstorm.mp3" id="4_3hwtw"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_ctw3b"]
+albedo = Color(0.65098, 0.227451, 0.0862745, 1)
+edge_fade = 0.254912
+
+[sub_resource type="Curve3D" id="Curve3D_1q8i7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 177.565, 0, 523.363, -1.07628, -4.41909, 18.5664, 1.07628, 4.41909, -18.5664, 172.219, 0, -53.9636, 7.24055, -1.14576, 1.37141, -7.24055, 1.14576, -1.37141, -0.622726, 0, -221.46, 0, 0, 0, 0, 0, 0, -120, 0, 230, 0, 0, 0, 0, 0, 0, -120, 530, 220, 0, 0, 0, 0, 0, 0, 177.565, 0, 523.363),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="TextMesh" id="TextMesh_lnxwb"]
+text = "TNM059"
+
+[sub_resource type="TextMesh" id="TextMesh_xh54h"]
+text = "CREATED BY "
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u0mk"]
+albedo_color = Color(0.482353, 0.882353, 0.184314, 1)
+emission_enabled = true
+emission = Color(0.662745, 0.760784, 0.14902, 1)
+emission_energy_multiplier = 6.48
+
+[sub_resource type="TextMesh" id="TextMesh_dy0dl"]
+text = "KARL KOSTOULAS"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1y8ik"]
+albedo_color = Color(0.92549, 0.301961, 0, 1)
+distance_fade_mode = 1
+distance_fade_max_distance = 6.75
+
+[sub_resource type="TextMesh" id="TextMesh_mvuf6"]
+text = "AKAR AMIN"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fvun"]
+emission_enabled = true
+emission = Color(0, 0.454902, 0, 1)
+emission_energy_multiplier = 6.28
+distance_fade_mode = 1
+distance_fade_min_distance = 93.95
+distance_fade_max_distance = 0.0
+
+[sub_resource type="TextMesh" id="TextMesh_kxkra"]
+text = "DEEMA ABO GHEDA"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26svv"]
+emission_enabled = true
+emission = Color(0.482353, 0.482353, 0.482353, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 348.2
+distance_fade_max_distance = 0.0
+
+[sub_resource type="TextMesh" id="TextMesh_xfucb"]
+text = "LINUS JANSSON"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_do3fs"]
+albedo_color = Color(1, 0.380392, 1, 1)
+emission_enabled = true
+emission = Color(1, 0.0470588, 1, 1)
+emission_energy_multiplier = 5.36
+
+[sub_resource type="TextMesh" id="TextMesh_xangf"]
+material = SubResource("StandardMaterial3D_do3fs")
+text = "MATEO VARGAS"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rw6cs"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.792157, 0.670588, 0.203922, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_obbte"]
+material = SubResource("StandardMaterial3D_rw6cs")
+text = "SPACE WARS"
 
 [node name="Credits" type="Node3D"]
 
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0.0144089, -0.0249569)
-modulate = Color(1, 1, 0, 1)
-text = "SPACE WARS
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.885552, -0.337237, 0.319482, -0.0399613, 0.629886, 0.775659, -0.462818, -0.699653, 0.544321, 0, 102.2, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 311.0
 
-Made by:
-JDOIASJHDIOSAJd
-SDAKLAPÅSODKOPÅAS
-dsakLÅPODSAOPÅDKSAOPdkosA
-
-DKSAPo"
+[node name="Underlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.885552, -0.337237, -0.319482, 0.0399614, 0.629886, -0.775659, 0.462818, -0.699653, -0.544321, 0, -146.164, 0)
+light_color = Color(0, 0.258824, 0.654902, 1)
+light_energy = 0.105
+directional_shadow_max_distance = 311.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_4r8eu")
+
+[node name="Mars" parent="." instance=ExtResource("2_6r8kc")]
+transform = Transform3D(70.708, 0, 0, 0, 70.708, 0, 0, 0, 70.708, -0.912789, 0, 0.265496)
+
+[node name="FogVolume" parent="Mars" index="2"]
+material = SubResource("FogMaterial_ctw3b")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_1q8i7")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.999957, 0, 0.00925954, 0, 1, 0, -0.00925954, 0, 0.999957, 177.565, 0, 523.363)
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Path3D/PathFollow3D"]
+remote_path = NodePath("../../../PlayerController")
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("3_dbj3t")]
+transform = Transform3D(0.999957, 0, 0.00925954, 0, 1, 0, -0.00925954, 0, 0.999957, 177.565, 0, 523.363)
+path = NodePath("../Path3D")
+path_follow = NodePath("../Path3D/PathFollow3D")
+path_speed = 16.0
+
+[node name="Player" parent="PlayerController" index="0"]
+transform = Transform3D(1, -9.31323e-09, 0, -5.58794e-08, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(116.703, 2.61249e-08, 1.37087, 0.272627, 114.38, -23.2089, -1.34349, 23.2105, 114.372, 165.763, 22.3573, 374.51)
+mesh = SubResource("TextMesh_lnxwb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(42.7209, 0, 16.1173, 0, 45.66, 0, -16.1173, 0, 42.7209, 150.673, 0.418118, 133.488)
+mesh = SubResource("TextMesh_xh54h")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(34.2093, 0, -10.0554, 0, 35.6565, 0, 10.0554, 0, 34.2093, 214.326, -0.622467, -0.161163)
+material_override = SubResource("StandardMaterial3D_8u0mk")
+mesh = SubResource("TextMesh_dy0dl")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(45.6076, 0.265542, -36.4846, -0.280529, 50.4412, 0.169587, -54.7058, -0.0372817, -30.4176, 91.2188, 0.358673, -99.7367)
+material_override = SubResource("StandardMaterial3D_1y8ik")
+mesh = SubResource("TextMesh_mvuf6")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-79.5287, 0, 2.18517, 0, 193.627, 0, -32.4259, 0, -5.35941, -31.8054, 2.45032, -83.4284)
+material_override = SubResource("StandardMaterial3D_6fvun")
+mesh = SubResource("TextMesh_kxkra")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-60.7855, 5.48218, 41.2188, -5.8018, 71.1721, -18.022, -41.175, -18.1218, -58.3108, -93.4737, 13.1222, -27.0434)
+material_override = SubResource("StandardMaterial3D_26svv")
+mesh = SubResource("TextMesh_xfucb")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-70.4527, -1.51271, 10.3409, -1.43288, 71.2062, 0.654137, -10.3522, 0.43902, -70.4659, -200.269, 11.3366, 97.6271)
+mesh = SubResource("TextMesh_xangf")
+
+[node name="W" type="MeshInstance3D" parent="."]
+transform = Transform3D(-292.305, 15.7862, -0.8696, 0, -16.101, -292.289, -15.8102, -291.862, 16.0775, -64.8575, 748.911, 179.279)
+mesh = SubResource("TextMesh_obbte")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3hwtw")
+autoplay = true
+
+[editable path="Mars"]
+[editable path="PlayerController"]
