@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ba5fv57p04bdj"
+path="res://.godot/imported/Nirvana - Smells Like Teen Spirit but with the SM64 soundfont (720p_24fps_H264-128kbit_AAC).mp3-0a218c446330a6bf19f37c7e349197e0.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Nirvana - Smells Like Teen Spirit but with the SM64 soundfont (720p_24fps_H264-128kbit_AAC).mp3"
+dest_files=["res://.godot/imported/Nirvana - Smells Like Teen Spirit but with the SM64 soundfont (720p_24fps_H264-128kbit_AAC).mp3-0a218c446330a6bf19f37c7e349197e0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
