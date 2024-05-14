@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cd5s5a61atoor"]
+[gd_scene load_steps=13 format=3 uid="uid://cd5s5a61atoor"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_m7dvm"]
 [ext_resource type="Script" path="res://enemy/circler/circler.gd" id="2_6d5c1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="2_l3du2"]
 [ext_resource type="PackedScene" uid="uid://ddyu40anul43d" path="res://enemy/enemy_bullet.tscn" id="3_f4fvv"]
+[ext_resource type="PackedScene" uid="uid://gd33cv5vn6ey" path="res://assets/enemies/TestEnemy.glb" id="4_033jc"]
 [ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="4_k2niy"]
 [ext_resource type="PackedScene" uid="uid://dnbvfoexm5ba5" path="res://assets/explosions/scrap_particles.tscn" id="5_thofp"]
 
@@ -117,8 +118,12 @@ shape = SubResource("BoxShape3D_0rm7j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
 transform = Transform3D(1, 0, 0, 0, -3.17101e-08, 1, 0, -0.725443, -4.37114e-08, 0, 0, 0)
+visible = false
 mesh = SubResource("CylinderMesh_m30x7")
 skeleton = NodePath("../..")
+
+[node name="TestEnemy" parent="Mesh" index="1" instance=ExtResource("4_033jc")]
+transform = Transform3D(4.74351e-09, 0, -0.397782, 0, 0.397782, 0, 0.397782, 0, 4.74351e-09, 0, 0, 0.591723)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0123596)

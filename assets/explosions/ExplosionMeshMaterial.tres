@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bepv0c7as07lg"]
 
-[ext_resource type="Shader" uid="uid://in7wtdjkwowm" path="res://main/mech game/effects/ExplosionMeshShader.tres" id="1_j4jqi"]
+[ext_resource type="Shader" uid="uid://in7wtdjkwowm" path="res://assets/explosions/ExplosionMeshShader.tres" id="1_j4jqi"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qifx5"]
 noise_type = 3

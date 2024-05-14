@@ -525,6 +525,12 @@ script = ExtResource("10_csslr")
 to = NodePath("../../Inactive")
 delay_seconds = 1.0
 
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0511058, -0.827529)
+visible = false
+spot_range = 29.0128
+spot_angle = 9.36579
+
 [connection signal="animation_finished" from="RotationContainer/ShipContainer/ShipAnimationPlayer" to="." method="_on_ship_animation_player_animation_finished"]
 [connection signal="damaged" from="RotationContainer/HealthArea" to="." method="_on_health_area_damaged"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Idle" to="." method="_on_movement_idle_state_entered"]

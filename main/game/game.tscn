@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=23 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
@@ -65,6 +65,9 @@ func generate_spiral() -> void:
 		laser.max_height = laser_height
 		laser.activation_distance = activation_distance
 "
+
+[sub_resource type="Environment" id="Environment_3d7vc"]
+volumetric_fog_length = 699.77
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_idndb")
@@ -488,7 +491,7 @@ shoot_amount = 1
 environment = ExtResource("3_ukv0f")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("1_kn7at")]
-transform = Transform3D(0.999683, 0.0241188, 0, -0.024119, 0.999677, 0, 0, 0, 0.999969, 0, 0, -2235)
+transform = Transform3D(0.999963, -0.00236747, -0.000409341, 0.00236782, 0.999959, 0.000818682, 0.000407403, -0.000819649, 0.999961, 0.307649, -0.615298, -788.926)
 path = NodePath("../PlayerPath")
 path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 path_speed = 16.0
@@ -497,8 +500,8 @@ path_speed = 16.0
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
-transform = Transform3D(0.999683, 0.0241188, 0, -0.024119, 0.999677, 0, 0, 0, 0.999969, 0, 0, -2235)
-progress = 2279.69
+transform = Transform3D(0.999963, -0.00236747, -0.000409341, 0.00236782, 0.999959, 0.000818682, 0.000407403, -0.000819649, 0.999961, 0.307649, -0.615298, -788.926)
+progress = 810.202
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
@@ -840,9 +843,6 @@ max_height = 32.0
 
 [node name="large_asteroid" parent="." instance=ExtResource("17_17uq7")]
 transform = Transform3D(-1.0734e-07, 0, 2.45564, 0, 2.45564, 0, -2.45564, 0, -1.0734e-07, 0.736976, 0, -1600.05)
-
-[node name="BezierCurve_001" parent="large_asteroid" index="0"]
-transform = Transform3D(2.45, 0, -2.13163e-14, 0, 2.45, 0, 2.13163e-14, 0, 2.45, 0, 0, 0)
 
 [node name="Asteroid7" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(3.06716, 0, 0, 0, 3.06716, 0, 0, 0, 3.06716, -16.9849, 18.1427, -1651.91)
@@ -1507,6 +1507,9 @@ activation_distance = 36.0
 [node name="Boss" parent="." instance=ExtResource("18_svb0l")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.95972e-07, 0, -2265.35)
 activation_distance = 8.0
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3d7vc")
 
 [editable path="PlayerController"]
 [editable path="large_asteroid"]

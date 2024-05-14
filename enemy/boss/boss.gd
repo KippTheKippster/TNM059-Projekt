@@ -178,13 +178,15 @@ func _on_die_state_processing(delta: float) -> void:
 
 
 func _on_die_state_entered() -> void:
+	MusicPlayer.fade_to_song(null, 12.0)
 	await get_tree().create_timer(3.0).timeout
 	#final_explosion.reparent(get_parent())
 	whiteout.reparent(get_parent())
 	var tween := create_tween()
 	tween.tween_property(final_explosion, "scale", 96 * Vector3.ONE, 3.0)
 	await get_tree().create_timer(0.5).timeout
-	whiteout.start(1.7)
-	await get_tree().create_timer(1.7).timeout
-	queue_free()
+	#whiteout.start(1.7)
+	TransitionScreen.change_scene_to_file("res://main/game/credits.tscn", "victory")
+	#await get_tree().create_timer(1.7).timeout
+	#get_tree().change_scene_to_file("res://main/game/credits.tscn")
 	#queue_free()
