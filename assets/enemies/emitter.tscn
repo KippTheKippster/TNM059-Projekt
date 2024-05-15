@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgh3bumrre3kc"]
+[gd_scene load_steps=10 format=3 uid="uid://tbu3hw1rle86"]
 
 [ext_resource type="Material" uid="uid://4yi6nmjxacd" path="res://assets/Textures/aah.tres" id="1_2ws7s"]
 
@@ -87,6 +87,7 @@ skeleton = NodePath("")
 
 [node name="Cylinder_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.889878, 0, 0, 0, 1.62027, 0, 0, 0, 0.889878, 0, -1.11907, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_0ffng")
 mesh = SubResource("ArrayMesh_arrb2")
 skeleton = NodePath("")

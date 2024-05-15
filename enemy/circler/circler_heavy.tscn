@@ -1,15 +1,55 @@
-[gd_scene load_steps=12 format=3 uid="uid://rrt50vcpu0a8"]
+[gd_scene load_steps=19 format=3 uid="uid://rrt50vcpu0a8"]
 
 [ext_resource type="PackedScene" uid="uid://cd5s5a61atoor" path="res://enemy/circler/circler.tscn" id="1_1ch5e"]
 [ext_resource type="Script" path="res://enemy/circler/circler_heavy.gd" id="2_dnpde"]
 [ext_resource type="PackedScene" uid="uid://drymx8tiiv45c" path="res://assets/enemies/crab_plane.glb" id="2_tbf1k"]
 [ext_resource type="Curve3D" uid="uid://tq4rb6qgfvm6" path="res://enemy/circler/circler_heavy_path_1.tres" id="3_3ah31"]
+[ext_resource type="Texture2D" uid="uid://dlx5oyl8gkhm3" path="res://assets/enemies/metal plating textures/metal_0077_color_2k.jpg" id="4_i6jtt"]
+[ext_resource type="Texture2D" uid="uid://c5mh3853eb661" path="res://assets/enemies/metal plating textures/metal_0077_ao_2k.jpg" id="5_cqhnm"]
+[ext_resource type="Texture2D" uid="uid://dwkawfvfl1vh1" path="res://assets/enemies/metal plating textures/metal_0077_metallic_2k.jpg" id="6_cx4tw"]
+[ext_resource type="Texture2D" uid="uid://bbw8bdon0nel" path="res://assets/enemies/metal plating textures/metal_0077_normal_opengl_2k.png" id="7_p10ls"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gfqxr"]
 size = Vector3(1, 1.11691, 1.5473)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_580mt"]
-top_radius = 0.18
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2ptf"]
+albedo_texture = ExtResource("4_i6jtt")
+metallic = 1.0
+metallic_texture = ExtResource("6_cx4tw")
+normal_enabled = true
+normal_texture = ExtResource("7_p10ls")
+ao_enabled = true
+ao_texture = ExtResource("5_cqhnm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hd58"]
+albedo_color = Color(0.556863, 0.556863, 0.556863, 1)
+albedo_texture = ExtResource("4_i6jtt")
+metallic = 1.0
+metallic_texture = ExtResource("6_cx4tw")
+normal_enabled = true
+normal_texture = ExtResource("7_p10ls")
+ao_enabled = true
+ao_texture = ExtResource("5_cqhnm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6w3r2"]
+albedo_color = Color(0.407843, 0.407843, 0.407843, 1)
+albedo_texture = ExtResource("4_i6jtt")
+metallic = 1.0
+metallic_texture = ExtResource("6_cx4tw")
+normal_enabled = true
+normal_texture = ExtResource("7_p10ls")
+ao_enabled = true
+ao_texture = ExtResource("5_cqhnm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4g5wm"]
+albedo_color = Color(1, 0.368627, 0.368627, 1)
+albedo_texture = ExtResource("4_i6jtt")
+metallic = 1.0
+metallic_texture = ExtResource("6_cx4tw")
+normal_enabled = true
+normal_texture = ExtResource("7_p10ls")
+ao_enabled = true
+ao_texture = ExtResource("5_cqhnm")
 
 [sub_resource type="Animation" id="Animation_gc8v0"]
 resource_name = "RESET"
@@ -76,7 +116,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ilnfj"]
-size = Vector3(1, 1.11691, 1.5473)
+size = Vector3(2.66, 1.117, 4.145)
 
 [node name="CirclerHeavy" instance=ExtResource("1_1ch5e")]
 script = ExtResource("2_dnpde")
@@ -88,16 +128,24 @@ activation_distance = 8.0
 [node name="CollisionShape3D" parent="." index="0"]
 shape = SubResource("BoxShape3D_gfqxr")
 
-[node name="Mesh" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
 [node name="crab_plane" parent="Mesh" index="0" instance=ExtResource("2_tbf1k")]
 transform = Transform3D(-1.79663e-08, 0, 0.41102, 0, 0.41102, 0, -0.41102, 0, -1.79663e-08, 0.0621454, 0.2057, -0.86465)
 
-[node name="MeshInstance3D" parent="Mesh" index="1"]
-transform = Transform3D(1, 0, 0, 0, -4.12231e-08, 1, 0, -0.943076, -4.37114e-08, 0, 0, 0)
+[node name="Cube_003" parent="Mesh/crab_plane" index="0"]
+transform = Transform3D(1.2437, 0, -1.77636e-14, 0, 1.14332, 0, 3.55271e-14, 0, 1.03233, -0.095885, -0.57759, -0.19288)
+material_override = SubResource("StandardMaterial3D_y2ptf")
+
+[node name="BezierCurve" parent="Mesh/crab_plane" index="1"]
+material_override = SubResource("StandardMaterial3D_1hd58")
+
+[node name="Cube_004" parent="Mesh/crab_plane" index="2"]
+material_override = SubResource("StandardMaterial3D_6w3r2")
+
+[node name="Cube" parent="Mesh/crab_plane/Cube_004" index="0"]
+material_override = SubResource("StandardMaterial3D_4g5wm")
+
+[node name="test_enemy" parent="Mesh" index="1"]
 visible = false
-mesh = SubResource("CylinderMesh_580mt")
 
 [node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="Mesh" index="2"]
 libraries = {
@@ -109,7 +157,7 @@ speed_scale = 1.5
 health = 8.0
 
 [node name="CollisionShape3D" parent="HealthArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0584564, 0.0123596)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0584564, -0.291981)
 shape = SubResource("BoxShape3D_ilnfj")
 
 [node name="MissileTarget" parent="." index="3"]
@@ -127,8 +175,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.628975, -29.1242, 0)
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="5"]
 aabb = AABB(-1.91139, -1.83746, -3.43027, 3.82278, 3.67492, 6.86054)
 
-[node name="ShootTimer" parent="." index="7"]
+[node name="ShootTimer" parent="." index="8"]
 one_shot = false
 
 [connection signal="damaged" from="HealthArea" to="." method="_on_health_area_damaged"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+
+[editable path="Mesh/crab_plane"]
+[editable path="Mesh/test_enemy"]

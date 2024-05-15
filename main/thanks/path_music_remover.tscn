@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6dsblg20k4oh"]
+
+[ext_resource type="PackedScene" uid="uid://1ib5ib8en883" path="res://common/path/path_activator.tscn" id="1_jin1w"]
+[ext_resource type="Script" path="res://main/thanks/path_music_remover.gd" id="2_1quep"]
+
+[node name="PathMusicRemover" instance=ExtResource("1_jin1w")]
+script = ExtResource("2_1quep")
+
+[connection signal="in_range" from="." to="." method="_on_in_range"]

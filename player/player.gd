@@ -56,12 +56,28 @@ func _ready() -> void:
 	max_rotation_degrees = max_rotation_degrees
 	active_missiles_count = active_missiles_count
 
+func create_bullet() -> Projectile:
+	var bullet := PLAYER_BULLET.instantiate() as Projectile
+	add_sibling(bullet)
+	bullet.global_position = shoot_marker_3d.global_position
+	bullet.global_rotation = shoot_marker_3d.global_rotation
+	return bullet
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown_timer.is_stopped() and not is_firing_missiles:
-		var bullet := PLAYER_BULLET.instantiate() as Projectile
-		add_sibling(bullet)
-		bullet.global_position = shoot_marker_3d.global_position
-		bullet.global_rotation = shoot_marker_3d.global_rotation
+		create_bullet()
+		await get_tree().create_timer(0.12).timeout
+		if Input.is_action_pressed("shoot"):
+			create_bullet()
+		else: 
+			shoot_cooldown_timer.start()
+			return
+		await get_tree().create_timer(0.12).timeout
+		if Input.is_action_pressed("shoot"):
+			create_bullet()
+		else: 
+			shoot_cooldown_timer.start()
+			return
 		shoot_cooldown_timer.start()
 	
 	if Input.is_action_pressed("shoot"):

@@ -32,6 +32,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	visible = false
 	shoot_timer.wait_time = shoot_time
+	mesh.top_level = true
 	#mesh.scale = scale
 	#mesh.rotation
 
@@ -55,8 +56,9 @@ func _on_awake_state_entered() -> void:
 	animation_player.play("RESET")
 	shoot_timer.start()
 
-
 func _on_awake_state_processing(delta: float) -> void:
+	mesh.global_position = global_position
+	mesh.look_at(player.global_position)
 	path_follow_3d.progress += speed * delta
 	if path_follow_3d.progress_ratio == 1:
 		path_3d.queue_free()

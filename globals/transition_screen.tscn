@@ -78,7 +78,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_pwmcn"]
 resource_name = "victory"
-length = 6.0
+length = 7.0
 step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,7 +87,7 @@ tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.7, 3, 6),
+"times": PackedFloat32Array(0, 1.7, 4, 7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -99,7 +99,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"screen_covered"],

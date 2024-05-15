@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b5duynqju0ca7"]
+[gd_scene load_steps=22 format=3 uid="uid://b5duynqju0ca7"]
 
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="1_4r8eu"]
 [ext_resource type="PackedScene" uid="uid://q34gapvr4g3n" path="res://test/mars/mars.tscn" id="2_6r8kc"]
@@ -11,13 +11,24 @@ edge_fade = 0.254912
 
 [sub_resource type="Curve3D" id="Curve3D_1q8i7"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 177.565, 0, 523.363, -1.07628, -4.41909, 18.5664, 1.07628, 4.41909, -18.5664, 172.219, 0, -53.9636, 7.24055, -1.14576, 1.37141, -7.24055, 1.14576, -1.37141, -0.622726, 0, -221.46, 0, 0, 0, 0, 0, 0, -120, 0, 230, 0, 0, 0, 0, 0, 0, -120, 530, 220, 0, 0, 0, 0, 0, 0, 177.565, 0, 523.363),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 177.565, 0, 523.363, -0.251633, -4.41907, 53.7351, 0.251633, 4.41907, -53.7351, 172.219, 0, -53.9636, 21.9632, -1.14575, -44.8034, -21.9632, 1.14575, 44.8034, -6, 0, -198, 2, -1, -19, -2, 1, 19, -82.9692, 0, 138.101, 0, 0, 0, 0, 0, 0, -84.1161, 530, 138.101),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 1.309)
 }
-point_count = 6
+point_count = 5
+
+[sub_resource type="GDScript" id="GDScript_58emp"]
+resource_name = "CreditsPathFollow"
+script/source = "extends PathFollow3D
+
+
+
+func _process(delta: float) -> void:
+	if progress_ratio == 1:
+		TransitionScreen.change_scene_to_file(\"res://main/thanks/thanks_for_playing.tscn\")
+"
 
 [sub_resource type="TextMesh" id="TextMesh_lnxwb"]
-text = "TNM059"
+text = "TNM061"
 
 [sub_resource type="TextMesh" id="TextMesh_xh54h"]
 text = "CREATED BY "
@@ -105,13 +116,15 @@ material = SubResource("FogMaterial_ctw3b")
 curve = SubResource("Curve3D_1q8i7")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.999957, 0, 0.00925954, 0, 1, 0, -0.00925954, 0, 0.999957, 177.565, 0, 523.363)
+transform = Transform3D(0.999956, 0, 0.00925952, 0, 0.999998, 0, -0.00925953, 0, 0.999955, 177.565, 0, 523.363)
+loop = false
+script = SubResource("GDScript_58emp")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Path3D/PathFollow3D"]
 remote_path = NodePath("../../../PlayerController")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("3_dbj3t")]
-transform = Transform3D(0.999957, 0, 0.00925954, 0, 1, 0, -0.00925954, 0, 0.999957, 177.565, 0, 523.363)
+transform = Transform3D(0.999956, 0, 0.00925952, 0, 0.999998, 0, -0.00925953, 0, 0.999955, 177.565, 0, 523.363)
 path = NodePath("../Path3D")
 path_follow = NodePath("../Path3D/PathFollow3D")
 path_speed = 16.0
@@ -148,11 +161,11 @@ material_override = SubResource("StandardMaterial3D_26svv")
 mesh = SubResource("TextMesh_xfucb")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
-transform = Transform3D(-70.4527, -1.51271, 10.3409, -1.43288, 71.2062, 0.654137, -10.3522, 0.43902, -70.4659, -200.269, 11.3366, 97.6271)
+transform = Transform3D(-70.4527, -1.51271, 10.3409, -1.43288, 71.2062, 0.654137, -10.3522, 0.43902, -70.4659, -146.951, 12.421, 105.462)
 mesh = SubResource("TextMesh_xangf")
 
 [node name="W" type="MeshInstance3D" parent="."]
-transform = Transform3D(-292.305, 15.7862, -0.8696, 0, -16.101, -292.289, -15.8102, -291.862, 16.0775, -64.8575, 748.911, 179.279)
+transform = Transform3D(-40.9815, 289.848, -0.8696, -15.7977, -3.11057, -292.289, -289.419, -40.8725, 16.0775, -71.4423, 746.423, 133.69)
 mesh = SubResource("TextMesh_obbte")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

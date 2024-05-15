@@ -223,7 +223,7 @@ states/laugh/position = Vector2(378, 92)
 states/shake/node = SubResource("AnimationNodeAnimation_k33vu")
 states/shake/position = Vector2(513, 194)
 transitions = ["laugh", "idle", SubResource("AnimationNodeStateMachineTransition_okean"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_t0kqh"), "idle", "chomp", SubResource("AnimationNodeStateMachineTransition_i384a"), "chomp", "idle", SubResource("AnimationNodeStateMachineTransition_nxhu8"), "Start", "appear", SubResource("AnimationNodeStateMachineTransition_ge2ss"), "appear", "laugh", SubResource("AnimationNodeStateMachineTransition_ftd4x"), "laugh", "shake", SubResource("AnimationNodeStateMachineTransition_qxa0w"), "idle", "shake", SubResource("AnimationNodeStateMachineTransition_2py5c"), "chomp", "shake", SubResource("AnimationNodeStateMachineTransition_ig8ab")]
-graph_offset = Vector2(55, -21)
+graph_offset = Vector2(-197, -101)
 
 [node name="Boss" instance=ExtResource("1_4vk7c")]
 script = ExtResource("2_ip04m")
@@ -272,6 +272,7 @@ mesh = SubResource("SphereMesh_glbmi")
 
 [node name="HealthArea" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.72723, -4.72872)
+health = 32.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
 shape = SubResource("SphereShape3D_3yvyi")
@@ -286,6 +287,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10527, 0, 0)
 
 [node name="HealthArea2" parent="." index="2" instance=ExtResource("4_ms6r8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.66405, -1.37567)
+health = 32.0
 layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea2" index="0"]
@@ -329,7 +331,9 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_8fxk7")
 anim_player = NodePath("../boss/AnimationPlayer")
 
-[node name="Whiteout" type="CanvasLayer" parent="." index="6"]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." index="6"]
+
+[node name="Whiteout" type="CanvasLayer" parent="." index="7"]
 script = ExtResource("10_bk6nk")
 
 [node name="ColorRect" type="ColorRect" parent="Whiteout" index="0"]
@@ -450,6 +454,7 @@ event = &"chomp_end"
 
 [connection signal="died" from="HealthArea2" to="." method="_on_health_area_2_died"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="state_entered" from="StateChart/Active/Awake" to="." method="_on_awake_state_entered"]
 [connection signal="state_entered" from="StateChart/Active/Awake/Movement/Start" to="." method="_on_start_state_entered"]
 [connection signal="state_entered" from="StateChart/Active/Awake/Movement/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_processing" from="StateChart/Active/Awake/Movement/Idle" to="." method="_on_idle_state_processing"]

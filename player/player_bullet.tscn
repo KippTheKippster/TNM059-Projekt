@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://ddv37mv08xtsn" path="res://effects/bullet_flash_shader.tres" id="3_xuhms"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qplme"]
-size = Vector3(0.5, 0.5, 5)
+size = Vector3(1, 1, 5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cjj6"]
 render_priority = 0
@@ -33,7 +33,7 @@ sides = 4
 cone = true
 
 [node name="RemoveTimer" parent="." index="2"]
-wait_time = 1.0
+wait_time = 0.5
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="3"]
 light_color = Color(0, 1, 0, 1)

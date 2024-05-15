@@ -10,12 +10,11 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var awake: AtomicState = $StateChart/Active/Awake
 
-@onready var head: Node3D = $Sattelite/Body/Head
+@onready var head: Node3D = $Sattelite/Head
 
 func _process(delta: float) -> void:
 	var dif := player.global_position - global_position
-	#if name == "TurretEnemy":
-		
+
 	var horizontal := Vector2(dif.z, dif.x)
 	var vertical := Vector2(dif.y, horizontal.length())
 	

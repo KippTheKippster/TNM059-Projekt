@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://np3xjj8axb4j"]
+[gd_scene load_steps=13 format=3 uid="uid://np3xjj8axb4j"]
 
 [ext_resource type="Shader" uid="uid://8i2liw7o2ybk" path="res://assets/explosions/ExplosionMeshShader.tres" id="1_dpr1u"]
 
@@ -14,7 +14,7 @@ frequency = 0.0017
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kts8u"]
 noise = SubResource("FastNoiseLite_df1yp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s2jwa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_guhmh"]
 render_priority = 0
 shader = ExtResource("1_dpr1u")
 shader_parameter/DisplacementScrollSpeed = Vector2(0, 0.1)
@@ -32,39 +32,31 @@ point_count = 3
 curve = SubResource("Curve_0k2le")
 
 [sub_resource type="Gradient" id="Gradient_oj4bh"]
-colors = PackedColorArray(0.609459, 0.0160299, 1.44392e-07, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.0287, 0.047285, 0.07, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_wxc0y"]
 gradient = SubResource("Gradient_oj4bh")
 
-[sub_resource type="Curve" id="Curve_rrrgd"]
-_data = [Vector2(0, 0.264507), 0.0, 0.0, 0, 0, Vector2(0.328283, 1), 0.0, 0.0, 0, 0, Vector2(0.838384, 0.748549), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_lhaje"]
-curve = SubResource("Curve_rrrgd")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nlfca"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pamer"]
 velocity_pivot = Vector3(0, 1, 0)
 direction = Vector3(0, 9, 0)
-spread = 7.642
-initial_velocity_min = 14.85
-initial_velocity_max = 35.93
+spread = 2.122
+initial_velocity_min = 18.85
+initial_velocity_max = 21.5
 gravity = Vector3(0, 0, 0)
-scale_min = 0.1
-scale_max = 0.5
-scale_curve = SubResource("CurveTexture_lhaje")
+scale_min = 0.2
+scale_max = 0.3
 color_ramp = SubResource("GradientTexture1D_wxc0y")
 alpha_curve = SubResource("CurveTexture_v8mnf")
 
-[sub_resource type="SphereMesh" id="SphereMesh_031tl"]
+[sub_resource type="SphereMesh" id="SphereMesh_q478v"]
 
-[node name="SmokeThruster" type="Node3D"]
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="SmokeThruster" type="GPUParticles3D"]
 transform = Transform3D(0.124716, 0, 0, 0, 0.143678, 0, 0, 0, 0.124716, 0, 0, 0)
-material_override = SubResource("ShaderMaterial_s2jwa")
+material_override = SubResource("ShaderMaterial_guhmh")
 amount = 50
+lifetime = 0.4
 visibility_aabb = AABB(-4, -20.4902, -2.77554, 8, 40.9804, 5.55107)
-process_material = SubResource("ParticleProcessMaterial_nlfca")
-draw_pass_1 = SubResource("SphereMesh_031tl")
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_pamer")
+draw_pass_1 = SubResource("SphereMesh_q478v")

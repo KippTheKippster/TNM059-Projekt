@@ -1,8 +1,24 @@
-[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://c0863d4l1tg16"]
+[gd_resource type="VisualShader" load_steps=15 format=3 uid="uid://c0863d4l1tg16"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_6u8xn"]
 default_input_values = [0, 0.0, 1, 3.0]
 operator = 5
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_y44gf"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_ueyp1"]
+default_input_values = [0, 35.0, 1, 10.0, 2, 0.5]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_uro5e"]
+parameter_name = "Intensity1"
+default_value_enabled = true
+default_value = 25.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_i05hy"]
+parameter_name = "Intensity2"
+default_value_enabled = true
+default_value = 10.0
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_kx6b8"]
 parameter_name = "Color1"
@@ -37,10 +53,11 @@ billboard_type = 2
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 Color1 : source_color;
-uniform vec4 Color2 : source_color;
+uniform float Intensity1 = 25;
+uniform float Intensity2 = 10;
 uniform float Speed = 30;
 
 
@@ -50,8 +67,12 @@ void fragment() {
 	vec4 n_out2p0 = Color1;
 
 
-// ColorParameter:5
-	vec4 n_out5p0 = Color2;
+// FloatParameter:14
+	float n_out14p0 = Intensity1;
+
+
+// FloatParameter:15
+	float n_out15p0 = Intensity2;
 
 
 // Input:6
@@ -88,20 +109,24 @@ void fragment() {
 	float n_out10p0 = pow(n_out7p0, n_in10p1);
 
 
-// Mix:4
-	vec4 n_out4p0 = mix(n_out2p0, n_out5p0, vec4(n_out10p0));
+// Mix:13
+	float n_out13p0 = mix(n_out14p0, n_out15p0, n_out10p0);
+
+
+// VectorOp:11
+	vec3 n_out11p0 = vec3(n_out2p0.xyz) * vec3(n_out13p0);
 
 
 // Output:0
-	ALBEDO = vec3(n_out4p0.xyz);
+	EMISSION = n_out11p0;
 
 
 }
 "
 modes/cull = 2
-flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_ih708")
 nodes/vertex/2/position = Vector2(-340, 160)
+nodes/fragment/0/position = Vector2(620, 120)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_kx6b8")
 nodes/fragment/2/position = Vector2(-400, -60)
 nodes/fragment/3/node = SubResource("VisualShaderNodeFloatFunc_ddm67")
@@ -120,4 +145,12 @@ nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_1lsq7")
 nodes/fragment/9/position = Vector2(-1040, 440)
 nodes/fragment/10/node = SubResource("VisualShaderNodeFloatOp_6u8xn")
 nodes/fragment/10/position = Vector2(-140, 300)
-nodes/fragment/connections = PackedInt32Array(5, 0, 4, 1, 2, 0, 4, 0, 3, 0, 7, 0, 6, 0, 8, 0, 8, 0, 3, 0, 9, 0, 8, 1, 7, 0, 10, 0, 10, 0, 4, 2, 4, 0, 0, 0)
+nodes/fragment/11/node = SubResource("VisualShaderNodeVectorOp_y44gf")
+nodes/fragment/11/position = Vector2(360, 200)
+nodes/fragment/13/node = SubResource("VisualShaderNodeMix_ueyp1")
+nodes/fragment/13/position = Vector2(180, 360)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFloatParameter_uro5e")
+nodes/fragment/14/position = Vector2(-180, 480)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatParameter_i05hy")
+nodes/fragment/15/position = Vector2(-180, 700)
+nodes/fragment/connections = PackedInt32Array(5, 0, 4, 1, 2, 0, 4, 0, 3, 0, 7, 0, 6, 0, 8, 0, 8, 0, 3, 0, 9, 0, 8, 1, 7, 0, 10, 0, 10, 0, 4, 2, 11, 0, 0, 5, 10, 0, 13, 2, 13, 0, 11, 1, 2, 0, 11, 0, 14, 0, 13, 0, 15, 0, 13, 1)

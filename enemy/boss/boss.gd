@@ -13,6 +13,7 @@ extends Enemy
 const SMALL_EXPLOSION = preload("res://assets/explosions/small_explosion.tscn")
 @onready var initial_position := global_position
 @onready var final_explosion: MeshInstance3D = $boss/Armature/FinalExplosion
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
 
 @onready var whiteout: CanvasLayer = $Whiteout
 @onready var armature: Node3D = $boss/Armature
@@ -37,6 +38,9 @@ func _ready() -> void:
 func _on_start_state_entered() -> void:
 	#visible = true
 	player.health_area.health = 10
+	music_player.stream = preload("res://assets/music/chiptune-grooving-142242.mp3")
+	music_player.volume_db = 0
+	music_player.play()
 	await get_tree().create_timer(0.05).timeout
 	set_deferred("visible", true)
 
@@ -179,6 +183,8 @@ func _on_die_state_processing(delta: float) -> void:
 
 func _on_die_state_entered() -> void:
 	MusicPlayer.fade_to_song(null, 12.0)
+	var music_tween := create_tween()
+	music_tween.tween_property(music_player, "volume_db", -80, 12.0)
 	await get_tree().create_timer(3.0).timeout
 	#final_explosion.reparent(get_parent())
 	whiteout.reparent(get_parent())
@@ -190,3 +196,4 @@ func _on_die_state_entered() -> void:
 	#await get_tree().create_timer(1.7).timeout
 	#get_tree().change_scene_to_file("res://main/game/credits.tscn")
 	#queue_free()
+	

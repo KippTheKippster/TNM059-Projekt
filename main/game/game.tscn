@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bu6bypayly4ur"]
+[gd_scene load_steps=24 format=3 uid="uid://bu6bypayly4ur"]
 
 [ext_resource type="Script" path="res://main/game/game.gd" id="1_idndb"]
 [ext_resource type="PackedScene" uid="uid://2f2yv28t3tjk" path="res://player/player_controller.tscn" id="1_kn7at"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cuyaigwc26uod" path="res://world/laser_barrier.tscn" id="16_4kjuv"]
 [ext_resource type="PackedScene" uid="uid://csraa6tajlwk6" path="res://assets/asteroid belt/large_asteroid.glb" id="17_17uq7"]
 [ext_resource type="PackedScene" uid="uid://xv8rcu5a8rki" path="res://enemy/boss/boss.tscn" id="18_svb0l"]
+[ext_resource type="PackedScene" uid="uid://c6dsblg20k4oh" path="res://main/thanks/path_music_remover.tscn" id="20_28uqb"]
 
 [sub_resource type="Curve3D" id="Curve3D_j8dlu"]
 _data = {
@@ -26,6 +27,25 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0.0102477, 0, 0)
 }
 point_count = 9
+
+[sub_resource type="GDScript" id="GDScript_wilbm"]
+resource_name = "TunnelLight"
+script/source = "extends OmniLight3D
+
+func _ready() -> void:
+	visible = false
+
+func start() -> void:
+	visible = true
+
+
+func _on_laser_barrier_73_started() -> void:
+	start()
+
+
+func _on_laser_barrier_109_started() -> void:
+	start()
+"
 
 [sub_resource type="GDScript" id="GDScript_8387h"]
 resource_name = "LaserSpiral"
@@ -66,12 +86,10 @@ func generate_spiral() -> void:
 		laser.activation_distance = activation_distance
 "
 
-[sub_resource type="Environment" id="Environment_3d7vc"]
-volumetric_fog_length = 699.77
-
 [node name="Game" type="Node3D"]
 script = ExtResource("1_idndb")
 music_stream = ExtResource("2_ne7pa")
+volume_db = -7.0
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_nsp8c")]
 
@@ -91,6 +109,7 @@ visible = false
 
 [node name="AsteroidSkybox" parent="." instance=ExtResource("4_hn6te")]
 transform = Transform3D(80, 0, 0, 0, 80, 0, 0, 0, 80, 0, 0, 0)
+visible = false
 
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)
@@ -239,15 +258,43 @@ motion_mode = 0
 transform = Transform3D(0.68061, -0.726518, -0.0945604, 0.0375705, 0.163507, -0.985827, 0.731682, 0.667411, 0.13858, 15.9583, 1.94994, -617.339)
 motion_mode = 0
 
+[node name="Asteroid27" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.917889, -0.395064, -0.0374833, 0.393855, 0.895356, 0.207884, -0.0485673, -0.205577, 0.977435, 4.32246, -1.46992, -1116.44)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
 [node name="TurretEnemy9" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.917889, -0.254174, 0.304756, 0.393855, 0.677472, -0.621216, -0.0485673, 0.690237, 0.721951, 3.94598, -0.486314, -1115.58)
 motion_mode = 0
+
+[node name="Asteroid28" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.67392, -5.32984, -1394.06)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="TurretEnemy10" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.67392, -3.94922, -1394.06)
 motion_mode = 0
 shoot_amount = 1
 activation_distance = 32.0
+
+[node name="Asteroid29" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 7.30198, -5.2918, -1397.18)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
+[node name="Asteroid32" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1, 0, 0, 0, 0.995808, 0.0914669, 0, -0.0914669, 0.995808, 6.53879, -5.36227, -1439.49)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
+[node name="Asteroid33" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.52116, -5.2918, -1443.08)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
+[node name="Asteroid30" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25007, -5.3992, -1419.5)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
+[node name="Asteroid31" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -6.57745, -5.36116, -1416.75)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="TurretEnemy11" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.04698, -3.94922, -1397.15)
@@ -279,17 +326,29 @@ motion_mode = 0
 shoot_amount = 1
 activation_distance = 32.0
 
+[node name="Asteroid35" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.994092, 1.86265e-09, -0.108537, 0.0219302, 0.979375, 0.200859, 0.106298, -0.202052, 0.973589, -4.56773, -5.35636, -1482.89)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
 [node name="TurretEnemy16" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.994092, 0, -0.108537, 0, 1, 0, 0.108537, 0, 0.994092, -4.56773, -3.94921, -1482.89)
 motion_mode = 0
 shoot_amount = 1
 activation_distance = 32.0
 
+[node name="Asteroid34" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(-0.860909, 0.5, 0.0939958, -0.497046, -0.866025, 0.0542685, 0.108537, 0, 0.994092, 5.26092, -5.31308, -1505.31)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
 [node name="TurretEnemy17" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.994092, 0, -0.108537, 0, 1, 0, 0.108537, 0, 0.994092, 5.26092, -3.94921, -1505.31)
+transform = Transform3D(0.983428, -0.146083, -0.107373, 0.14522, 0.989272, -0.0158554, 0.108537, 0, 0.994092, 5.26092, -3.94921, -1505.31)
 motion_mode = 0
 shoot_amount = 1
 activation_distance = 32.0
+
+[node name="Asteroid36" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.608262, 0, 0.793736, -0.305694, 0.922861, 0.234262, -0.732508, -0.385133, 0.561342, -3.46376, -5.30902, -1546.24)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="TurretEnemy18" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.994092, 0, -0.108537, 0, 1, 0, 0.108537, 0, 0.994092, -3.46376, -3.94921, -1546.3)
@@ -302,10 +361,26 @@ transform = Transform3D(-1.02663, 1.09062, 0.0811056, -1.09361, -1.02321, -0.084
 motion_mode = 0
 activation_distance = 32.0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Enemies"]
+transform = Transform3D(0.688453, -0.629315, -0.360548, 0.708926, 0.688863, 0.151298, 0.153155, -0.359763, 0.920388, 3.44342, 4.94107, -1680.94)
+omni_range = 15.3503
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Enemies"]
+transform = Transform3D(0.688453, -0.629315, -0.360548, 0.708926, 0.688863, 0.151298, 0.153155, -0.359763, 0.920388, -0.985517, -4.17009, -1707.38)
+omni_range = 15.3503
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Enemies"]
+transform = Transform3D(0.688453, -0.629315, -0.360548, 0.708926, 0.688863, 0.151298, 0.153155, -0.359763, 0.920388, 4.57313, -5.30433, -1771.37)
+omni_range = 20.7743
+
 [node name="TurretEnemy22" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(1.03268, -0.943968, -0.540822, 1.06339, 1.0333, 0.226947, 0.229732, -0.539644, 1.38058, 7.57569, 0.328095, -1679.38)
 motion_mode = 0
 activation_distance = 32.0
+
+[node name="Asteroid37" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.794722, 0.606974, 0, -0.606974, 0.794722, 0, 0, 0, 1, -3.83578, -7.46466, -1706.74)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="TurretEnemy23" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.794722, 0.606974, 0, -0.606974, 0.794722, 0, 0, 0, 1, -2.94572, -6.29929, -1706.74)
@@ -313,11 +388,19 @@ motion_mode = 0
 shoot_amount = 1
 activation_distance = 32.0
 
+[node name="Asteroid39" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.764438, -0.644697, 0, 0.644697, 0.764438, 0, 0, 0, 1, 12.5498, -6.03784, -1778.96)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
 [node name="TurretEnemy24" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.764438, -0.644697, 0, 0.644697, 0.764438, 0, 0, 0, 1, 11.6215, -4.93711, -1778.96)
 motion_mode = 0
 shoot_amount = 1
 activation_distance = 32.0
+
+[node name="Asteroid38" parent="Enemies" instance=ExtResource("12_aiofw")]
+transform = Transform3D(0.682521, 0.682015, 0.262717, -0.730865, 0.636902, 0.245339, -2.98023e-08, -0.359459, 0.933161, -3.2568, -7.55845, -1767.63)
+rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="TurretEnemy25" parent="Enemies" instance=ExtResource("2_htpxb")]
 transform = Transform3D(0.682521, 0.730865, 0, -0.730865, 0.682521, 0, 0, 0, 1, -2.23946, -6.6084, -1767.61)
@@ -441,6 +524,7 @@ shoot_amount = 1
 
 [node name="Circler18" parent="Enemies/BombSquad3" instance=ExtResource("7_0mbj4")]
 transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -76.0945)
+visible = false
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -491,7 +575,7 @@ shoot_amount = 1
 environment = ExtResource("3_ukv0f")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("1_kn7at")]
-transform = Transform3D(0.999963, -0.00236747, -0.000409341, 0.00236782, 0.999959, 0.000818682, 0.000407403, -0.000819649, 0.999961, 0.307649, -0.615298, -788.926)
+transform = Transform3D(0.999941, 0, 0, 0, 0.999935, 0, 0, 0, 0.999944, 0, 0, 16)
 path = NodePath("../PlayerPath")
 path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 path_speed = 16.0
@@ -500,14 +584,14 @@ path_speed = 16.0
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
-transform = Transform3D(0.999963, -0.00236747, -0.000409341, 0.00236782, 0.999959, 0.000818682, 0.000407403, -0.000819649, 0.999961, 0.307649, -0.615298, -788.926)
-progress = 810.202
+transform = Transform3D(0.999941, 0, 0, 0, 0.999935, 0, 0, 0, 0.999944, 0, 0, 16)
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
 remote_path = NodePath("../../../PlayerController")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("10_ls1n3")]
 anchors_preset = 0
@@ -524,10 +608,6 @@ initial_node_to_watch = NodePath("../../Boss")
 [node name="Asteroid" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(1.27281, 0, 0, 0, 1.27281, 0, 0, 0, 1.27281, -5.46502, 0, -6.25351)
 visible = false
-rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
-
-[node name="Asteroid2" parent="." instance=ExtResource("12_aiofw")]
-transform = Transform3D(2.07062, -0.23658, 0.441349, 0, 1.1218, 0.601329, -0.886099, -0.552835, 1.03134, -45.39, -66.1174, -225.883)
 rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
 
 [node name="Asteroid3" parent="." instance=ExtResource("12_aiofw")]
@@ -623,31 +703,31 @@ max_height = 32.0
 
 [node name="LaserBarrier23" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.3401, -1194.65)
-max_height = 32.0
+max_height = 35.0
 
 [node name="LaserBarrier24" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 5, 21.6599, -1194.65)
-max_height = 32.0
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 5, 24.6599, -1194.65)
+max_height = 35.0
 
 [node name="LaserBarrier25" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -10.3401, -1194.65)
-max_height = 32.0
+max_height = 35.0
 
 [node name="LaserBarrier26" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 15, 21.6599, -1194.65)
-max_height = 32.0
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 15, 24.6599, -1194.65)
+max_height = 35.0
 
 [node name="LaserBarrier27" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -15, 21.6599, -1194.65)
-max_height = 32.0
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -15, 24.6599, -1194.65)
+max_height = 35.0
 
 [node name="LaserBarrier28" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -10.3401, -1194.65)
-max_height = 32.0
+max_height = 35.0
 
 [node name="LaserBarrier29" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -5, 21.6599, -1194.65)
-max_height = 32.0
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -5, 24.6599, -1194.65)
+max_height = 35.0
 
 [node name="LaserBarrier16" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 7.94561, -1168.64)
@@ -811,31 +891,31 @@ max_height = 32.0
 
 [node name="LaserBarrier30" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 7.94561, -1194.7)
-max_height = 32.0
+max_height = 35.0
 
 [node name="LaserBarrier31" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 13.7143, 2.94561, -1194.7)
-max_height = 32.0
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 16.7143, 2.94561, -1194.7)
+max_height = 35.0
 
 [node name="LaserBarrier32" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, -2.05439, -1194.7)
-max_height = 32.0
+max_height = 35.0
 
 [node name="LaserBarrier33" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 13.7143, -7.05439, -1194.7)
-max_height = 32.0
+transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 16.7143, -7.05439, -1194.7)
+max_height = 35.0
 
 [node name="LaserBarrier34" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 13.7143, 22.9456, -1194.7)
-max_height = 32.0
+transform = Transform3D(-4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 3.82137e-15, 0, 8.74228e-08, -1, 16.7143, 22.9456, -1194.7)
+max_height = 35.0
 
 [node name="LaserBarrier35" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -18.2857, 17.9456, -1194.7)
-max_height = 32.0
+max_height = 35.0
 
 [node name="LaserBarrier36" parent="." instance=ExtResource("16_4kjuv")]
-transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 13.7143, 12.9456, -1194.7)
-max_height = 32.0
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -3.82137e-15, 0, -8.74228e-08, -1, 16.7143, 12.9456, -1194.7)
+max_height = 35.0
 
 [node name="LaserBarrier8" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(-0.881238, 0.472674, 0, -0.472674, -0.881238, 0, 0, 0, 1, -13.2609, 14.7005, -1080.67)
@@ -847,6 +927,10 @@ transform = Transform3D(-1.0734e-07, 0, 2.45564, 0, 2.45564, 0, -2.45564, 0, -1.
 [node name="Asteroid7" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(3.06716, 0, 0, 0, 3.06716, 0, 0, 0, 3.06716, -16.9849, 18.1427, -1651.91)
 rotation_direction = Vector3(0.57735, 0.57735, 0.57735)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Asteroid7"]
+transform = Transform3D(0.326035, 0, 0, 0, 0.326035, 0, 0, 0, 0.326035, 1.76601, -2.0863, 0)
+omni_range = 25.8674
 
 [node name="Asteroid8" parent="." instance=ExtResource("12_aiofw")]
 transform = Transform3D(-1.20193, 0, 2.82184, 0, 3.06716, 0, -2.82184, 0, -1.20193, -18.6143, -0.707587, -1637.58)
@@ -908,6 +992,13 @@ activation_distance = 32.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.678, 0, 0)
 max_height = 32.0
 activation_distance = 32.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LaserGrid/LaserArray2/LaserBarrier72"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.65052, 15.6994, 0)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
 
 [node name="LaserBarrier73" parent="LaserGrid/LaserArray2" instance=ExtResource("16_4kjuv")]
 max_height = 32.0
@@ -984,6 +1075,13 @@ activation_distance = 32.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.678, 0, 0)
 max_height = 32.0
 activation_distance = 32.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="LaserGrid3/LaserArray2/LaserBarrier72"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.918475, 15.9148, 1.44177)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
 
 [node name="LaserBarrier73" parent="LaserGrid3/LaserArray2" instance=ExtResource("16_4kjuv")]
 max_height = 32.0
@@ -1065,6 +1163,13 @@ activation_distance = 32.0
 max_height = 32.0
 activation_distance = 32.0
 
+[node name="OmniLight3D2" type="OmniLight3D" parent="LaserGrid2/LaserArray2/LaserBarrier73"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.918475, 16.6109, 0.618408)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
+
 [node name="LaserBarrier74" parent="LaserGrid2/LaserArray2" instance=ExtResource("16_4kjuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.38001, 0, 0)
 max_height = 32.0
@@ -1087,6 +1192,13 @@ max_height = 37.23
 [node name="LaserBarrier86" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(0.849585, -0.501903, -0.162172, 0.508636, 0.860982, 0, 0.139627, -0.0824866, 0.986762, 18.6446, -6.16359, -1799.11)
 max_height = 37.23
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="LaserBarrier86"]
+transform = Transform3D(1, 1.28523e-07, 2.98023e-07, 9.96515e-08, 1, 5.96046e-08, -1.49012e-08, -2.23517e-08, 1, -3.03772, 15.9148, 1.44177)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
 
 [node name="LaserBarrier87" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(0.588107, -0.508595, -0.628857, 0.596006, 0.798131, -0.0881115, 0.546724, -0.322984, 0.772512, 23.5997, -6.16359, -1811.68)
@@ -1155,6 +1267,13 @@ max_height = 37.23
 [node name="LaserBarrier91" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(0.585019, -0.807774, -0.0724908, 0.808161, 0.588122, -0.0314417, 0.0680312, -0.0401903, 0.996873, 49.9001, -6.16359, -1853.36)
 max_height = 37.23
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LaserBarrier91"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.918475, 16.6109, 0.618408)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
 
 [node name="LaserBarrier92" parent="." instance=ExtResource("16_4kjuv")]
 transform = Transform3D(0.568538, -0.765088, 0.302335, 0.808161, 0.588122, -0.0314417, -0.153754, 0.262211, 0.952683, 49.1377, -6.16359, -1869.24)
@@ -1256,6 +1375,13 @@ max_height = 37.23
 transform = Transform3D(-0.269429, 0.845608, 0.460819, -0.952805, -0.303584, 1.49012e-08, 0.139897, -0.439071, 0.887494, -13.4311, 9.96169, -1895.85)
 max_height = 37.23
 
+[node name="OmniLight3D2" type="OmniLight3D" parent="LaserBarrier109"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.918475, 16.6109, 0.618408)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
+
 [node name="LaserSpiral" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2000.38)
 script = SubResource("GDScript_8387h")
@@ -1268,6 +1394,13 @@ activation_distance = 36.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16, 0)
 max_height = 32.0
 activation_distance = 36.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LaserSpiral/LaserBarrier0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3222, 0)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
 
 [node name="LaserBarrier1" parent="LaserSpiral" instance=ExtResource("16_4kjuv")]
 transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 4.1411, -15.4548, -3.33333)
@@ -1374,6 +1507,13 @@ transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 
 max_height = 32.0
 activation_distance = 36.0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="LaserSpiral/LaserBarrier21"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3222, 0)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 80.0
+script = SubResource("GDScript_wilbm")
+
 [node name="LaserBarrier22" parent="LaserSpiral" instance=ExtResource("16_4kjuv")]
 transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, -8, -13.8564, -73.3333)
 max_height = 32.0
@@ -1474,6 +1614,13 @@ transform = Transform3D(-0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0, 0, 1
 max_height = 32.0
 activation_distance = 36.0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="LaserSpiral/LaserBarrier41"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3222, 0)
+light_color = Color(0.109804, 0.623529, 1, 1)
+light_energy = 10.0
+omni_range = 69.3263
+script = SubResource("GDScript_wilbm")
+
 [node name="LaserBarrier42" parent="LaserSpiral" instance=ExtResource("16_4kjuv")]
 transform = Transform3D(-2.90067e-07, 1, 0, -1, -2.90067e-07, 0, 0, 0, 1, -16, 6.8578e-15, -140)
 max_height = 32.0
@@ -1508,8 +1655,16 @@ activation_distance = 36.0
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.95972e-07, 0, -2265.35)
 activation_distance = 8.0
 
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_3d7vc")
+[node name="PathMusicRemover" parent="." instance=ExtResource("20_28uqb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2161.18)
+
+[connection signal="started" from="LaserGrid/LaserArray2/LaserBarrier72" to="LaserGrid/LaserArray2/LaserBarrier72/OmniLight3D" method="start"]
+[connection signal="started" from="LaserGrid2/LaserArray2/LaserBarrier73" to="LaserGrid2/LaserArray2/LaserBarrier73/OmniLight3D2" method="_on_laser_barrier_73_started"]
+[connection signal="started" from="LaserBarrier91" to="LaserBarrier91/OmniLight3D2" method="start"]
+[connection signal="started" from="LaserBarrier109" to="LaserBarrier109/OmniLight3D2" method="_on_laser_barrier_109_started"]
+[connection signal="started" from="LaserSpiral/LaserBarrier0" to="LaserSpiral/LaserBarrier0/OmniLight3D" method="start"]
+[connection signal="started" from="LaserSpiral/LaserBarrier21" to="LaserSpiral/LaserBarrier21/OmniLight3D" method="start"]
+[connection signal="started" from="LaserSpiral/LaserBarrier41" to="LaserSpiral/LaserBarrier41/OmniLight3D" method="start"]
 
 [editable path="PlayerController"]
 [editable path="large_asteroid"]

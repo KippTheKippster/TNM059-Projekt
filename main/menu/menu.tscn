@@ -1,14 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjydbqylawimx"]
+[gd_scene load_steps=9 format=3 uid="uid://cjydbqylawimx"]
 
 [ext_resource type="Script" path="res://main/menu/menu.gd" id="1_5a00h"]
 [ext_resource type="Environment" uid="uid://cfgh4ncavbfvh" path="res://default_environment.tres" id="1_ljr2i"]
 [ext_resource type="Script" path="res://main/menu/menu_camera.gd" id="2_0cgkv"]
+[ext_resource type="PackedScene" uid="uid://bacglpgxeudwi" path="res://player/shipThrusters.glb" id="3_dfmph"]
+
+[sub_resource type="GDScript" id="GDScript_cjyaj"]
+resource_name = "ShipRotater"
+script/source = "extends Node3D
+
+@export var speed: float = 0.1
+
+func _process(delta: float) -> void:
+	rotation.z += speed * delta
+"
 
 [sub_resource type="Theme" id="Theme_a03c4"]
 default_font_size = 35
 
 [sub_resource type="LabelSettings" id="LabelSettings_evxdv"]
-font_size = 141
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ttw1"]
+font_size = 46
 
 [node name="Menu" type="Node3D"]
 
@@ -17,11 +31,21 @@ environment = ExtResource("1_ljr2i")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 script = ExtResource("2_0cgkv")
-direction = Vector3(0.013, 0.075, 0)
+direction = Vector3(0.004, 0.01, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ShipContainer" type="Node3D" parent="Camera3D"]
+transform = Transform3D(0.745606, 0, -0.0810646, -0.0773551, 0.224281, -0.711487, 0.0242416, 0.71568, 0.222967, -6.168, 1.44, -11.257)
 
-[node name="Menu" type="Control" parent="CanvasLayer"]
+[node name="shipThrusters" parent="Camera3D/ShipContainer" instance=ExtResource("3_dfmph")]
+transform = Transform3D(1, 0, -1.39698e-08, 0, 1, 0, 1.39698e-08, 0, 1, 0, 0, 0)
+script = SubResource("GDScript_cjyaj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.657783, 0.418558, -0.626204, 0, 0.831382, 0.555701, 0.753208, -0.36553, 0.546869, -7.61599, 0, -3.0513)
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+
+[node name="Menu" type="Control" parent="MenuLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,33 +55,63 @@ grow_vertical = 2
 theme = SubResource("Theme_a03c4")
 script = ExtResource("1_5a00h")
 
-[node name="Label" type="Label" parent="CanvasLayer/Menu"]
+[node name="Label" type="Label" parent="MenuLayer/Menu"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 82.0
-offset_bottom = 31.0
+anchors_preset = -1
+anchor_left = 0.492
+anchor_top = 0.127
+anchor_right = 0.973
+anchor_bottom = 0.94
+offset_left = 0.216003
+offset_top = -0.296005
+offset_right = 0.104004
+offset_bottom = -0.120056
 grow_horizontal = 2
 grow_vertical = 2
 text = "Space Wars"
 label_settings = SubResource("LabelSettings_evxdv")
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/Menu"]
+[node name="Start" type="Button" parent="MenuLayer/Menu/Label"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -45.0
-offset_top = 53.0
-offset_right = 45.0
-offset_bottom = 110.0
+anchors_preset = -1
+anchor_left = 0.355
+anchor_top = 0.432
+anchor_right = 0.71
+anchor_bottom = 0.54
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "Start Game"
+text = "Start"
 
-[connection signal="pressed" from="CanvasLayer/Menu/Button" to="CanvasLayer/Menu" method="_on_button_pressed"]
+[node name="Quit" type="Button" parent="MenuLayer/Menu/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.356
+anchor_top = 0.602
+anchor_right = 0.711
+anchor_bottom = 0.71
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Quit"
+
+[node name="LoadingLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="LoadingLabel" type="Label" parent="LoadingLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -131.0
+offset_top = -53.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Now loading...  "
+label_settings = SubResource("LabelSettings_7ttw1")
+
+[connection signal="pressed" from="MenuLayer/Menu/Label/Start" to="MenuLayer/Menu" method="_on_start_pressed"]
+[connection signal="pressed" from="MenuLayer/Menu/Label/Quit" to="MenuLayer/Menu" method="_on_quit_pressed"]

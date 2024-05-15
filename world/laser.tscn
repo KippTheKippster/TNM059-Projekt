@@ -9,15 +9,16 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_oj1bw")
 shader_parameter/Color1 = Color(0.109804, 0.623529, 1, 1)
-shader_parameter/Color2 = Color(1, 1, 1, 1)
-shader_parameter/Speed = 30.0
+shader_parameter/Intensity1 = 15.0
+shader_parameter/Intensity2 = 5.0
+shader_parameter/Speed = 10.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_xrk7m"]
+[sub_resource type="QuadMesh" id="QuadMesh_h3kcp"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_k6qck")
 size = Vector2(0.2, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m3jh3"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrbjn"]
 resource_local_to_scene = true
 size = Vector3(0.1, 1, 0.1)
 
@@ -26,7 +27,7 @@ script = ExtResource("1_v58dn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("QuadMesh_xrk7m")
+mesh = SubResource("QuadMesh_h3kcp")
 
 [node name="HurtArea" parent="MeshInstance3D" instance=ExtResource("3_ftd4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -34,4 +35,4 @@ layer = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/HurtArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_m3jh3")
+shape = SubResource("BoxShape3D_qrbjn")

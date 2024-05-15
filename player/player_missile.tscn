@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0g4kx6ig8f27"]
+[gd_scene load_steps=6 format=3 uid="uid://c0g4kx6ig8f27"]
 
 [ext_resource type="PackedScene" uid="uid://c1crjhqtbbwpf" path="res://projectile/projectile.tscn" id="1_67y5q"]
 [ext_resource type="Script" path="res://player/player_missile.gd" id="2_vu4mk"]
+[ext_resource type="PackedScene" uid="uid://c3d7n7r0lc3pa" path="res://assets/enemies/missile.glb" id="3_fl6qe"]
+[ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="4_q65np"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n74is"]
-size = Vector3(0.3, 0.3, 0.3)
-
-[sub_resource type="SphereMesh" id="SphereMesh_5g8hh"]
+size = Vector3(0.3, 0.3, 0.351001)
 
 [node name="PlayerMissile" instance=ExtResource("1_67y5q")]
 script = ExtResource("2_vu4mk")
@@ -14,6 +14,7 @@ max_speed = 60.0
 acceleration = 500.0
 turn_speed = 10.0
 speed = 0.0
+free_on_impact = false
 move_with_rotation = false
 
 [node name="HurtArea" parent="." index="0"]
@@ -21,15 +22,18 @@ transform = Transform3D(5.48013, 0, 0, 0, 5.48013, 0, 0, 0, 5.48013, 0, 0, 0)
 layer = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea" index="0"]
+transform = Transform3D(0.778459, 0, 0, 0, 0.778459, 0, 0, 0, 0.778459, 0, 0, -0.00249921)
 shape = SubResource("BoxShape3D_n74is")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(0.330367, 0, 0, 0, 0.330367, 0, 0, 0, 2.31197, 0, 0, 0)
-mesh = SubResource("SphereMesh_5g8hh")
+[node name="Missile" parent="." index="1" instance=ExtResource("3_fl6qe")]
+transform = Transform3D(0.67996, 0, 0, 0, -1.59808e-08, 0.67996, 0, -0.365598, -2.9722e-08, 0.00446606, 0.670843, 0.473093)
 
-[node name="TargetTimer" type="Timer" parent="." index="3"]
+[node name="SmallExplosion" parent="." index="2" instance=ExtResource("4_q65np")]
+
+[node name="TargetTimer" type="Timer" parent="." index="4"]
 wait_time = 0.2
 one_shot = true
 autostart = true
 
+[connection signal="damaged_health_area" from="HurtArea" to="." method="_on_hurt_area_damaged_health_area_2"]
 [connection signal="timeout" from="TargetTimer" to="." method="_on_target_timer_timeout"]

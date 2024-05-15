@@ -1,4 +1,4 @@
-Boost effect
+#Boost effect
 #Change crosshair color when missile
 ##Faster missile
 #Multiple missile targeting
@@ -6,10 +6,10 @@ Boost effect
 #Missile targeting should get stronger the closer they are
 Screen flash red on hit
 Missile trail
-Missile model
+#Missile model
 Fix blender textures
 Flash effekt när fiender tar skada
 Explosion for missiles
-Fix target not showing
+#Fix target not showing
 #Fix missiles not rotating  
-Tween path speed
+#Tween path speed

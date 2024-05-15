@@ -4,7 +4,7 @@ class_name PlayerMissile
 @export var max_speed: float = 25.0
 @export var acceleration: float = 4.0
 @export var turn_speed: float = 10.0
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@onready var small_explosion: Node3D = $SmallExplosion
 
 
 var turn_strength: float = 0.05
@@ -14,7 +14,6 @@ var direction_target: Vector3
 
 func _ready() -> void:
 	speed = 0
-	#mesh_instance_3d.top_level = true
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(missile_target): 
@@ -33,3 +32,7 @@ func _process(delta: float) -> void:
 
 func _on_target_timer_timeout() -> void:
 	turn_strength = 1.0
+
+
+func _on_hurt_area_damaged_health_area_2(health_area: HealthArea) -> void:
+	small_explosion.explode()
