@@ -9,8 +9,14 @@ const ENEMY_BULLET = preload("res://enemy/enemy_bullet.tscn")
 @onready var scrap_particles: GPUParticles3D = $ScrapParticles
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var awake: AtomicState = $StateChart/Active/Awake
+@onready var sattelite: Node3D = $Sattelite
 
 @onready var head: Node3D = $Sattelite/Head
+
+func _ready() -> void:
+	sattelite.top_level = true
+	sattelite.global_rotation = global_rotation
+	sattelite.global_position = global_position
 
 func _process(delta: float) -> void:
 	var dif := player.global_position - global_position

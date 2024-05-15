@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://xv8rcu5a8rki"]
+[gd_scene load_steps=45 format=3 uid="uid://xv8rcu5a8rki"]
 
 [ext_resource type="PackedScene" uid="uid://eweijww3514t" path="res://enemy/enemy.tscn" id="1_4vk7c"]
 [ext_resource type="Script" path="res://enemy/boss/boss.gd" id="2_ip04m"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://di1gb34fn1q3w" path="res://world/laser.tscn" id="5_2c5em"]
 [ext_resource type="PackedScene" uid="uid://dnn82cvidaypk" path="res://player/missile_target.tscn" id="5_6ptal"]
 [ext_resource type="PackedScene" uid="uid://b437wlea5rxtv" path="res://assets/explosions/boss_smoke.tscn" id="5_sd3um"]
+[ext_resource type="Texture2D" uid="uid://w8pgxytff614" path="res://assets/Textures/boss_eye_texture_BossEyes.png" id="5_v7bya"]
 [ext_resource type="PackedScene" uid="uid://blmm5mho60lvj" path="res://assets/explosions/small_explosion.tscn" id="6_0icqb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_m6ulk"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="8_hnpx5"]
@@ -26,6 +27,16 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_glbmi"]
 material = SubResource("StandardMaterial3D_krtvt")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwep3"]
+resource_name = "Material.009"
+cull_mode = 2
+albedo_texture = ExtResource("5_v7bya")
+roughness = 0.5
+uv1_scale = Vector3(2.215, 1, 1)
+uv1_offset = Vector3(-0.045, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5vv1e"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_3yvyi"]
 radius = 0.982908
 
@@ -33,7 +44,7 @@ radius = 0.982908
 radius = 1.0
 height = 2.0
 
-[sub_resource type="Animation" id="Animation_q76to"]
+[sub_resource type="Animation" id="Animation_k7c3l"]
 resource_name = "appear"
 length = 1.16667
 tracks/0/type = "position_3d"
@@ -58,7 +69,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
 
-[sub_resource type="Animation" id="Animation_7m7wm"]
+[sub_resource type="Animation" id="Animation_jx6ci"]
 resource_name = "chomp"
 length = 1.33333
 tracks/0/type = "rotation_3d"
@@ -83,7 +94,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, 0, 0, 0, 1, 0.0666667, 1, 0, 0, -0.00570332, 0.999984, 0.1, 1, 0, 0, -0.0193102, 0.999814, 0.133333, 1, 0, 0, -0.0407127, 0.999171, 0.166667, 1, 0, 0, -0.0674884, 0.99772, 0.2, 1, 0, 0, -0.096606, 0.995323, 0.233333, 1, 0, 0, -0.123854, 0.9923, 0.266667, 1, 0, 0, -0.146854, 0.989158, 0.3, 1, 0, 0, -0.163262, 0.986583, 0.333333, 1, 0, 0, -0.17076, 0.985313, 0.366667, 1, 0, 0, -0.170496, 0.985358, 0.4, 1, 0, 0, -0.169043, 0.985609, 0.433333, 1, 0, 0, -0.165606, 0.986192, 0.466667, 1, 0, 0, -0.159389, 0.987216, 0.5, 1, 0, 0, -0.149587, 0.988749, 0.533333, 1, 0, 0, -0.133396, 0.991063, 0.566667, 1, 0, 0, -0.111176, 0.993801, 0.6, 1, 0, 0, -0.0820883, 0.996625, 0.633333, 1, 0, 0, -0.0452979, 0.998974, 0.666667, 1, 0, 0, 0, 1, 0.7, 1, 0, 0, 0.0593258, 0.998239, 0.733333, 1, 0, 0, 0.123873, 0.992298, 0.766667, 1, 0, 0, 0.187034, 0.982353, 0.8, 1, 0, 0, 0.242937, 0.970042, 0.833333, 1, 0, 0, 0.286574, 0.958058, 0.866667, 1, 0, 0, 0.312478, 0.949925, 0.9, 1, 0, 0, 0.325345, 0.945596, 0.933333, 1, 0, 0, 0.326066, 0.945347, 0.966667, 1, 0, 0, 0.315886, 0.948797, 1, 1, 0, 0, 0.296444, 0.95505, 1.03333, 1, 0, 0, 0.267571, 0.963538, 1.06667, 1, 0, 0, 0.233754, 0.972296, 1.1, 1, 0, 0, 0.196492, 0.980505, 1.16667, 1, 0, 0, 0.117962, 0.993018, 1.2, 1, 0, 0, 0.0816003, 0.996665, 1.23333, 1, 0, 0, 0.0499613, 0.998751, 1.26667, 1, 0, 0, 0.0247198, 0.999694, 1.3, 1, 0, 0, 0.00752412, 0.999972, 1.33333, 1, 0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_wilyg"]
+[sub_resource type="Animation" id="Animation_3wfdd"]
 resource_name = "idle"
 length = 0.666667
 loop_mode = 1
@@ -109,7 +120,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_dq4qp"]
+[sub_resource type="Animation" id="Animation_bkwbv"]
 resource_name = "laugh"
 length = 0.416667
 loop_mode = 1
@@ -135,7 +146,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_3mhd2"]
+[sub_resource type="Animation" id="Animation_imh8u"]
 resource_name = "shake"
 length = 0.708333
 loop_mode = 1
@@ -161,13 +172,13 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 3.76819e-07, 7.81699e-08, -0.929298, 0.36933)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmmqj"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_02gan"]
 _data = {
-"appear": SubResource("Animation_q76to"),
-"chomp": SubResource("Animation_7m7wm"),
-"idle": SubResource("Animation_wilyg"),
-"laugh": SubResource("Animation_dq4qp"),
-"shake": SubResource("Animation_3mhd2")
+"appear": SubResource("Animation_k7c3l"),
+"chomp": SubResource("Animation_jx6ci"),
+"idle": SubResource("Animation_3wfdd"),
+"laugh": SubResource("Animation_bkwbv"),
+"shake": SubResource("Animation_imh8u")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rxpfx"]
@@ -223,7 +234,7 @@ states/laugh/position = Vector2(378, 92)
 states/shake/node = SubResource("AnimationNodeAnimation_k33vu")
 states/shake/position = Vector2(513, 194)
 transitions = ["laugh", "idle", SubResource("AnimationNodeStateMachineTransition_okean"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_t0kqh"), "idle", "chomp", SubResource("AnimationNodeStateMachineTransition_i384a"), "chomp", "idle", SubResource("AnimationNodeStateMachineTransition_nxhu8"), "Start", "appear", SubResource("AnimationNodeStateMachineTransition_ge2ss"), "appear", "laugh", SubResource("AnimationNodeStateMachineTransition_ftd4x"), "laugh", "shake", SubResource("AnimationNodeStateMachineTransition_qxa0w"), "idle", "shake", SubResource("AnimationNodeStateMachineTransition_2py5c"), "chomp", "shake", SubResource("AnimationNodeStateMachineTransition_ig8ab")]
-graph_offset = Vector2(-197, -101)
+graph_offset = Vector2(-154, 0)
 
 [node name="Boss" instance=ExtResource("1_4vk7c")]
 script = ExtResource("2_ip04m")
@@ -232,46 +243,55 @@ activation_distance = 64.0
 [node name="boss" parent="." index="0" instance=ExtResource("2_yelu5")]
 
 [node name="Armature" parent="boss" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06118, -1.71484, 3.06118)
 
 [node name="HurtArea" parent="boss/Armature" index="0" instance=ExtResource("4_4l8cn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06118, 1.71484, -3.06118)
 collision_layer = 8
 layer = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boss/Armature/HurtArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60697, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77518, 1.09528, -3.00672)
 shape = SubResource("BoxShape3D_877o4")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="boss/Armature" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.72723, -4.72872)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.59869, 2.71481, -1.4245)
 remote_path = NodePath("../../../HealthArea")
 
 [node name="RemoteTransform3D2" type="RemoteTransform3D" parent="boss/Armature" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.66405, -1.37567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.61272, 2.72358, -4.63453)
 remote_path = NodePath("../../../HealthArea2")
 
 [node name="RemoteTransform3D3" type="RemoteTransform3D" parent="boss/Armature" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83718, 2.7481, -4.73316)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.45504, 2.58003, -1.4499)
 remote_path = NodePath("../../../MissileTarget")
 
 [node name="RemoteTransform3D4" type="RemoteTransform3D" parent="boss/Armature" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83718, 2.6638, -1.37222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.64746, 2.73627, -4.64416)
 remote_path = NodePath("../../../MissileTarget2")
 
 [node name="Skeleton3D" parent="boss/Armature" index="12"]
-bones/0/rotation = Quaternion(-3.76819e-07, -7.81699e-08, 0.929298, -0.36933)
+bones/0/rotation = Quaternion(-3.65088e-07, -9.41682e-08, 0.908676, -0.417503)
 
 [node name="MouthMarker" type="Marker3D" parent="boss/Armature" index="13"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.33062, -2.02197, -3.22173)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0494, -1.77508, -3.06941)
 gizmo_extents = 1.0
 
 [node name="FinalExplosion" type="MeshInstance3D" parent="boss/Armature" index="14"]
-transform = Transform3D(1.33566, 0, 0, 0, 1.33566, 0, 0, 0, 1.33566, 3.06118, 1.71484, -3.06118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.64282, 2.00446, -3.05065)
 mesh = SubResource("SphereMesh_glbmi")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boss/Armature" index="15"]
+transform = Transform3D(0.26795, 0, 0, 0, 1.73085, 0, 0, 0, 1.73085, 6.12694, 2.72661, -4.65449)
+material_override = SubResource("StandardMaterial3D_pwep3")
+mesh = SubResource("SphereMesh_5vv1e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="boss/Armature" index="16"]
+transform = Transform3D(0.26795, 0, 0, 0, 1.73085, 0, 0, 0, 1.73085, 6.127, 2.727, -1.419)
+material_override = SubResource("StandardMaterial3D_pwep3")
+mesh = SubResource("SphereMesh_5vv1e")
+
 [node name="HealthArea" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.72723, -4.72872)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53752, 0.999966, 1.63668)
 health = 32.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea" index="0"]
@@ -283,10 +303,10 @@ emitting = false
 draw_pass_1 = SubResource("SphereMesh_8kx7e")
 
 [node name="SmallExplosion" parent="HealthArea" index="2" instance=ExtResource("6_0icqb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10527, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.898471, 0, 0)
 
 [node name="HealthArea2" parent="." index="2" instance=ExtResource("4_ms6r8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83731, 2.66405, -1.37567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55154, 1.00873, -1.57335)
 health = 32.0
 layer = 2
 
@@ -299,13 +319,14 @@ emitting = false
 draw_pass_1 = SubResource("SphereMesh_8kx7e")
 
 [node name="SmallExplosion2" parent="HealthArea2" index="2" instance=ExtResource("6_0icqb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95183, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.916603, 0, 0)
 
 [node name="MissileTarget" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83718, 2.7481, -4.73316)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.39387, 0.86519, 1.61127)
 max_targets = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.128091, 0.138611, 0)
 shape = SubResource("SphereShape3D_3yvyi")
 
 [node name="Laser" parent="MissileTarget" index="2" instance=ExtResource("5_2c5em")]
@@ -313,7 +334,7 @@ transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4
 height = 0.0
 
 [node name="MissileTarget2" parent="." index="4" instance=ExtResource("5_6ptal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83718, 2.6638, -1.37222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.58628, 1.02142, -1.58298)
 max_targets = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MissileTarget2" index="1"]
@@ -326,7 +347,7 @@ height = 0.0
 [node name="AnimationTree" type="AnimationTree" parent="." index="5"]
 root_node = NodePath("../boss")
 libraries = {
-"": SubResource("AnimationLibrary_fmmqj")
+"": SubResource("AnimationLibrary_02gan")
 }
 tree_root = SubResource("AnimationNodeStateMachine_8fxk7")
 anim_player = NodePath("../boss/AnimationPlayer")

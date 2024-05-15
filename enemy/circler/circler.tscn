@@ -169,7 +169,6 @@ shape = SubResource("BoxShape3D_0rm7j")
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.29311e-09, 24.6883, -0.0834234)
 rotation_mode = 0
-use_model_front = true
 loop = false
 
 [node name="SmallExplosion" parent="." index="5" instance=ExtResource("4_k2niy")]

@@ -251,11 +251,11 @@ transform = Transform3D(0.997965, -0.063766, 0, 0.063766, 0.997965, 0, 0, 0, 1, 
 motion_mode = 0
 
 [node name="TurretEnemy19" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.855093, -0.516956, -0.0396595, 0.00546111, 0.0854687, -0.996326, 0.518446, 0.851735, 0.0759068, 17.498, -1.21239, -615.638)
+transform = Transform3D(0.855093, -0.516956, -0.0396594, 0.0054611, 0.0854685, -0.996326, 0.518446, 0.851735, 0.0759066, 17.498, -1.21239, -615.638)
 motion_mode = 0
 
 [node name="TurretEnemy20" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.68061, -0.726518, -0.0945604, 0.0375705, 0.163507, -0.985827, 0.731682, 0.667411, 0.13858, 15.9583, 1.94994, -617.339)
+transform = Transform3D(0.68061, -0.726518, -0.09456, 0.0375705, 0.163507, -0.985827, 0.731682, 0.667411, 0.13858, 15.9583, 1.94994, -617.339)
 motion_mode = 0
 
 [node name="Asteroid27" parent="Enemies" instance=ExtResource("12_aiofw")]
@@ -409,59 +409,59 @@ shoot_amount = 1
 activation_distance = 32.0
 
 [node name="Circler2" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(-0.998817, 0, 0.0486233, 0, 1, 0, -0.0486233, 0, -0.998817, 4.87004, 0.226989, -80.5272)
+transform = Transform3D(-0.998817, 0, 0.0486234, 0, 1, 0, -0.0486234, 0, -0.998817, 4.87004, 0.226989, -80.5272)
 path_curve = ExtResource("10_dqkbj")
 
 [node name="Circler3" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 13.9801, 0.226989, -695.532)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.9801, 0.226989, -695.532)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler5" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -702.137)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.11136, 0.226989, -702.137)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler6" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -712.364)
+transform = Transform3D(-1, 1.67829e-09, -8.74067e-08, 0, 0.999816, 0.0191974, 8.74228e-08, 0.0191974, -0.999816, 4.61244, 4.49096, -712.364)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler7" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -812.99)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.11136, 0.226989, -812.99)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler9" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -9.1479, 0.226989, -875.944)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9.1479, 0.226989, -875.944)
 path_curve = ExtResource("10_dqkbj")
 
 [node name="Circler10" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.3525, 0.226989, -875.944)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.3525, 0.226989, -875.944)
 path_curve = ExtResource("10_dqkbj")
 
 [node name="Circler8" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -823.216)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.61244, 4.49096, -823.216)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler11" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -1188.59)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.11136, 0.226989, -1188.59)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler12" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -1198.81)
+transform = Transform3D(-1, 1.67829e-09, -8.74067e-08, 0, 0.999816, 0.0191974, 8.74228e-08, 0.0191974, -0.999816, 4.61244, 4.49096, -1198.81)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler13" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.11136, 0.226989, -1231.66)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.11136, 0.226989, -1231.66)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler15" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.39249, 0.227, -1282.52)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.39249, 0.227, -1282.52)
 path_curve = ExtResource("10_dqkbj")
 
 [node name="Circler16" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.83616, 0.227, -1282.52)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.83616, 0.227, -1282.52)
 path_curve = ExtResource("10_dqkbj")
 
 [node name="Circler14" parent="Enemies" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(0.921863, 0.387516, -8.74066e-08, -0.387444, 0.921693, -0.0191974, 0.00743923, -0.0176974, -0.999816, 4.61244, 4.49096, -1241.88)
+transform = Transform3D(-1, 1.67829e-09, -8.74067e-08, 0, 0.999816, 0.0191974, 8.74228e-08, 0.0191974, -0.999816, 4.61244, 4.49096, -1241.88)
 path_curve = ExtResource("8_w05of")
 
 [node name="Circler4" parent="Enemies" instance=ExtResource("7_0mbj4")]
@@ -482,17 +482,17 @@ activation_distance = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98529, 0.226999, -1389.68)
 
 [node name="Circler17" parent="Enemies/BombSquad" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -54.713)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -54.713)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler18" parent="Enemies/BombSquad" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -54.713)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -54.713)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler19" parent="Enemies/BombSquad" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, -51.8528)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.53674e-07, 0, -51.8528)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -500,17 +500,17 @@ shoot_amount = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.11553, 0.226999, -1398.08)
 
 [node name="Circler17" parent="Enemies/BombSquad2" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -64.579)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -64.579)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler18" parent="Enemies/BombSquad2" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -64.579)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -64.579)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler19" parent="Enemies/BombSquad2" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, -61.7188)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.53674e-07, 0, -61.7188)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -518,7 +518,7 @@ shoot_amount = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17978, 0.226999, -1410.36)
 
 [node name="Circler17" parent="Enemies/BombSquad3" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -76.0945)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -76.0945)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -529,7 +529,7 @@ path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler19" parent="Enemies/BombSquad3" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, -73.2343)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.53674e-07, 0, -73.2343)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -537,17 +537,17 @@ shoot_amount = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.91012, 0.226999, -1433.36)
 
 [node name="Circler17" parent="Enemies/BombSquad4" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -84.0262)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -84.0262)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler18" parent="Enemies/BombSquad4" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -84.0262)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -84.0262)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler19" parent="Enemies/BombSquad4" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, -81.166)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.53674e-07, 0, -81.166)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -555,17 +555,17 @@ shoot_amount = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.34615, 0.226999, -1435.29)
 
 [node name="Circler17" parent="Enemies/BombSquad5" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -84.0262)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.84107, 9.53674e-07, -84.0262)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler18" parent="Enemies/BombSquad5" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -84.0262)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.9616, 9.53674e-07, -84.0262)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
 [node name="Circler19" parent="Enemies/BombSquad5" instance=ExtResource("7_0mbj4")]
-transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9.53674e-07, 0, -81.166)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.53674e-07, 0, -81.166)
 path_curve = ExtResource("10_dqkbj")
 shoot_amount = 1
 
@@ -575,7 +575,7 @@ shoot_amount = 1
 environment = ExtResource("3_ukv0f")
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("1_kn7at")]
-transform = Transform3D(0.999941, 0, 0, 0, 0.999935, 0, 0, 0, 0.999944, 0, 0, 16)
+transform = Transform3D(0.999925, 0, 0, 0, 0.99992, 0, 0, 0, 0.999936, 0, 0, 16)
 path = NodePath("../PlayerPath")
 path_follow = NodePath("../PlayerPath/PlayerPathFollow")
 path_speed = 16.0
@@ -584,7 +584,7 @@ path_speed = 16.0
 curve = SubResource("Curve3D_j8dlu")
 
 [node name="PlayerPathFollow" type="PathFollow3D" parent="PlayerPath"]
-transform = Transform3D(0.999941, 0, 0, 0, 0.999935, 0, 0, 0, 0.999944, 0, 0, 16)
+transform = Transform3D(0.999925, 0, 0, 0, 0.99992, 0, 0, 0, 0.999936, 0, 0, 16)
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PlayerPath/PlayerPathFollow"]
