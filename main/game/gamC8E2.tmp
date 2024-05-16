@@ -115,7 +115,7 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.978114, -0.226989, -0.551097)
 
 [node name="TurretEnemy" parent="Enemies" instance=ExtResource("2_htpxb")]
-transform = Transform3D(0.997315, -0.0732382, 0, 0.0732382, 0.997314, 0, 0, 0, 1, -2.792, 2.322, -61.333)
+transform = Transform3D(0.997315, 0.0732381, 8.7188e-08, 0.0732381, -0.997315, 6.40268e-09, 8.74228e-08, 0, -1, -3.08495, 6.31126, -61.333)
 motion_mode = 0
 debug = true
 

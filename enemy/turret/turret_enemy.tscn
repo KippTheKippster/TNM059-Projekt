@@ -38,6 +38,7 @@ size = Vector3(1.72, 1.743, 1.2203)
 collision_mask = 2
 script = ExtResource("2_nglpk")
 shoot_amount = 3
+debug = false
 activation_distance = 48.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
